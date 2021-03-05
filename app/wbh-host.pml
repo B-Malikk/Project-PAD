@@ -18,9 +18,13 @@
         <File name="runner" src="scripts/stk/runner.pyc" />
         <File name="services" src="scripts/stk/services.py" />
         <File name="services" src="scripts/stk/services.pyc" />
+        <File name="index" src="html/index.html" />
     </Resources>
     <Topics />
     <IgnoredPaths>
         <Path src=".metadata" />
     </IgnoredPaths>
+    <Translations auto-fill="en_US">
+        <Translation name="translation_en_US" src="translations/translation_en_US.ts" language="en_US" />
+    </Translations>
 </Package>

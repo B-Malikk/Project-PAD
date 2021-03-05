@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<package uuid="wbh-host" version="0.0.1">
+<package version="0.0.1" uuid="wbh-host">
  <names>
   <name lang="en_US">wbh-host</name>
  </names>
@@ -21,6 +21,6 @@
   <robotRequirement/>
  </requirements>
  <services>
-  <service autorun="false" name="main" execStart="/usr/bin/python2 scripts/main.py"/>
+  <service execStart="/usr/bin/python2 scripts/main.py" name="main" autorun="false"/>
  </services>
 </package>

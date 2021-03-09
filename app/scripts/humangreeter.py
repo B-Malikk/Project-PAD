@@ -19,12 +19,17 @@ tts.say("test")
 
 def wave():
     # Wave met linker arm
-    names = ["LShoulderRoll","LShoulderPitch","LWristYaw","LElbowRoll"]
-    angleLists = [1.6, -0.5, -0.5, -2, 2.0, -2]
-    angleElbow = [2.0, -2, 2, -2]
-    times      = [1.0,  2.0, 3.0,  4.0, 5.0]
+    names = ["LShoulderRoll", "LShoulderPitch", "LWristYaw"]
+    elbow = ["LElbowRoll"]
+    angleLists = [1.6, -0.5, -0.5, -2]
+    angleElbow = [-2.0, 2, -2, 2]
+    times = [1.0, 1.2, 1.4, 1.6]
+    elbowtimes = [1.6, 1.8, 2.0, 2.2]
     isAbsolute = True
     joint.angleInterpolation(names, angleLists, times, isAbsolute)
+    joint.angleInterpolation(elbow, angleElbow, elbowtimes, isAbsolute)
+    joint.setStiffnesses("LArm", 0.5)
+
 
 class HumanGreeter(object):
     """
@@ -58,8 +63,8 @@ class HumanGreeter(object):
         elif not self.got_face:  # only speak the first time a face appears
             self.got_face = True
             print "I saw a face!"
-
             wave()  #wave if a face is seen
+            time.sleep(3.0)
             # First Field = TimeStamp.
             timeStamp = value[0]
             print "TimeStamp is: " + str(timeStamp)

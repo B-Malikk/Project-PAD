@@ -18,20 +18,22 @@ tts = ALProxy("ALTextToSpeech", "mirai.robot.hva-robots.nl",9559)
 posture_service = ALProxy("ALRobotPosture", "mirai.robot.hva-robots.nl",9559)
 tts.setLanguage("Dutch")
 
-tts.say("test")
+tts.say("kaas")
 
 def wave():
     # Wave met linker arm
+    tts.say("Hallo!")
     names = ["LShoulderRoll", "LShoulderPitch", "LWristYaw"]
     elbow = ["LElbowRoll"]
     angleLists = [1.6, -0.5, -0.5]
     angleElbow = [-2.0, -0.5, -2, 0]
-    times = [1.0, 1.2, 1.4, 1.6]
-    elbowtimes = [1.6, 2.0, 2.4, 2.8]
+    times = [0.4, 0.6, 0.8, 1.0]
+    elbowtimes = [0.2, 0.6, 1.0, 1.4]
     isAbsolute = True
     joint.angleInterpolation(names, angleLists, times, isAbsolute)
     joint.angleInterpolation(elbow, angleElbow, elbowtimes, isAbsolute)
-    posture_service.goToPosture("StandInit", 0.5)
+    posture_service.goToPosture("StandInit", 0.7)
+    tts.say("Welcom in het Wibauthuis")
     global x
     x = False
 

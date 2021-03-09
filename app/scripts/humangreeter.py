@@ -8,6 +8,23 @@ import time
 import sys
 import argparse
 
+from naoqi import ALProxy
+
+
+joint = ALProxy("ALMotion", "mirai.robot.hva-robots.nl",9559 )
+tts = ALProxy("ALTextToSpeech", "mirai.robot.hva-robots.nl",9559)
+tts.setLanguage("Dutch")
+
+tts.say("test")
+
+def wave():
+    # Wave met linker arm
+    names = ["LShoulderRoll","LShoulderPitch","LWristYaw","LElbowRoll"]
+    angleLists = [1.6, -0.5, -0.5, -2, 2.0, -2]
+    angleElbow = [2.0, -2, 2, -2]
+    times      = [1.0,  2.0, 3.0,  4.0, 5.0]
+    isAbsolute = True
+    joint.angleInterpolation(names, angleLists, times, isAbsolute)
 
 class HumanGreeter(object):
     """
@@ -41,6 +58,8 @@ class HumanGreeter(object):
         elif not self.got_face:  # only speak the first time a face appears
             self.got_face = True
             print "I saw a face!"
+
+            wave()  #wave if a face is seen
             # First Field = TimeStamp.
             timeStamp = value[0]
             print "TimeStamp is: " + str(timeStamp)

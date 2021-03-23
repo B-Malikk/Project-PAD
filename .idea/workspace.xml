@@ -19,7 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="40cd0586-4056-43af-a53f-c8b0b8aaab8b" name="Default Changelist" comment="Detect gezicht -&gt; wave -&gt; sluit .py bestand">
+    <list default="true" id="40cd0586-4056-43af-a53f-c8b0b8aaab8b" name="Default Changelist" comment="&#10;Spraak toegevoegd">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/scripts/humangreeter.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/scripts/humangreeter.py" afterDir="false" />
     </list>
@@ -50,12 +50,17 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+<<<<<<< HEAD
     <property name="last_opened_file_path" value="$PROJECT_DIR$/app/scripts" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\bilal\OneDrive - HvA\HVA\Blok 3\Padbilal\app\scripts" />
     </key>
+=======
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../LEDSRaspberry/main.py" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+>>>>>>> 4961c574f31efbe72226d906b5117740d8633aaf
   </component>
   <component name="RunManager" selected="Python.Main">
     <configuration name="Main" type="PythonConfigurationType" factoryName="Python">
@@ -147,8 +152,14 @@
       <workItem from="1614950831108" duration="1715000" />
       <workItem from="1614952552985" duration="1277000" />
       <workItem from="1614954661468" duration="751000" />
+<<<<<<< HEAD
       <workItem from="1615289530234" duration="11494000" />
       <workItem from="1616431958245" duration="654000" />
+=======
+      <workItem from="1615289530234" duration="11829000" />
+      <workItem from="1615377089499" duration="169000" />
+      <workItem from="1615905355011" duration="3474000" />
+>>>>>>> 4961c574f31efbe72226d906b5117740d8633aaf
     </task>
     <task id="LOCAL-00001" summary="Upload python project">
       <created>1614950430863</created>
@@ -192,7 +203,14 @@
       <option name="project" value="LOCAL" />
       <updated>1615299895634</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="&#10;Spraak toegevoegd">
+      <created>1615301169331</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1615301169331</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -216,49 +234,58 @@
     <MESSAGE value="Wave toegevoegd aan humangreeter.py" />
     <MESSAGE value="Wave aangepast" />
     <MESSAGE value="Detect gezicht -&gt; wave -&gt; sluit .py bestand" />
-    <option name="LAST_COMMIT_MESSAGE" value="Detect gezicht -&gt; wave -&gt; sluit .py bestand" />
+    <MESSAGE value="&#10;Spraak toegevoegd" />
+    <option name="LAST_COMMIT_MESSAGE" value="&#10;Spraak toegevoegd" />
   </component>
   <component name="WindowStateProjectService">
     <state x="223" y="67" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1615290629119">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="223" y="67" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824@0.0.1536.824" timestamp="1615290629119" />
-    <state x="93" y="93" width="1350" height="638" key="DiffContextDialog" timestamp="1615300398395">
+    <state x="93" y="93" width="1350" height="638" key="DiffContextDialog" timestamp="1615301462534">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="93" y="93" width="1350" height="638" key="DiffContextDialog/0.0.1536.824@0.0.1536.824" timestamp="1615300398395" />
+    <state x="93" y="93" width="1350" height="638" key="DiffContextDialog/0.0.1536.824@0.0.1536.824" timestamp="1615301462534" />
     <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1615297430433">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1615297430433" />
-    <state width="1493" height="210" key="GridCell.Tab.0.bottom" timestamp="1615301061138">
+    <state width="1493" height="210" key="GridCell.Tab.0.bottom" timestamp="1616493913945">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="210" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1615301061138" />
-    <state width="1493" height="210" key="GridCell.Tab.0.center" timestamp="1615301061138">
+    <state width="1493" height="210" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1616493913945" />
+    <state width="1493" height="210" key="GridCell.Tab.0.center" timestamp="1616493913945">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="210" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1615301061138" />
-    <state width="1493" height="210" key="GridCell.Tab.0.left" timestamp="1615301061138">
+    <state width="1493" height="210" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1616493913945" />
+    <state width="1493" height="210" key="GridCell.Tab.0.left" timestamp="1616493913945">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="210" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1615301061138" />
-    <state width="1493" height="210" key="GridCell.Tab.0.right" timestamp="1615301061138">
+    <state width="1493" height="210" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1616493913945" />
+    <state width="1493" height="210" key="GridCell.Tab.0.right" timestamp="1616493913945">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="210" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1615301061138" />
+    <state width="1493" height="210" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1616493913945" />
     <state x="349" y="147" key="IDE.errors.dialog" timestamp="1615294401956">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="349" y="147" key="IDE.errors.dialog/0.0.1536.824@0.0.1536.824" timestamp="1615294401956" />
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1615299901646">
+    <state x="277" y="57" key="SettingsEditor" timestamp="1616493460677">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1615299901646" />
+    <state x="277" y="57" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1616493460677" />
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1616493965599">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1616493965599" />
+    <state x="586" y="326" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1616491136795">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="586" y="326" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.824@0.0.1536.824" timestamp="1616491136795" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/it102c_5$main__1_.coverage" NAME="main (1) Coverage Results" MODIFIED="1615300150364" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/app/scripts" />
     <SUITE FILE_PATH="coverage/it102c_5$main.coverage" NAME="main Coverage Results" MODIFIED="1615297686076" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../LEDSRaspberry" />
-    <SUITE FILE_PATH="coverage/it102c_5$Main.coverage" NAME="Main Coverage Results" MODIFIED="1615301061130" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/app/scripts" />
+    <SUITE FILE_PATH="coverage/it102c_5$Main.coverage" NAME="Main Coverage Results" MODIFIED="1616493913928" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/app/scripts" />
   </component>
 </project>

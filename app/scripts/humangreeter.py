@@ -7,6 +7,7 @@ import qi
 import time
 import sys
 import argparse
+import threading
 
 from naoqi import ALProxy
 
@@ -17,27 +18,6 @@ joint = ALProxy("ALMotion", "mirai.robot.hva-robots.nl",9559 )
 tts = ALProxy("ALTextToSpeech", "mirai.robot.hva-robots.nl",9559)
 posture_service = ALProxy("ALRobotPosture", "mirai.robot.hva-robots.nl",9559)
 tts.setLanguage("Dutch")
-
-tts.say("kaas")
-
-def wave():
-    # Wave met linker arm
-    tts.say("Hallo!")
-    names = ["LShoulderRoll", "LShoulderPitch", "LWristYaw"]
-    elbow = ["LElbowRoll"]
-    angleLists = [1.6, -0.5, -0.5]
-    angleElbow = [-2.0, -0.5, -2, 0]
-    times = [0.4, 0.6, 0.8, 1.0]
-    elbowtimes = [0.2, 0.6, 1.0, 1.4]
-    isAbsolute = True
-    joint.angleInterpolation(names, angleLists, times, isAbsolute)
-    joint.angleInterpolation(elbow, angleElbow, elbowtimes, isAbsolute)
-    posture_service.goToPosture("StandInit", 0.7)
-    tts.say("Welcom in het Wibauthuis")
-    global x
-    x = False
-
-
 
 class HumanGreeter(object):
     """
@@ -66,16 +46,14 @@ class HumanGreeter(object):
         """
         Callback for event FaceDetected.
         """
-
+        print(value)
         if value == []:  # empty value when the face disappears
             #self.got_face = False
             test = True
         elif not self.got_face:  # only speak the first time a face appears
             self.got_face = True
             print "I saw a face!"
-            wave()  #wave if a face is seen
-
-
+            self.greetThread()  # wave if a face is
 
             # First Field = TimeStamp.
             timeStamp = value[0]
@@ -111,6 +89,35 @@ class HumanGreeter(object):
             # stop
             sys.exit(0)
 
+    def wave(self):
+        print("thread 1 started")
+        # Wave met linker arm
+        tts.say("Hallo!")
+        names = ["LShoulderRoll", "LShoulderPitch", "LWristYaw"]
+        elbow = ["LElbowRoll"]
+        angleLists = [1.6, -0.5, -0.5]
+        angleElbow = [-2.0, -0.5, -2, 0]
+        times = [1.0, 1.2, 1.4, 1.6]
+        elbowtimes = [1.6, 2.0, 2.4, 2.8]
+        times = [0.4, 0.6, 0.8, 1.0]
+        elbowtimes = [0.2, 0.6, 1.0, 1.4]
+        isAbsolute = True
+        joint.angleInterpolation(names, angleLists, times, isAbsolute)
+        joint.angleInterpolation(elbow, angleElbow, elbowtimes, isAbsolute)
+        posture_service.goToPosture("StandInit", 0.5)
+        posture_service.goToPosture("StandInit", 0.7)
+        global x  # class niet dit
+        x = False
+
+    def greet(self):
+        print("Thread 2 started ")
+        tts.say("Welkom in het Wibauthuis")
+
+    def greetThread(self):
+        t1 = threading.Thread(target=self.wave)
+        t2 = threading.Thread(target=self.greet)
+        t2.start()
+        t1.start()
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()

@@ -1,64 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <style>
-        html, body {
-            margin: 0;
-            padding: 0;
-        }
-        body {
-            background-image: url('afbeelding/1280x720-hva-breed-presentatie-schermen-lcd2.jpg');
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            background-size: 100% 100%;
-
-        }
-        .wrap{
-            width: 1000Px;
-            margin: auto;
-            margin-top: 100Px;
-        }
-        .card{
-            transition: 0.4s;
-            width: 800px;
-            background: transparent;
-            text-align: center;
-            font-size: 16px;
-            font-family: sans-serif;
-            float: left;
-            align-items: center;
-            margin: 5px;
-            margin-top: 150Px;
-        }
-
-        .backbutton {
-            background-color: gray;
-            border: 2px;
-            color: white;
-            padding: 15px 32px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-        }
-
-    </style>
+    <link rel="stylesheet" href="style.css" type="text/css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>lokaal zoeken </title>
 
 </head>
 <body>
-<div class="wrap">
-    <div class="card">
-        <h1>Voer je lokaal nummer in </h1>
-        <input type="text" placeholder="lokaal of kamernummer..">
-        <div class="container">
+<img src="afbeelding/logo%20hva.png" id="logohva"/>
+<img src="afbeelding/1280x720-hva-breed-presentatie-schermen-lcd2.jpg" id="footer"/>
+<button onclick="document.location='hoofdpagina.html'" class="backbutton">< Terug </button>
+<div id="main">
+    <div class="wrap">
+        <div class="card text">
+            <h1>Voer je lokaal nummer in </h1>
+            <input type="text" placeholder="lokaal of kamernummer..">
+            <div class="container">
+            </div>
         </div>
     </div>
 </div>
 
-<button onclick="document.location='hoofdpagina.html'" class="backbutton">< Terug </button>
 
 
 

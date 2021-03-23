@@ -6,7 +6,6 @@ class SpeechRecognition:
     speechRecognitionGestart = False
     woordenlijst = ["ja","nee"]
     laatsteRecognize = 0
-    #runningprocess = False
 
     def __init__(self, session):
         self.session = session
@@ -22,6 +21,7 @@ class SpeechRecognition:
         while self.speechRecognitionGestart:
             recognize = self.memoryService.getData("WordRecognized")
             word = recognize[0]
+            print word
             return word
 
 

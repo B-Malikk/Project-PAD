@@ -38,7 +38,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="JupyterTrust" id="aa52eff7-9b3c-4d54-87ce-92b49e64de3f" />
+  <component name="JupyterTrust" id="205117c5-37e9-4fe8-9070-82780a62b0db" />
   <component name="ProjectId" id="1pL5YjLPvgwmfYS7og5g4t6mrUR" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -50,7 +50,12 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../LEDSRaspberry/main.py" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/scripts" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\bilal\OneDrive - HvA\HVA\Blok 3\Padbilal\app\scripts" />
+    </key>
   </component>
   <component name="RunManager" selected="Python.Main">
     <configuration name="Main" type="PythonConfigurationType" factoryName="Python">
@@ -143,6 +148,7 @@
       <workItem from="1614952552985" duration="1277000" />
       <workItem from="1614954661468" duration="751000" />
       <workItem from="1615289530234" duration="11494000" />
+      <workItem from="1616431958245" duration="654000" />
     </task>
     <task id="LOCAL-00001" summary="Upload python project">
       <created>1614950430863</created>

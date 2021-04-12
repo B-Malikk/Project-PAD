@@ -1,18 +1,17 @@
 import time
-import argparse
-import qi
-from naoqi import ALProxy
-from Pepper import speechRecognition
-from Pepper import TxtToSpeech
-from Pepper import faceDetection
-from Pepper import Tablet
+from Pepper import speech_recognition
+from Pepper import text_speech
+from Pepper import face_detection
+#from Pepper import tablet
+from Pepper import connect
 
 
 def q0(session):
-    fd = faceDetection.FaceDetection(session)
-    sr = speechRecognition.SpeechRecognition(session)
+    fd = face_detection.FaceDetection(session)
+    sr = speech_recognition.SpeechRecognition(session)
     sr.setTaal("Dutch")
     print ("ben bij vraag 4")
+    #tablet.open_page("https://oege.ie.hva.nl/~polmpm/robot/hoofdpagina.html")
     tts.say("heb je nog meer vragen ")
 
     sr.startSpeecheRecognition()
@@ -28,8 +27,8 @@ def q0(session):
         tts.say("okey fijne dag nog")
 
 def q3(session):
-    fd = faceDetection.FaceDetection(session)
-    sr = speechRecognition.SpeechRecognition(session)
+    fd = face_detection.FaceDetection(session)
+    sr = speech_recognition.SpeechRecognition(session)
     print ("ben bij vraag 3")
     sr.setTaal("Dutch")
     time.sleep(1)
@@ -42,6 +41,7 @@ def q3(session):
     if sr.processSpeechRecognition() == 'ja':
         sr.stop()
         tts.say("hiervoor verwijz ik je door naar de balie ")
+        #tablet.open_page("https://oege.ie.hva.nl/~polmpm/robot/pasje")
         time.sleep(3)
         q0(session)
 
@@ -51,8 +51,8 @@ def q3(session):
 
 
 def q2(session):
-    fd = faceDetection.FaceDetection(session)
-    sr = speechRecognition.SpeechRecognition(session)
+    fd = face_detection.FaceDetection(session)
+    sr = speech_recognition.SpeechRecognition(session)
     print ("ben bij vraag 2")
     sr.setTaal("Dutch")
     time.sleep(1)
@@ -65,6 +65,7 @@ def q2(session):
     if sr.processSpeechRecognition() == 'ja':
         sr.stop()
         tts.say("typ op het tablet je lokaal nummer ")
+        #tablet.openPage("https://oege.ie.hva.nl/~polmpm/robot/lokaal zoeken.html")
         time.sleep(3)
         q0(session)
 
@@ -73,8 +74,8 @@ def q2(session):
         q3(session)
 
 def q1(session):
-    fd = faceDetection.FaceDetection(session)
-    sr = speechRecognition.SpeechRecognition(session)
+    fd = face_detection.FaceDetection(session)
+    sr = speech_recognition.SpeechRecognition(session)
     print ("ben bij vraag 1")
     sr.setTaal("Dutch")
     time.sleep(1)
@@ -87,6 +88,7 @@ def q1(session):
     if sr.processSpeechRecognition() == 'ja':
         sr.stop()
         tts.say("je bent nu in het HVA Wibauthuis aan de wibautstraat")
+        #tablet.open_page("https://oege.ie.hva.nl/~polmpm/robot/plattegrond.html")
         q1(session)
 
     if sr.processSpeechRecognition() == 'nee':
@@ -94,8 +96,8 @@ def q1(session):
         q2(session)
 
 def askForHelp (session):
-    fd = faceDetection.FaceDetection(session)
-    sr= speechRecognition.SpeechRecognition(session)
+    fd = face_detection.FaceDetection(session)
+    sr= speech_recognition.SpeechRecognition(session)
     tijdLimiet = 10
     startTijd = time.time()
 
@@ -128,23 +130,43 @@ def askForHelp (session):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--ip", type=str, default="mirai.robot.hva-robots.nl",
-                        help="Robot IP address. On robot or Local Naoqi: use '127.0.0.1'.")
-    parser.add_argument("--port", type=int, default=9559,
-                        help="Naoqi port number")
 
-    args = parser.parse_args()
-    mirai="mirai.robot.hva-robots.nl"
-    poort=9559
+    ip="127.0.0.1"
+    port=27856
 
-    session = qi.Session()
-    session.connect("tcp://" + args.ip + ":" + str(args.port))
-    tts=TxtToSpeech.txtToSpeech(session)
+    pepper=connect.Connect(ip,port)
+    session=pepper.make_connection()
+
+    #get services en geef de session mee
+    tts=text_speech.TextToSpeech(session)
+    tts.say("ik meet nu de afstand")
+
+
+
+
+
+
+
+
+    time.sleep(1)
+    tts.say("ik meet nu de afstand")
+    time.sleep(1)
+    tts.say("ik meet nu de afstand")
+    time.sleep(1)
+    tts.say("ik meet nu de afstand")
+    print ('iets gezegd')
+    time.sleep(10)
+    #dr=depthRecognition.DepthRecognition(session)
+    #dr.geefAfstand()
+
+    tts=text_speech.TextToSpeech(session)
     tts.say("sii")
-    tablet=Tablet.Tablet(session)
-    tablet.openPage("https://oege.ie.hva.nl/~polmpm/hoofdpagina.html")
+    #tablet=tablet.Tablet(session)
+    #tablet.reload()
+    #tablet.open_page("https://oege.ie.hva.nl/~polmpm/robot/hoofdpagina.html")
+    #tablet.close_page()
     askForHelp(session)
+
 
 
 

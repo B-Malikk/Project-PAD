@@ -1,7 +1,7 @@
 
 
-class txtToSpeech:
-    session = tts_service= None
+class TextToSpeech:
+    session = tts_service = None
 
     def __init__(self, session):
         self.session = session

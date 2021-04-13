@@ -1,6 +1,7 @@
 import sys
 import qi
-
+import Animations
+from Autonomy import AutonomousMovement
 
 class Mirai(object):
 
@@ -11,3 +12,9 @@ class Mirai(object):
         except RuntimeError:
             print("Can't connect to Naoqi at ip \"" + host + "\" on port " + str(ip))
             sys.exit(1)
+
+        systemservice = self.session.service("ALSystem")
+        print("Running NAOqi version " + systemservice.systemVersion())
+
+        self.animations = Animations.get_all(self.session)
+        self.autonomousMovement = AutonomousMovement(self.session)

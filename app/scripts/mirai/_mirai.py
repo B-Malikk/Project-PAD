@@ -9,17 +9,17 @@ from Motion import Motion
 class Mirai(object):
 
     def __init__(self, host, port, debug=False):
-        self.session = qi.Session()
-        self.host = host
-        self.port = port
+        self._session = qi.Session()
+        self._host = host
+        self._port = port
         try:
-            self.session.connect("tcp://" + host + ":" + str(port))
+            self._session.connect("tcp://" + host + ":" + str(port))
         except RuntimeError:
             print("Can't connect to Naoqi at ip \"" + host + "\" on port " + str(port))
             sys.exit(1)
 
         if not debug:
-            systemservice = self.session.service("ALSystem")
+            systemservice = self._session.service("ALSystem")
             print("Running NAOqi version " + systemservice.systemVersion())
 
         self.animations = Animations(self)
@@ -28,4 +28,4 @@ class Mirai(object):
         self.motion = Motion(self)
 
     def getProxy(self, name):
-        return ALProxy(name, self.host, self.port)
+        return ALProxy(name, self._host, self._port)

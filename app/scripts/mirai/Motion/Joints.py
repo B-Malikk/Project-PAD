@@ -7,14 +7,13 @@ class Joint(object):
     """
 
     def __init__(self, mirai, bodypart):
-        self.mirai = mirai
-        self.bodypart = bodypart
-        self.proxy = self.mirai.getProxy("ALMotion")
+        self._bodypart = bodypart
+        self._proxy = mirai.getProxy("ALMotion")
 
     def getName(self):
         name = ''
         try:
-            name += self.bodypart.prefix
+            name += self._bodypart.prefix
         except:
             pass
 
@@ -26,59 +25,64 @@ class AngledJoint(Joint):
     Base class for an angled joint, subclass of Joint.
     """
 
-    minAngle = 0 # Minimum angle (deg)
-    maxAngle = 180 # Maximum angle (deg)
+    _minAngle = 0 # Minimum angle (deg)
+    _maxAngle = 180 # Maximum angle (deg)
 
     def setAngle(self, angle, fractionMaxSpeed=0.4):
-        if angle > self.maxAngle or angle < self.minAngle:
+        if angle > self._maxAngle or angle < self._minAngle:
             raise Exception("Angle {} is outside of range for joint {}. Minimum and maximum are {} and {} respectively."
-                            .format(angle, self.getName(), self.minAngle, self.maxAngle))
+                            .format(angle, self.getName(), self._minAngle, self._maxAngle))
+        self._proxy.setAngles(self.getName(), math.radians(angle), fractionMaxSpeed)
 
-        self.proxy.setAngles([self.getName()], [math.radians(angle)], fractionMaxSpeed)
+    def setStiffness(self, stiffness):
+        self._proxy.setStiffnesses([self.getName()], [stiffness])
+
+    def getStiffness(self):
+        return self._proxy.getStiffnesses([self.getName()])
 
 class HeadYaw(AngledJoint):
-    minAngle = -119.5
-    maxAngle = 119.5
+    _minAngle = -119.5
+    _maxAngle = 119.5
 
 class HeadPitch(AngledJoint):
-    minAngle = -40.5
-    maxAngle = 25.5
+    _minAngle = -40.5
+    _maxAngle = 25.5
 
 class ShoulderPitch(AngledJoint):
-    minAngle = -119.5
-    maxAngle = 119.5
+    _minAngle = -119.5
+    _maxAngle = 119.5
 
 class ShoulderRoll(AngledJoint):
-    minAngle = 0.5
-    maxAngle = 89.5
+    _minAngle = 0.5
+    _maxAngle = 89.5
 
-class ElbowJaw(AngledJoint):
-    minAngle = -119.5
-    maxAngle = 119.5
+class ElbowYaw(AngledJoint):
+    _minAngle = -119.5
+    _maxAngle = 119.5
 
 class ElbowRoll(AngledJoint):
-    minAngle = -89.5
-    maxAngle = -0.5
+    _minAngle = -89.5
+    _maxAngle = -0.5
 
 class WristYaw(AngledJoint):
-    minAngle = -104.5
-    maxAngle = 104.5
+    _minAngle = -104.5
+    _maxAngle = 104.5
 
 class Hand(Joint):
     def open(self):
-        self.proxy.openHand(self.getName())
+        self._proxy.openHand(self.getName())
 
     def close(self):
-        self.proxy.closeHand(self.getName())
+        self._proxy.closeHand(self.getName())
 
 class HipRoll(AngledJoint):
-    minAngle = -29.5
-    maxAngle = 29.5
+    _minAngle = -29.5
+    _maxAngle = 29.5
 
 class HipPitch(AngledJoint):
-    minAngle = -59.5
-    maxAngle = 59.5
+    _minAngle = -59.5
+    _maxAngle = 59.5
 
 class KneePitch(AngledJoint):
-    minAngle = -29.5
-    maxAngle = 29.5
+    _minAngle = -29.5
+    _maxAngle = 29.5

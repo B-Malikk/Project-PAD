@@ -1,1 +1,1 @@
-from mirai import *
+from _mirai import *

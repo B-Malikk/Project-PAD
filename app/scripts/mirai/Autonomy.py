@@ -10,9 +10,8 @@
 class Ability(object):
     service = 'ALService'
 
-    def __init__(self, session):
-        self.session = session
-        self.proxy = session.service(self.service)
+    def __init__(self, mirai):
+        self.proxy = mirai.getProxy(self.service)
 
     def enable(self):
         self.proxy.setEnabled(True)
@@ -43,19 +42,7 @@ class Speaking(Ability):
 
 class AutonomousMovement(object):
     def __init__(self, session):
-        self.movements = {
-            'blink': Blinking(session),
-            'background': Background(session),
-            'listen': Listening(session),
-            'speak': Speaking(session),
-        }
-    def list(self):
-        return self.movements
-
-    def get(self, name):
-        item = self.movements.get(name, None)
-        if not item:
-            raise Exception("{} was not found. Did you mean any of the following?\n".format(name) +
-                str(self.movements.keys())
-            )
-        return item
+        self.blink =  Blinking(session)
+        self.background = Background(session)
+        self.listen =  Listening(session)
+        self.speak = Speaking(session)

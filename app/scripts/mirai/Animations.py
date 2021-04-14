@@ -2,20 +2,20 @@ from random import random
 
 
 class Animation(object):
+    """Base class for an animation. Animations have different variants (not all starting from 1) and are part of a group."""
     name = '' # Set automatically by classname
     variants = [1, 2, 3]
     group = 'group'
 
-    def __init__(self, session):
-        self.session = session
+    def __init__(self, mirai):
+        self.proxy = mirai.getProxy("ALAnimationPlayer")
         self.name = self.__class__.__name__
 
-    def run(self, number=0, _async=False):
+    def run(self, number=0, _async=True):
         if number == 0:
             number = int(random() * len(self.variants))
-        animation_service = self.session.service("ALAnimationPlayer")
         try:
-            animation_service.run("animations/[posture]/{}/{}_{}".format(self.group, self.name, number),  _async=_async)
+            self.proxy.run("animations/[posture]/{}/{}_{}".format(self.group, self.name, number),  _async=_async)
             return True
         except RuntimeError:
             return False
@@ -172,35 +172,33 @@ class You(Animation):
     pass
 
 
-def get_all(mirai):
-    return {
-        #'BodyTalk': BodyTalk(mirai),
-        'Embarrassed': Embarrassed(mirai),
-        'Happy': Happy(mirai),
-        'Hysterical': Hysterical(mirai),
-        'Peaceful': Peaceful(mirai),
-        'BowShort': BowShort(mirai),
-        'But': But(mirai),
-        'CalmDown': CalmDown(mirai),
-        'Choice': Choice(mirai),
-        'Desperate': Desperate(mirai),
-        'Enthusiastic': Enthusiastic(mirai),
-        'Everything': Everything(mirai),
-        'Excited': Excited(mirai),
-        'Explain': Explain(mirai),
-        'Far': Far(mirai),
-        'Give': Give(mirai),
-        'Hey': Hey(mirai),
-        'IDontKnow': IDontKnow(mirai),
-        'Me': Me(mirai),
-        'No': No(mirai),
-        'Nothing': Nothing(mirai),
-        'Please': Please(mirai),
-        'ShowFloor': ShowFloor(mirai),
-        'ShowSky': ShowSky(mirai),
-        'ShowTablet': ShowTablet(mirai),
-        'Thinking': Thinking(mirai),
-        'Yes': Yes(mirai),
-        'YouKnowWhat': YouKnowWhat(mirai),
-        'You': You(mirai),
-    }
+class Animations(object):
+    def __init__(self, mirai):
+        self.Embarrassed = Embarrassed(mirai)
+        self.Happy = Happy(mirai)
+        self.Hysterical = Hysterical(mirai)
+        self.Peaceful = Peaceful(mirai)
+        self.BowShort = BowShort(mirai)
+        self.But = But(mirai)
+        self.CalmDown = CalmDown(mirai)
+        self.Choice = Choice(mirai)
+        self.Desperate = Desperate(mirai)
+        self.Enthusiastic = Enthusiastic(mirai)
+        self.Everything = Everything(mirai)
+        self.Excited = Excited(mirai)
+        self.Explain = Explain(mirai)
+        self.Far = Far(mirai)
+        self.Give = Give(mirai)
+        self.Hey = Hey(mirai)
+        self.IDontKnow = IDontKnow(mirai)
+        self.Me = Me(mirai)
+        self.No = No(mirai)
+        self.Nothing = Nothing(mirai)
+        self.Please = Please(mirai)
+        self.ShowFloor = ShowFloor(mirai)
+        self.ShowSky = ShowSky(mirai)
+        self.ShowTablet = ShowTablet(mirai)
+        self.Thinking = Thinking(mirai)
+        self.Yes = Yes(mirai)
+        self.YouKnowWhat = YouKnowWhat(mirai)
+        self.You = You(mirai)

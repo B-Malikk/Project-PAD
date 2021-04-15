@@ -6,4 +6,4 @@ from mirai import Mirai
 
 if __name__ == "__main__":
     #mirai = Mirai("mirai.robot.hva-robots.nl", 9559)
-    mirai = Mirai("127.0.0.1", 61497, debug=True)
+    mirai = Mirai("127.0.0.1", 50194, debug=True)

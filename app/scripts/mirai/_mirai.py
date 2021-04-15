@@ -5,6 +5,7 @@ from Animations import Animations
 from Autonomy import AutonomousMovement
 from Posture import Postures
 from Motion import Motion
+from TextToSpeech import TextToSpeech
 
 class Mirai(object):
 
@@ -26,6 +27,7 @@ class Mirai(object):
         self.autonomous = AutonomousMovement(self)
         self.posture = Postures(self)
         self.motion = Motion(self)
+        self.textToSpeed = TextToSpeech(self)
 
     def getProxy(self, name):
         return ALProxy(name, self._host, self._port)

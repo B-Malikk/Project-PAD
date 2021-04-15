@@ -8,37 +8,44 @@
 #   Enables to start autonomously movements during the speech of the robot.
 
 class Ability(object):
-    service = 'ALService'
+    _service = 'AL_Service'
 
     def __init__(self, mirai):
-        self.proxy = mirai.getProxy(self.service)
+        self._proxy = mirai.getProxy(self._service)
 
     def enable(self):
-        self.proxy.setEnabled(True)
+        self._proxy.setEnabled(True)
 
     def disable(self):
-        self.proxy.setEnabled(False)
+        self._proxy.setEnabled(False)
 
     def isEnabled(self):
-        return self.proxy.isEnabled()
+        return self._proxy.isEnabled()
 
-    def isRunning(self):
-        return self.proxy.isRunning()
 
     def __str__(self):
-        return "(Ability: {}, isEnabled: {}, isRunning: {})".format(self.__class__.__name__, self.isEnabled(), self.isRunning())
+        return "(Ability: {}, isEnabled: {})".format(self.__class__.__name__, self.isEnabled())
 
 class Blinking(Ability):
-    service = 'ALAutonomousBlinking'
+    _service = 'ALAutonomousBlinking'
 
 class Background(Ability):
-    service = 'ALBackgroundMovement'
+    _service = 'ALBackgroundMovement'
 
 class Listening(Ability):
-    service = 'ALListeningMovement'
+    _service = 'ALListeningMovement'
 
 class Speaking(Ability):
-    service = 'ALSpeakingMovement'
+    _service = 'ALSpeakingMovement'
+
+    MODE_RANDOM = 'random'
+    MODE_CONTEXTUAL = 'contextual'
+
+    def setMode(self, mode):
+        self._proxy.setMode(mode)
+
+    def getMode(self):
+        self._proxy.getMode()
 
 class AutonomousMovement(object):
     def __init__(self, session):

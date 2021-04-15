@@ -12,13 +12,17 @@ class Animation(object):
         self.name = self.__class__.__name__
 
     def run(self, number=0, _async=True):
-        if number == 0:
-            number = int(random() * len(self.variants))
         try:
-            self.proxy.run("animations/[posture]/{}/{}_{}".format(self.group, self.name, number),  _async=_async)
+            self.proxy.run(self.getPath(number),  _async=_async)
             return True
         except RuntimeError:
             return False
+
+    def getPath(self, number=0):
+        if number == 0:
+            number = int(random() * len(self.variants))
+        return "animations/[posture]/{}/{}_{}".format(self.group, self.name, number)
+
 
 # Not working unfortunately...
 #class BodyTalk(Animation):

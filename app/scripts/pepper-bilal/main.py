@@ -2,12 +2,11 @@ import time
 from Pepper import speech_recognition
 from Pepper import text_speech
 from Pepper import face_detection
-#from Pepper import tablet
+from Pepper import tablet
 from Pepper import connect
 
 
 def q0(session):
-    fd = face_detection.FaceDetection(session)
     sr = speech_recognition.SpeechRecognition(session)
     sr.setTaal("Dutch")
     print ("ben bij vraag 4")
@@ -27,7 +26,6 @@ def q0(session):
         tts.say("okey fijne dag nog")
 
 def q3(session):
-    fd = face_detection.FaceDetection(session)
     sr = speech_recognition.SpeechRecognition(session)
     print ("ben bij vraag 3")
     sr.setTaal("Dutch")
@@ -51,7 +49,6 @@ def q3(session):
 
 
 def q2(session):
-    fd = face_detection.FaceDetection(session)
     sr = speech_recognition.SpeechRecognition(session)
     print ("ben bij vraag 2")
     sr.setTaal("Dutch")
@@ -74,7 +71,7 @@ def q2(session):
         q3(session)
 
 def q1(session):
-    fd = face_detection.FaceDetection(session)
+
     sr = speech_recognition.SpeechRecognition(session)
     print ("ben bij vraag 1")
     sr.setTaal("Dutch")
@@ -96,7 +93,7 @@ def q1(session):
         q2(session)
 
 def askForHelp (session):
-    fd = face_detection.FaceDetection(session)
+
     sr= speech_recognition.SpeechRecognition(session)
     tijdLimiet = 10
     startTijd = time.time()
@@ -131,41 +128,29 @@ def askForHelp (session):
 
 if __name__ == "__main__":
 
-    ip="127.0.0.1"
-    port=27856
+    ip = "mirai.robot.hva-robots.nl"
+    port = 9559
 
-    pepper=connect.Connect(ip,port)
-    session=pepper.make_connection()
+    pepper = connect.Connect(ip,port)
+    session = pepper.make_connection()
 
     #get services en geef de session mee
     tts=text_speech.TextToSpeech(session)
-    tts.say("ik meet nu de afstand")
+    #tts.say("ik meet nu de afstand")
 
 
+    tts = text_speech.TextToSpeech(session)
+    #tts.say("test")
+    fd = face_detection.PeoplePerception(session)
+    fd.start_face_detection()
+    time.sleep(100)
 
 
-
-
-
-
-    time.sleep(1)
-    tts.say("ik meet nu de afstand")
-    time.sleep(1)
-    tts.say("ik meet nu de afstand")
-    time.sleep(1)
-    tts.say("ik meet nu de afstand")
-    print ('iets gezegd')
-    time.sleep(10)
-    #dr=depthRecognition.DepthRecognition(session)
-    #dr.geefAfstand()
-
-    tts=text_speech.TextToSpeech(session)
-    tts.say("sii")
-    #tablet=tablet.Tablet(session)
+    #tablet = tablet.Tablet(session)
     #tablet.reload()
     #tablet.open_page("https://oege.ie.hva.nl/~polmpm/robot/hoofdpagina.html")
-    #tablet.close_page()
-    askForHelp(session)
+    tablet.close_page()
+    #askForHelp(session)
 
 
 

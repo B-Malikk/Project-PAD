@@ -1,0 +1,7 @@
+topic_content_1 = ('topic: ~example_topic_content()\n'
+                       'language: enu\n'
+                       'concept:(dutch) [fruits chicken beef eggs]\n'
+                       'u: (I [want "would like"] {some} _~food) Sure! You must really like $1 .\n'
+                       'u: (how are you today) Hello human, I am fine thank you and you?\n'
+                       'u: (Good morning Nao did you sleep well) No damn! You forgot to switch me off!\n'
+                       'u: ([e:FrontTactilTouched e:MiddleTactilTouched e:RearTactilTouched]) You touched my head!\n')

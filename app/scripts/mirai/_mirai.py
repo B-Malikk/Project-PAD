@@ -14,6 +14,7 @@ class Mirai(object):
         self._session = qi.Session()
         self._host = host
         self._port = port
+        self._virtualRobot = virtualRobot
         try:
             self._session.connect("tcp://" + host + ":" + str(port))
         except RuntimeError:
@@ -24,13 +25,21 @@ class Mirai(object):
             # Things that can only be run on a real robot
             systemservice = self._session.service("ALSystem")
             print("Running NAOqi version " + systemservice.systemVersion())
+            self.speechRecognition = SpeechRecognition(self)
 
         self.animations = Animations(self)
         self.autonomous = AutonomousMovement(self)
         self.posture = Postures(self)
         self.motion = Motion(self)
         self.textToSpeech = TextToSpeech(self)
-        self.speechRecognition = SpeechRecognition(self)
 
     def getProxy(self, name):
-        return ALProxy(name, self._host, self._port)
+        try:
+            proxy = ALProxy(name, self._host, self._port)
+            return proxy
+        except:
+            msg = "Service {} can't be found.".format(name)
+            if self._virtualRobot:
+                msg += " It may not be available on a virtual robot."
+
+            raise Exception(msg)

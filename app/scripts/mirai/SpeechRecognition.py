@@ -6,7 +6,8 @@ class SpeechRecognition(object):
         self._memProxy = mirai.getProxy('ALMemory')
         self._vocabulary = None
         self._audioExpression = self.getAudioExpression()
-        self._visualExpression = self.getVisualExpression()
+        self._visualExpression = True
+        self.setVisualExpression(True)
         self._language = self.getLanguage()
         self._subscriptionName = 'MiraiSpeechRecognition'
 
@@ -18,7 +19,6 @@ class SpeechRecognition(object):
         return self._audioExpression
 
     def getVisualExpression(self):
-        self._visualExpression = self._proxy.getVisualExpression()
         return self._visualExpression
 
     def setAudioExpression(self, bool):

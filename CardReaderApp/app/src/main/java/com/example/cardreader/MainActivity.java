@@ -23,8 +23,29 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import org.eclipse.paho.android.service.MqttAndroidClient;
+import org.eclipse.paho.client.mqttv3.DisconnectedBufferOptions;
+import org.eclipse.paho.client.mqttv3.IMqttActionListener;
+import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
+import org.eclipse.paho.client.mqttv3.IMqttToken;
+import org.eclipse.paho.client.mqttv3.MqttCallbackExtended;
+import org.eclipse.paho.client.mqttv3.MqttClient;
+import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
+import org.eclipse.paho.client.mqttv3.MqttException;
+import org.eclipse.paho.client.mqttv3.MqttMessage;
+import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
 public class MainActivity extends AppCompatActivity {
+
+    private static final String serverUri = "tcp://azsx.nl:1883";
+    private static final String appName = "cardreader";
+    private static final String clientId = "@" + appName;
+    private static final String TAG = MainActivity.class.getName();
+    private MqttAndroidClient mqttAndroidClient;
+
+
     // All copied from https://gist.github.com/luixal/5768921
     // list of NFC technologies detected:
     private final String[][] techList = new String[][]{
@@ -43,6 +64,65 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        // Mqtt client code borrowed from https://github.com/yohei1126/android-paho-example/blob/master/app/src/main/java/com/example/mqtt/MainActivity.java
+        mqttAndroidClient = new MqttAndroidClient(getApplicationContext(), serverUri, clientId);
+        mqttAndroidClient.setCallback(new MqttCallbackExtended() {
+            @Override
+            public void connectComplete(boolean reconnect, String serverURI) {
+                if (reconnect) {
+                    Log.d(TAG, "Reconnected to : " + serverURI);
+                } else {
+                    Log.d(TAG, "Connected to: " + serverURI);
+                }
+            }
+
+            @Override
+            public void connectionLost(Throwable cause) {
+                Log.d(TAG, "The Connection was lost.");
+            }
+
+            @Override
+            public void messageArrived(String topic, MqttMessage message) throws Exception {}
+
+            @Override
+            public void deliveryComplete(IMqttDeliveryToken token) {
+
+            }
+
+        });
+
+        MqttConnectOptions mqttConnectOptions = new MqttConnectOptions();
+        mqttConnectOptions.setAutomaticReconnect(true);
+        mqttConnectOptions.setCleanSession(true);
+
+        try {
+            mqttAndroidClient.connect(mqttConnectOptions, null, new IMqttActionListener() {
+                @Override
+                public void onSuccess(IMqttToken asyncActionToken) {
+                    try {
+                        asyncActionToken.getSessionPresent();
+                    } catch (Exception e) {
+                        String message = e.getMessage();
+                        Log.d(TAG, "error message is null " + String.valueOf(message == null));
+                    }
+                    Log.d(TAG, "connected to: " + serverUri);
+                    Toast.makeText(MainActivity.this, "connected", Toast.LENGTH_SHORT).show();
+                    DisconnectedBufferOptions disconnectedBufferOptions = new DisconnectedBufferOptions();
+                    disconnectedBufferOptions.setBufferEnabled(true);
+                    disconnectedBufferOptions.setBufferSize(100);
+                    disconnectedBufferOptions.setPersistBuffer(false);
+                    disconnectedBufferOptions.setDeleteOldestMessages(false);
+                    mqttAndroidClient.setBufferOpts(disconnectedBufferOptions);
+                }
+
+                @Override
+                public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
+                    Log.d(TAG, "Failed to connect to: " + serverUri);
+                }
+            });
+        } catch (MqttException ex) {
+            ex.printStackTrace();
+        }
     }
 
     @Override
@@ -79,9 +159,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         if (intent.getAction().equals(NfcAdapter.ACTION_TAG_DISCOVERED)) {
-            ((TextView) findViewById(R.id.text)).setText(
-                    "NFC Tag\n" +
-                            ByteArrayToHexString(intent.getByteArrayExtra(NfcAdapter.EXTRA_ID)));
+            String hex_id = ByteArrayToHexString(intent.getByteArrayExtra(NfcAdapter.EXTRA_ID));
+            ((TextView) findViewById(R.id.text)).setText("NFC Tag\n" + hex_id);
+            try {
+                mqttAndroidClient.publish("Mirai/card/scan", new MqttMessage(hex_id.getBytes()));
+            } catch (MqttException e) {
+                e.printStackTrace();
+            }
+
         }
     }
 

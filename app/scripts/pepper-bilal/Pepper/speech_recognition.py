@@ -18,6 +18,7 @@ class SpeechRecognition:
     def processSpeechRecognition(self):
         while self.speechRecognitionGestart:
             recognize = self.memoryService.getData("WordRecognized")
+
             word = recognize[0]
             print word
             return word

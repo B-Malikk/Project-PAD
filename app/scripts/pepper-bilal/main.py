@@ -141,15 +141,17 @@ if __name__ == "__main__":
 
     tts = text_speech.TextToSpeech(session)
     #tts.say("test")
-    fd = face_detection.PeoplePerception(session)
+
+    fd = face_detection.FaceDetection(session)
     fd.start_face_detection()
-    time.sleep(100)
+    print fd.process_face_detection()
+
 
 
     #tablet = tablet.Tablet(session)
     #tablet.reload()
     #tablet.open_page("https://oege.ie.hva.nl/~polmpm/robot/hoofdpagina.html")
-    tablet.close_page()
+    #tablet.close_page()
     #askForHelp(session)
 
 

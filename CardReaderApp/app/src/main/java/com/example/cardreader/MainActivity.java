@@ -1,6 +1,7 @@
 package com.example.cardreader;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.os.Bundle;
 
@@ -20,6 +21,7 @@ import android.nfc.tech.NfcB;
 import android.nfc.tech.NfcF;
 import android.nfc.tech.NfcV;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Menu;
 import android.widget.TextView;
@@ -123,6 +125,7 @@ public class MainActivity extends AppCompatActivity {
         } catch (MqttException ex) {
             ex.printStackTrace();
         }
+        setAppearanceStatus(0);
     }
 
     @Override
@@ -147,6 +150,25 @@ public class MainActivity extends AppCompatActivity {
         nfcAdapter.enableForegroundDispatch(this, pendingIntent, new IntentFilter[]{filter}, this.techList);
     }
 
+    private void setAppearanceStatus(int success) {
+        int textcolor;
+        int bgcolor;
+        String text;
+        if (success == 1) {
+            textcolor = getResources().getColor(R.color.white);
+            bgcolor = getResources().getColor(R.color.green);
+            text = "Card scanned!";
+        } else {
+            textcolor = getResources().getColor(R.color.black);
+            bgcolor = getResources().getColor(R.color.white);
+            text = "Scan card";
+        }
+        ConstraintLayout layout = findViewById(R.id.layout);
+        layout.setBackgroundColor(bgcolor);
+        TextView textView = findViewById(R.id.text);
+        textView.setTextColor(textcolor);
+        textView.setText(text);
+    }
     @Override
     protected void onPause() {
         super.onPause();
@@ -160,12 +182,20 @@ public class MainActivity extends AppCompatActivity {
         super.onNewIntent(intent);
         if (intent.getAction().equals(NfcAdapter.ACTION_TAG_DISCOVERED)) {
             String hex_id = ByteArrayToHexString(intent.getByteArrayExtra(NfcAdapter.EXTRA_ID));
-            ((TextView) findViewById(R.id.text)).setText("NFC Tag\n" + hex_id);
             try {
                 mqttAndroidClient.publish("Mirai/card/scan", new MqttMessage(hex_id.getBytes()));
             } catch (MqttException e) {
                 e.printStackTrace();
             }
+            setAppearanceStatus(1);
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    // Do something after 5s = 5000ms
+                    setAppearanceStatus(0);
+                }
+            }, 2000);
 
         }
     }

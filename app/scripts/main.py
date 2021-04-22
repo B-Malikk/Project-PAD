@@ -7,4 +7,4 @@ from mirai import Animations
 
 if __name__ == "__main__":
     #mirai = Mirai("mirai.robot.hva-robots.nl", 9559)
-    mirai = Mirai("127.0.0.1", 50194, virtualRobot=True)
+    mirai = Mirai("127.0.0.1", 64690, virtualRobot=True)

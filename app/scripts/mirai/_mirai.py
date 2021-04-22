@@ -7,6 +7,8 @@ from Posture import Postures
 from Motion import Motion
 from TextToSpeech import TextToSpeech
 from SpeechRecognition import SpeechRecognition
+from MQTT import MQTTListener
+
 
 class Mirai(object):
 
@@ -32,6 +34,7 @@ class Mirai(object):
         self.posture = Postures(self)
         self.motion = Motion(self)
         self.textToSpeech = TextToSpeech(self)
+        self.mqtt = MQTTListener(self)
 
     def getProxy(self, name):
         try:

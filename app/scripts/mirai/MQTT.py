@@ -1,9 +1,11 @@
 import paho.mqtt.client as mqtt
 import threading
 
-class MQTTListener(object):
+class MQTTListenerBaseClass(object):
     client = None
     hostname = 'azsx.nl'
+    topic = 'topic'
+
     def __init__(self, mirai):
         self.mirai = mirai
         self.client = mqtt.Client()
@@ -17,13 +19,14 @@ class MQTTListener(object):
 
         # Subscribing in on_connect() means that if we lose the connection and
         # reconnect then subscriptions will be renewed.
-        client.subscribe("Mirai/card/#")
+        client.subscribe(self.topic)
 
     def on_message(self, client, userdata, msg):
-        print(msg.topic + " " + str(msg.payload))
-        if msg.topic == 'Mirai/card/scan':
-            self.mirai.textToSpeech.say("Kaart gescand")
+        self.on_event(msg)
 
     def start(self):
         self.client.connect(self.hostname, 1883, 60)
         self.client.loop_forever()
+
+    def on_event(self, msg):
+        print(msg.topic + " " + str(msg.payload) + " (you should override the on_event method)")

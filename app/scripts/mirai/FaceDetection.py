@@ -45,21 +45,3 @@ class FaceDetection(object):
     def stop_detection(self):
         self.face_detection_started = False
 
-
-
-class FaceInfo(object):
-
-    def __init__(self, data):
-        self._id = data[1]
-
-
-    def getID(self):
-        return self._id
-
-    def setID(self,id):
-        self.id = id
-
-
-
-
-

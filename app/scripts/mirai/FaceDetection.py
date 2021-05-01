@@ -5,6 +5,7 @@ class FaceDetection(object):
 
     def __init__(self, mirai):
         self._proxy = mirai.getProxy('ALSpeechRecognition')
+        self._peopleProxy = mirai.getProxy('ALPeoplePerception')
         self._memProxy = mirai.getProxy('ALMemory')
         self._faceDetectionStarted=False
         self._faceId = None
@@ -22,6 +23,7 @@ class FaceDetection(object):
 
             # Check whether we got a valid output: a list with two fields(facedetected.)
             if ( faceInfoArray and isinstance(faceInfoArray, list) and len(faceInfoArray) == 2):
+
                 self._faceId = faceInfoArray[1][0][1][0]
                 print (self._faceId)
                 #save the distance from the current face
@@ -42,8 +44,4 @@ class FaceDetection(object):
 
     def stop_detection(self):
         self.face_detection_started = False
-
-
-
-
 

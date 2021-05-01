@@ -1,6 +1,7 @@
 import paho.mqtt.client as mqtt
 import threading
 
+
 class MQTTListenerBaseClass(object):
     client = None
     hostname = 'azsx.nl'
@@ -30,3 +31,4 @@ class MQTTListenerBaseClass(object):
 
     def on_event(self, msg):
         print(msg.topic + " " + str(msg.payload) + " (you should override the on_event method)")
+

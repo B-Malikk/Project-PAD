@@ -8,8 +8,6 @@ mydb = connect("mysql://visserb24:6Cn328HQUSNPsp@oege.ie.hva.nl/zvisserb24")
 class BaseModel(Model):
     class Meta:
         database = mydb
-        db_table = 'User'
-
 
 # Defines table 'User'
 class User(BaseModel):
@@ -18,6 +16,9 @@ class User(BaseModel):
     inklokken = BooleanField()
     tijd = TimeField()
 
+    class Meta:
+        db_table = 'User'
+mydb.create_tables([User, ])
 
 class MQTTCardReader(MQTTListenerBaseClass):
     topic = 'Mirai/card/#'

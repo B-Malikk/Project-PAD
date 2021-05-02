@@ -3,6 +3,7 @@ package com.example.cardreader;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.nfc.Tag;
 import android.os.Bundle;
 
 import android.app.Activity;
@@ -47,6 +48,9 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getName();
     private MqttAndroidClient mqttAndroidClient;
 
+    private static final int STATUS_GOOD = 1;
+    private static final int STATUS_NEUTRAL = 0;
+    private static final int STATUS_BAD = -1;
 
     // All copied from https://gist.github.com/luixal/5768921
     // list of NFC technologies detected:
@@ -150,18 +154,26 @@ public class MainActivity extends AppCompatActivity {
         nfcAdapter.enableForegroundDispatch(this, pendingIntent, new IntentFilter[]{filter}, this.techList);
     }
 
-    private void setAppearanceStatus(int success) {
-        int textcolor;
-        int bgcolor;
-        String text;
-        if (success == 1) {
-            textcolor = getResources().getColor(R.color.white);
-            bgcolor = getResources().getColor(R.color.green);
-            text = "Card scanned!";
-        } else {
-            textcolor = getResources().getColor(R.color.black);
-            bgcolor = getResources().getColor(R.color.white);
-            text = "Scan card";
+    private void setAppearanceStatus(int status) {
+        int textcolor = 0;
+        int bgcolor = 0;
+        String text = "";
+        switch (status) {
+            case STATUS_GOOD:
+                textcolor = getResources().getColor(R.color.white);
+                bgcolor = getResources().getColor(R.color.green);
+                text = "Card scanned!";
+                break;
+            case STATUS_NEUTRAL:
+                textcolor = getResources().getColor(R.color.black);
+                bgcolor = getResources().getColor(R.color.white);
+                text = "Scan card";
+                break;
+            case STATUS_BAD:
+                textcolor = getResources().getColor(R.color.white);
+                bgcolor = getResources().getColor(R.color.red);
+                text = "Error!";
+                break;
         }
         ConstraintLayout layout = findViewById(R.id.layout);
         layout.setBackgroundColor(bgcolor);
@@ -181,21 +193,35 @@ public class MainActivity extends AppCompatActivity {
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         if (intent.getAction().equals(NfcAdapter.ACTION_TAG_DISCOVERED)) {
+            Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
             String hex_id = ByteArrayToHexString(intent.getByteArrayExtra(NfcAdapter.EXTRA_ID));
+            boolean tagSuccess = false;
             try {
-                mqttAndroidClient.publish("Mirai/card/scan", new MqttMessage(hex_id.getBytes()));
+                for (String tech : tag.getTechList()) {
+                    if (tech.contains("IsoDep")) {
+                        mqttAndroidClient.publish("Mirai/card/scan", new MqttMessage(hex_id.getBytes()));
+                        tagSuccess = true;
+                        break;
+                    }
+
+                }
+                if (!tagSuccess) {
+                    mqttAndroidClient.publish("Mirai/card/error", new MqttMessage("error".getBytes()));
+                    setAppearanceStatus(STATUS_BAD);
+                } else {
+                    setAppearanceStatus(STATUS_GOOD);
+                }
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        // Do something after 5s = 5000ms
+                        setAppearanceStatus(0);
+                    }
+                }, 2000);
             } catch (MqttException e) {
                 e.printStackTrace();
             }
-            setAppearanceStatus(1);
-            final Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    // Do something after 5s = 5000ms
-                    setAppearanceStatus(0);
-                }
-            }, 2000);
 
         }
     }

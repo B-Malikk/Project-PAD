@@ -1,2 +1,2 @@
-from _mirai import *
-from Animations import Animations
+from mirai import *
+#from Animations import Animations

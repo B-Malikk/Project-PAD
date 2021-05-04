@@ -34,8 +34,16 @@ class EngagementZones (object):
     def processFirstZone(self):
         self._memProxy.subscribeToEvent('EngagementZones/PersonEnteredZone1',self.firstZoneCallback())
 
+
+    def personLeftZone(self):
+        self._memProxy.subscribeToEvent('EngagementZones/PersonMovedAway',self.personLeftCallback())
+
+
+    def personLeftCallback(self):
+        return True
+
     def firstZoneCallback(self):
-        print("person detected in zone 1")
+        return True
 
 
     def procesSecondZone(self):

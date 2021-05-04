@@ -1,13 +1,26 @@
-import sys
+
 import qi
+import sys
 from naoqi import ALProxy
-from Animations import Animations
-from Autonomy import AutonomousMovement
-from Posture import Postures
-from Motion import Motion
-from TextToSpeech import TextToSpeech
-from SpeechRecognition import SpeechRecognition
-from MQTT import MQTTListener
+#from Animations import Animations
+#from Autonomy import AutonomousMovement
+#from Posture import Postures
+#from Motion import Motion
+#from TextToSpeech import TextToSpeech
+#from SpeechRecognition import SpeechRecognition
+#from MQTT import MQTTListener
+from mirai.Animations import Animations
+from mirai.Autonomy import AutonomousMovement
+from mirai.Motion.Motion import Motion
+from mirai.Posture import Postures
+from mirai.SpeechRecognition import SpeechRecognition
+from mirai.TextToSpeech import TextToSpeech
+from mirai.Dialog import Dialog
+from mirai.Tablet import Tablet
+from mirai.PeoplePerception.EngagementZone import EngagementZones
+from mirai.PeoplePerception.FaceDetection import FaceDetection
+from mirai.PeoplePerception.PeoplePerception import PeoplePerception
+
 
 
 class Mirai(object):
@@ -34,7 +47,12 @@ class Mirai(object):
         self.posture = Postures(self)
         self.motion = Motion(self)
         self.textToSpeech = TextToSpeech(self)
-        self.mqtt = MQTTListener(self)
+        self.dialog = Dialog(self)
+        self.engagementZone = EngagementZones(self)
+        self.peoplePerception = PeoplePerception(self)
+        self.faceDetection = FaceDetection(self)
+        self.tablet = Tablet(self)
+        #self.mqtt = MQTTListener(self)
 
     def getProxy(self, name):
         try:

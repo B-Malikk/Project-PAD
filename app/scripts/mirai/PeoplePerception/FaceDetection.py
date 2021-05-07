@@ -1,4 +1,5 @@
 import time
+import threading
 
 class FaceDetection(object):
 
@@ -40,7 +41,7 @@ class FaceDetection(object):
         # the given period 500
         self._proxy.subscribe("Test_Face", 500, 0.0)
         self.faceDetectionStarted = True
-        self.processFaceDetection()
+        threading.Thread(target=self.processFaceDetection).start()
 
     def stop_detection(self):
         self.face_detection_started = False

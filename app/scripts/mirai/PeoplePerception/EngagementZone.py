@@ -1,6 +1,8 @@
 
 
 class EngagementZones (object):
+    personInZone1=False
+    personInZone2=False
 
 
 
@@ -32,23 +34,41 @@ class EngagementZones (object):
 
 
     def processFirstZone(self):
-        self._memProxy.subscribeToEvent('EngagementZones/PersonEnteredZone1',self.firstZoneCallback())
+        # give callback when event rises(person in zone 1)
+        self._memProxy.subscribeToEvent('EngagementZones/PersonEnteredZone1','EngagementZones','setInfoZone1a')
+
+        #subscriber1 = self._memProxy.subscriber('EngagementZones/PersonEnteredZone1')
+        #subscriber1.signal.connect(self.setInfoZone1a())
+        # give callback when event rises(person left zone 1)
+        self._memProxy.subscribeToEvent('EngagementZones/PersonMovedAway', 'EngagementZones', 'setInfoZone1b')
+        #subscriber2=self._memProxy.subscriber('EngagementZones/PersonMovedAway')
+        #subscriber2.signal.connect(self.setInfoZone1b())
+
+    def getInfoZone1(self):
+        return self.personInZone1
+
+    def setInfoZone1a(self):
+        self.personInZone1=True
+    def setInfoZone1b(self):
+        self.personInZone1=False
 
 
-    def personLeftZone(self):
-        self._memProxy.subscribeToEvent('EngagementZones/PersonMovedAway',self.personLeftCallback())
-
-
-    def personLeftCallback(self):
-        return True
-
-    def firstZoneCallback(self):
-        return True
 
 
     def procesSecondZone(self):
-        self._memProxy.subscribeToEvent('EngagementZones/PersonEnteredZone2',self.secondZoneCallback())
+        # give callback when event rises(person in zone 2)
+        self._memProxy.subscribeToEvent('EngagementZones/PersonEnteredZone2', 'EngagementZones', 'setInfoZone2a')
+        #subscriber1=self._memProxy.subscribeToEvent('EngagementZones/PersonEnteredZone2')
+        #subscriber1.signal.connect(self.setInfoZone2a())
+        # give callback when event rises(person left zone 2)
+        self._memProxy.subscribeToEvent('EngagementZones/PersonMovedAway', 'EngagementZones', 'setInfoZone2a')
+        #subscriber2=self._memProxy.subscribeToEvent('EngagementZones/PersonMovedAway')
+        #subscriber2.signal.connect(self.setInfoZone2b())
 
-    def secondZoneCallback(self):
-        print("person detected in zone 2")
+    def getInfoZone2(self):
+        return self.personInZone2
 
+    def setInfoZone2a(self):
+        self.personInZone2=True
+    def setInfoZone2b(self):
+        self.personInZone2=False

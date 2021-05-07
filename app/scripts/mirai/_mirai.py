@@ -49,9 +49,9 @@ class Mirai(object):
         self.textToSpeech = TextToSpeech(self)
         self.dialog = Dialog(self)
         self.engagementZone = EngagementZones(self)
-        self.peoplePerception = PeoplePerception(self)
         self.faceDetection = FaceDetection(self)
         self.tablet = Tablet(self)
+        self.peoplePerception = PeoplePerception(self)
         #self.mqtt = MQTTListener(self)
 
     def getProxy(self, name):

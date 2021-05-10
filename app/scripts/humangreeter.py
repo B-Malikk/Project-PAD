@@ -33,7 +33,7 @@ def wave():
     joint.angleInterpolation(names, angleLists, times, isAbsolute)
     joint.angleInterpolation(elbow, angleElbow, elbowtimes, isAbsolute)
     posture_service.goToPosture("StandInit", 0.7)
-    tts.say("Welcom in het Wibauthuis")
+    tts.say("Welcome in het Wibauthuis")
     global x
     x = False
 

@@ -26,4 +26,6 @@ if __name__ == "__main__":
 
     while True:
         mirai.engagementZone.processFirstZone()
-        mirai.engagementZone.procesSecondZone()
+        if mirai.engagementZone.getInfoZone1():
+            mirai.motion.rest()
+

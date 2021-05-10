@@ -9,21 +9,12 @@ mydb = mysql.connector.connect(
 )
 
 mycursor = mydb.cursor()
-pasnummer = random.randint(3, 9)
-print pasnummer
+pasnummer = "56 f5 45 6r"
+print(pasnummer)
+mycursor.execute("INSERT INTO `User` (`nummer`, `inklokken`, `tijd`) VALUES ('56 f5 45 6r', TRUE, current_time)")
+mydb.commit()
+mycursor.execute("SELECT (`id`,`nummer`, `inklokken`) FROM `User` ORDER BY `id` LIMIT 1")
+user = mycursor.fetchall()
+user = str(''.join(map(str, user)))
 
-def PasCheck(pasnummer):
-  mycursor.execute("select * from `User` where VALUES(pasnummer)")
-
-def Inchecken(pasnummer):
-  mycursor.execute("INSERT INTO `User` (`number`) VALUES (pasnummer)")
-  mydb.commit()
-
-def Uitchecken(pasnummer):
-  mycursor.execute("DELETE FROM `User` [WHERE condition pasnummer]")
-  mydb.commit()
-
-
-PasCheck()
-
-print(mycursor.rowcount, "record inserted.")
+print(user)

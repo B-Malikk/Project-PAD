@@ -12,7 +12,8 @@ if __name__ == "__main__":
     #mirai = Mirai("127.0.0.1", 2338, virtualRobot=True)
 
 
-    #mirai.motion.wakeUp()
+    mirai.motion.rest()
+
     mirai.tablet.openPage("https://res.cloudinary.com/practicaldev/image/fetch/s--IoJSEQo3--/c_imagga_scale,f_auto,fl_progressive,h_900,q_auto,w_1600/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/lx73zhig4biqogekj1jl.png")
     mirai.textToSpeech.say("testttt")
 

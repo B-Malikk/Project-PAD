@@ -49,6 +49,29 @@ html, body {
     box-shadow: none;
     background: transparent;
 }
+.card.language {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.6);
+    transition: 0.4s;
+    width: 200px;
+    background: #fff;
+    text-align: center;
+    font-size: 16px;
+    font-family: sans-serif;
+    margin:  500px;
+    margin-top: 170px;
+}
+
+.card.language2 {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.6);
+    transition: 0.4s;
+    width: 220px;
+    background: #fff;
+    text-align: center;
+    font-size: 16px;
+    font-family: sans-serif;
+    margin: -400px;
+    margin-top: 170px;
+}
 .backbutton {
     background-color: gray;
     border: 2px;

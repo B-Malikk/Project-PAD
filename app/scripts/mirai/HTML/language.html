@@ -10,26 +10,63 @@
 	 </script>
 
 
-    <script>
+<script type = "text/javascript" language = "javascript">
+		var mqtt;
+		var reconnectTimeout = 2000;
 
-        var language;
-        function getLanguage() {
-        (localStorage.getItem('language') == null) ? setLanguage('en') : false;
-        $.ajax({
-        url:  '/language/' +  localStorage.getItem('language') + '.json',
-        dataType: 'json', async: false, dataType: 'json',
-        success: function (lang) { language = lang } });
-        }
-        function setLanguage(lang) {localStorage.setItem('language', lang);
-        }
+        var host="azsx.nl";
+		var port=8080
 
-        $(document).ready(function(){
-        $('#route1').text(language.route);
-        });
-    </script>
+        function onConnect() {
+	  // Once a connection has been made, make a subscription and send a message.
+
+		console.log("Connected ");
+		message = new Paho.MQTT.Message("Hello World");
+		message.destinationName = "Mirai/web/language";
+		mqtt.send(message);
+	  }
+
+	 	function setlanguageEnglish() {
+	  // send message to change language of pepper to english
+
+		console.log("Connected");
+		message = new Paho.MQTT.Message("english");
+		message.destinationName = "Mirai/web/language";
+		mqtt.send(message);
+	  }
+
+	  	 	function setlanguageDutch() {
+	  // send message to change language of pepper to dutch
+
+		console.log("Connected");
+		message = new Paho.MQTT.Message("dutch");
+		message.destinationName = "Mirai/web/language";
+		mqtt.send(message);
+	  }
+
+
+	  function MQTTconnect() {
+		console.log("connecting to "+ host +" "+ port);
+
+		mqtt = new Paho.MQTT.Client(host,port,"clientjs");
+		var options = {
+
+			timeout: 3,
+			onSuccess: onConnect,
+
+		 };
+
+		mqtt.connect(options); //connect
+		}
+
+	  </script>
+
 
 </head>
 <body>
+ 	<script>
+	MQTTconnect();
+	</script>
 <img src="afbeelding/logo%20hva.png" id="logohva"/>
 
 <div id="div1"></div>
@@ -37,7 +74,7 @@
 <div id="main">
 
 </div>
-<div onclick="document.location='language.html'"class="wrap">
+<div onclick="document.location='hoofdpagina.html';setlanguageDutch();"class="wrap">
     <div class="card language">
         <img src="afbeelding/255px-Flag_of_the_Netherlands.svg.png" alt ="card" style="width: 100%">
         <div class="container">
@@ -46,7 +83,7 @@
     </div>
 </div>
 
-<div onclick="document.location='language.html'"class="wrap">
+<div onclick="document.location='hoofdpagina.html';setlanguageEnglish();"class="wrap">
     <div class="card language2">
         <img src="afbeelding/Flag_of_Great_Britain_(English_version).png" alt ="card" style="width: 100%">
         <div class="container">

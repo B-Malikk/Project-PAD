@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="style.css" type="text/css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Home</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.js" type="text/javascript">
+	 </script>
+
+
+    <script>
+
+        var language;
+        function getLanguage() {
+        (localStorage.getItem('language') == null) ? setLanguage('en') : false;
+        $.ajax({
+        url:  '/language/' +  localStorage.getItem('language') + '.json',
+        dataType: 'json', async: false, dataType: 'json',
+        success: function (lang) { language = lang } });
+        }
+        function setLanguage(lang) {localStorage.setItem('language', lang);
+        }
+
+        $(document).ready(function(){
+        $('#route1').text(language.route);
+        });
+    </script>
+
+</head>
+<body>
+<img src="afbeelding/logo%20hva.png" id="logohva"/>
+<a href="#" onclick="setLanguage('en')">English</a>
+<a href="#" onclick="setLanguage('nl')">Nederlands</a>
+
+<div id="div1"></div>
+<img src="afbeelding/1280x720-hva-breed-presentatie-schermen-lcd2.jpg" id="footer"/>
+<div id="main">
+
+</div>
+<div onclick="document.location='language.html'"class="wrap">
+    <div class="card">
+        <img src="afbeelding/255px-Flag_of_the_Netherlands.svg.png" alt ="card" style="width: 100%">
+        <div class="container">
+
+        </div>
+    </div>
+</div>
+
+<div onclick="document.location='language.html'"class="wrap">
+    <div class="card">
+        <img src="afbeelding/Flag_of_Great_Britain_(English_version).png" alt ="card" style="width: 100%">
+        <div class="container">
+
+        </div>
+    </div>
+</div>
+
+</div>
+
+
+
+
+</body>
+</html>

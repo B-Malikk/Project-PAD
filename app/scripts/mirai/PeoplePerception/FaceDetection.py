@@ -11,26 +11,13 @@ class FaceDetection(object):
         self._faceDetectionStarted=False
         self._faceId = None
         self._distance = None
+        self._gotFace = False
         # Get the services
 
     def processFaceDetection(self):
 
-
         while self.faceDetectionStarted:
-
-            faceInfoArray = self._memProxy.getData("FaceDetected", 0)
-            print (faceInfoArray)
-
-
-            # Check whether we got a valid output: a list with two fields(facedetected.)
-            if ( faceInfoArray and isinstance(faceInfoArray, list) and len(faceInfoArray) == 2):
-
-                self._faceId = faceInfoArray[1][0][1][0]
-                print (self._faceId)
-                #save the distance from the current face
-                self._distance = self._memProxy.getData("PeoplePerception/Person/" + str(self._faceId) + "/Distance")
-                print (self._distance)
-                return self._distance
+            self._memProxy.subscribeToEvent('FaceDetected', 'FaceDetection', 'setFaceInfo')
 
 
 
@@ -42,6 +29,9 @@ class FaceDetection(object):
         self._proxy.subscribe("Test_Face", 500, 0.0)
         self.faceDetectionStarted = True
         threading.Thread(target=self.processFaceDetection).start()
+
+    def setFaceInfo(self):
+        return self._gotFace
 
     def stop_detection(self):
         self.face_detection_started = False

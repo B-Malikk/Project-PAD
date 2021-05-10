@@ -53,7 +53,7 @@ class EngagementZones(object):
         #subscriber1=self._memProxy.subscribeToEvent('EngagementZones/PersonEnteredZone2')
         #subscriber1.signal.connect(self.setInfoZone2a())
         # give callback when event rises(person left zone 2)
-        self._memProxy.subscribeToEvent('EngagementZones/PersonMovedAway', 'EngagementZones', 'setInfoZone2a')
+        self._memProxy.subscribeToEvent('EngagementZones/PersonMovedAway', 'EngagementZones', 'setInfoZone2b')
         #subscriber2=self._memProxy.subscribeToEvent('EngagementZones/PersonMovedAway')
         #subscriber2.signal.connect(self.setInfoZone2b())
 

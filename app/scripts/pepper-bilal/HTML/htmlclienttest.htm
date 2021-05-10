@@ -8,14 +8,13 @@
 		var reconnectTimeout = 2000;
 
         var host="azsx.nl";
-		var port=1883
+		var port=8080
 
 		
 	 	function onConnect() {
 	  // Once a connection has been made, make a subscription and send a message.
 	
 		console.log("Connected ");
-		//mqtt.subscribe("sensor1");
 		message = new Paho.MQTT.Message("Hello World");
 		message.destinationName = "testmessage";
 		mqtt.send(message);

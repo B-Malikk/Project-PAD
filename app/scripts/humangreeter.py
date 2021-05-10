@@ -3,37 +3,16 @@
 
 """Example: A Simple class to get & read FaceDetected Events"""
 
-import qi
 import time
 import sys
 import argparse
-
-from naoqi import ALProxy
-
 global x
 x = True
 
-joint = ALProxy("ALMotion", "mirai.robot.hva-robots.nl",9559 )
-tts = ALProxy("ALTextToSpeech", "mirai.robot.hva-robots.nl",9559)
-posture_service = ALProxy("ALRobotPosture", "mirai.robot.hva-robots.nl",9559)
-tts.setLanguage("Dutch")
-
-tts.say("kaas")
-
 def wave():
     # Wave met linker arm
-    tts.say("Hallo!")
-    names = ["LShoulderRoll", "LShoulderPitch", "LWristYaw"]
-    elbow = ["LElbowRoll"]
-    angleLists = [1.6, -0.5, -0.5]
-    angleElbow = [-2.0, -0.5, -2, 0]
-    times = [0.4, 0.6, 0.8, 1.0]
-    elbowtimes = [0.2, 0.6, 1.0, 1.4]
-    isAbsolute = True
-    joint.angleInterpolation(names, angleLists, times, isAbsolute)
-    joint.angleInterpolation(elbow, angleElbow, elbowtimes, isAbsolute)
-    posture_service.goToPosture("StandInit", 0.7)
-    tts.say("Welcom in het Wibauthuis")
+    mirai.animations.Hey.run(1)
+    mirai.textToSpeech.say("Welcom in het Wibauthuis")
     global x
     x = False
 
@@ -115,28 +94,3 @@ class HumanGreeter(object):
             # stop
             sys.exit(0)
 
-
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--ip", type=str, default="mirai.robot.hva-robots.nl",
-                        help="Robot IP address. On robot or Local Naoqi: use '127.0.0.1'.")
-    parser.add_argument("--port", type=int, default=9559,
-                        help="Naoqi port number")
-
-    args = parser.parse_args()
-    try:
-        # Initialize qi framework.
-        from naoqi import ALProxy
-
-        motion = ALProxy("ALMotion", args.ip, args.port)
-        motion.moveInit()
-        motion.wakeUp()
-        connection_url = "tcp://" + args.ip + ":" + str(args.port)
-        app = qi.Application(["HumanGreeter", "--qi-url=" + connection_url])
-    except RuntimeError:
-        print ("Can't connect to Naoqi at ip \"" + args.ip + "\" on port " + str(args.port) + ".\n"
-                                                                                              "Please check your script arguments. Run with -h option for help.")
-        sys.exit(1)
-
-    human_greeter = HumanGreeter(app)
-    human_greeter.run()

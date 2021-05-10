@@ -3,6 +3,7 @@ class TextToSpeech(object):
     def __init__(self, mirai):
         self._proxy = mirai.getProxy("ALTextToSpeech")
         self._aniProxy = mirai.getProxy("ALAnimatedSpeech")
+        self.setLanguage("Dutch")
         self._language = self.getLanguage()
         self._speed = 100
         self.setSpeed(self._speed)

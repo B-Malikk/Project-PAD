@@ -2,25 +2,20 @@
 import qi
 import sys
 from naoqi import ALProxy
-#from Animations import Animations
-#from Autonomy import AutonomousMovement
-#from Posture import Postures
-#from Motion import Motion
-#from TextToSpeech import TextToSpeech
-#from SpeechRecognition import SpeechRecognition
-#from MQTT import MQTTListener
-from mirai.Animations import Animations
-from mirai.Autonomy import AutonomousMovement
-from mirai.Motion.Motion import Motion
-from mirai.Posture import Postures
-from mirai.SpeechRecognition import SpeechRecognition
-from mirai.TextToSpeech import TextToSpeech
-from mirai.Dialog import Dialog
-from mirai.Tablet import Tablet
-from mirai.PeoplePerception.EngagementZone import EngagementZones
-from mirai.PeoplePerception.FaceDetection import FaceDetection
-from mirai.PeoplePerception.PeoplePerception import PeoplePerception
 
+from Animations import Animations
+from Autonomy import AutonomousMovement
+from Motion.Motion import Motion
+from Posture import Postures
+from SpeechRecognition import SpeechRecognition
+from TextToSpeech import TextToSpeech
+from Dialog import Dialog
+from Tablet import Tablet
+from PeoplePerception.EngagementZone import EngagementZones
+from PeoplePerception.FaceDetection import FaceDetection
+from PeoplePerception.PeoplePerception import PeoplePerception
+from MQTTCardReader import MQTTCardReader
+from MQTTWebListener import MQTTWebListener
 
 
 class Mirai(object):
@@ -42,6 +37,7 @@ class Mirai(object):
             print("Running NAOqi version " + systemservice.systemVersion())
             self.speechRecognition = SpeechRecognition(self)
 
+
         self.animations = Animations(self)
         self.autonomous = AutonomousMovement(self)
         self.posture = Postures(self)
@@ -50,9 +46,10 @@ class Mirai(object):
         self.dialog = Dialog(self)
         self.engagementZone = EngagementZones(self)
         self.faceDetection = FaceDetection(self)
-        #self.tablet = Tablet(self)
         self.peoplePerception = PeoplePerception(self)
-        #self.mqtt = MQTTListener(self)
+        self.mqttCardReader = MQTTCardReader(self)
+        self.mqttWebListener = MQTTWebListener(self)
+        self.tablet = Tablet(self)
 
     def getProxy(self, name):
         try:

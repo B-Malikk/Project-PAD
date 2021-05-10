@@ -1,37 +1,32 @@
+import threading
 
 
-class EngagementZones (object):
+class EngagementZones(object):
     personInZone1=False
     personInZone2=False
 
-
-
-
-    def __init__(self,mirai):
+    def __init__(self, mirai):
+        self._mirai = mirai
         self._proxy = mirai.getProxy('ALEngagementZones')
         self._memProxy = mirai.getProxy('ALMemory')
+        self.start()
 
     def setFirstLimit(self,firsLimit,limitAngle):
         self._proxy.setFirstLimitDistance(firsLimit)
         self._proxy.setLimitAngle(limitAngle)
 
-
     def setSecondLimit(self, secondLimit,limitAngle):
         self._proxy.setSecondLimitDistance(secondLimit)
         self._proxy.setLimitAngle(limitAngle)
 
-
     def getFirstLimit(self):
         return self._proxy.getFirstLimitDistance()
-
 
     def getSecondLimit(self):
         return self._proxy.getSecondLimitDistance()
 
-
     def getAngle(self):
         return self._proxy.getlimitAngle()
-
 
     def processFirstZone(self):
         # give callback when event rises(person in zone 1)
@@ -52,9 +47,6 @@ class EngagementZones (object):
     def setInfoZone1b(self):
         self.personInZone1=False
 
-
-
-
     def procesSecondZone(self):
         # give callback when event rises(person in zone 2)
         self._memProxy.subscribeToEvent('EngagementZones/PersonEnteredZone2', 'EngagementZones', 'setInfoZone2a')
@@ -72,3 +64,12 @@ class EngagementZones (object):
         self.personInZone2=True
     def setInfoZone2b(self):
         self.personInZone2=False
+
+    def processZones(self):
+        while True:
+            self._mirai.engagementZone.processFirstZone()
+            self._mirai.engagementZone.procesSecondZone()
+
+    def start(self):
+        threading.Thread(target=self.processZones()).start()
+

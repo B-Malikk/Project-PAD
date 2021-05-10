@@ -3,13 +3,12 @@ from peewee import *
 from playhouse.db_url import connect
 from datetime import datetime
 
-mydb = connect("mysql://visserb24:6Cn328HQUSNPsp@oege.ie.hva.nl/zvisserb24")
 
+mydb = connect("mysql://visserb24:6Cn328HQUSNPsp@oege.ie.hva.nl/zvisserb24")
 
 class BaseModel(Model):
     class Meta:
         database = mydb
-
 
 # Defines table 'User'
 class User(BaseModel):
@@ -21,9 +20,7 @@ class User(BaseModel):
     class Meta:
         db_table = 'User'
 
-
 mydb.create_tables([User, ])
-
 
 class MQTTCardReader(MQTTListenerBaseClass):
     topic = 'Mirai/card/#'
@@ -44,9 +41,3 @@ class MQTTCardReader(MQTTListenerBaseClass):
         if msg.topic == 'Mirai/card/error':
             if self.mirai:
                 self.mirai.textToSpeech.say("Probeer het nog eens.")
-
-
-# reader = MQTTCardReader(None)
-# reader.on_scan()
-class_instantie = MQTTCardReader(None)
-class_instantie.on_event()

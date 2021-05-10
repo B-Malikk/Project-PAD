@@ -30,7 +30,7 @@
 	  // send message to change language of pepper to english
 
 		console.log("Connected");
-		message = new Paho.MQTT.Message("plattegrond");
+		message = new Paho.MQTT.Message("map");
 		message.destinationName = "Mirai/web/button";
 		mqtt.send(message);
 	  }
@@ -39,7 +39,7 @@
 	  // send message to change language of pepper to dutch
 
 		console.log("Connected");
-		message = new Paho.MQTT.Message("pas");
+		message = new Paho.MQTT.Message("id");
 		message.destinationName = "Mirai/web/button";
 		mqtt.send(message);
 	  }
@@ -47,7 +47,7 @@
 	  // send message to change language of pepper to dutch
 
 		console.log("Connected");
-		message = new Paho.MQTT.Message("lokaal");
+		message = new Paho.MQTT.Message("classroom");
 		message.destinationName = "Mirai/web/button";
 		mqtt.send(message);
 	  }
@@ -74,7 +74,7 @@
 <script>
 	MQTTconnect();
 	</script>
-<button onclick="document.location='language.html'" class="backbutton">< Terug </button>
+<button onclick="document.location='language.html'" class="backbutton">< Back </button>
 <img src="afbeelding/logo%20hva.png" id="logohva"/>
 
 <div id="div1"></div>
@@ -85,25 +85,25 @@
     <div class="card">
         <img src="afbeelding/zoek.png" alt ="messi" style="width: 100%">
         <div class="container">
-            <h4 ><b> lokaal zoeken</b></h4>
+            <h4 ><b> Fin d classroom</b></h4>
           <h4 id =”route1”><b>  </b></h4>
         </div>
     </div>
 </div>
-<div onclick="document.location='pasje.html';onclickPas();"class="wrap">
+<div onclick="document.location='pasje-eng.html';onclickPas();"class="wrap">
     <div class="card">
         <img src="afbeelding/id%202.png" alt ="card" style="width: 100%">
         <div class="container">
-             <h4 ><b> Ik heb problemen met mijn pasje</b></h4>
+             <h4 ><b> I have problems with my hva ID</b></h4>
 
         </div>
     </div>
 </div>
-<div onclick="document.location='plattegrond.html';onclickPlattegrondl();"class="wrap">
+<div onclick="document.location='plattegrond-eng.html';onclickPlattegrondl();"class="wrap">
     <div class="card">
         <img src="afbeelding/pin.png" alt ="pin" style="width: 100%">
         <div class="container">
-             <h4><b> waar ben ik </b></h4>
+             <h4><b> where am i </b></h4>
 
         </div>
     </div>

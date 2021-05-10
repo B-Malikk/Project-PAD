@@ -6,6 +6,7 @@ class Motion(object):
 
     def __init__(self, mirai):
         self._proxy = mirai.getProxy("ALMotion")
+        self._tts = mirai.getProxy("ALTextToSpeech")
         self.head = Head(mirai)
         self.leftArm = LArm(mirai)
         self.rightArm = RArm(mirai)
@@ -75,6 +76,7 @@ class Motion(object):
                 funcNames.append(joint.getName())
 
         self._proxy.setStiffnesses(funcNames, stiffnesses)
+
 
     def enableIdle(self):
         self._proxy.setIdlePostureEnabled('Body', True)

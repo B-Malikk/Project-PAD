@@ -1,23 +1,24 @@
 import threading
+
+
 class PeoplePerception(object):
 
-    def __init__(self,mirai):
+    def __init__(self, mirai):
+        self._mirai = mirai
         self._proxy = mirai.getProxy('ALPeoplePerception')
-        self._ttsProxy = mirai.getProxy('ALTextToSpeech')
         self._memProxy = mirai.getProxy('ALMemory')
         self._peopleList = []
         self._peopleCounter = 0
+        self.startPeopleDetection(4, 10)
 
-
-
-    def setRange(self,range):
+    def setRange(self, range):
         self._proxy.setMaximumDetectionRange(range)
 
     def reset(self):
         self._proxy.resetPopulation()
-        self._peopleCounter = 2
+        self._peopleCounter = 0
 
-    def startPeopleDetection(self,range,time):
+    def startPeopleDetection(self, range, time):
         self.reset()#reset people population and counter
         self.setRange(range)
         self._proxy.setTimeBeforePersonDisappears(time)
@@ -67,8 +68,4 @@ class PeoplePerception(object):
                     distanceB=distanceC**2-distanceA**2
                     if ((distanceB**0,5) <= 1.5):
                         print(" je staat te dichtbij")
-                        self._ttsProxy.say("Houden jullie rekening met de annderhalfe meter")
-
-
-
-
+                        self._mirai.textToSpeech.say("Houden jullie rekening met de annderhalve meter")

@@ -43,9 +43,10 @@ class EngagementZones(object):
         return self.personInZone1
 
     def setInfoZone1a(self):
-        self.personInZone1=True
+        self.personInZone1 = True
+
     def setInfoZone1b(self):
-        self.personInZone1=False
+        self.personInZone1 = False
 
     def procesSecondZone(self):
         # give callback when event rises(person in zone 2)

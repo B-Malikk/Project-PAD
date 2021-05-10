@@ -14,6 +14,7 @@ from Tablet import Tablet
 from PeoplePerception.EngagementZone import EngagementZones
 from PeoplePerception.FaceDetection import FaceDetection
 from PeoplePerception.PeoplePerception import PeoplePerception
+from PeoplePerception.HumanGreeter import HumanGreeter
 from MQTTCardReader import MQTTCardReader
 from MQTTWebListener import MQTTWebListener
 

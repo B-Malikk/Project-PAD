@@ -36,8 +36,10 @@ class MQTTCardReader(MQTTListenerBaseClass):
             if self.mirai:
                 if user.inklokken == True:
                     self.mirai.textToSpeech.say("Welkom.")
+                    posture_service.goToPosture("StandInit", 0.7)
                 else:
                     self.mirai.textToSpeech.say("Tot ziens!")
+                    posture_service.goToPosture("StandInit", 0.7)
         if msg.topic == 'Mirai/card/error':
             if self.mirai:
                 self.mirai.textToSpeech.say("Probeer het nog eens.")

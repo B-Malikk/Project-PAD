@@ -1,5 +1,5 @@
 import threading
-
+import time
 
 class EngagementZones(object):
     personInZone1=False
@@ -68,8 +68,8 @@ class EngagementZones(object):
 
     def processZones(self):
         while True:
-            self._mirai.engagementZone.processFirstZone()
-            self._mirai.engagementZone.procesSecondZone()
+            self.processFirstZone()
+            self.procesSecondZone()
 
     def start(self):
         threading.Thread(target=self.processZones()).start()

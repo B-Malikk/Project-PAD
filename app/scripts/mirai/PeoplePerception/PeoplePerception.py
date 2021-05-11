@@ -25,14 +25,14 @@ class PeoplePerception(object):
         self._proxy.setTimeBeforeVisiblePersonDisappears(time)
 
         #give callback when event rises
-        self._memProxy.subscribeToEvent('PeoplePerception/JustArrived', 'PeoplePerception', 'arrivedCallback')
-        #subscriber=self._memProxy.subscriber('PeoplePerception/JustArrived', self.arrivedCallback())
-        #subscriber.signal.connect(self.arrivedCallback())
+        self._memProxy.subscribeToEvent('PeoplePerception/JustArrived', 'this', 'arrivedCallback')
+        #self.subscriber=self._memProxy.subscribeToEvent('PeoplePerception/JustArrived')
+        #self.subscriber.signal.connect(self.arrivedCallback)
 
         # give callback when event rises
-        self._memProxy.subscribeToEvent('PeoplePerception/JustLeft', 'PeoplePerception', 'leftCallback')
-        #subscriber1=self._memProxy.subscriber('PeoplePerception/JustLeft', self.leftCallback())
-        #subscriber1.signal.connect(self.leftCallback())
+        self._memProxy.subscribeToEvent('PeoplePerception/JustLeft', 'this', 'leftCallback')
+        #self.subscriber1=self._memProxy.subscriber('PeoplePerception/JustLeft()')
+        #self.subscriber1.signal.connect(self.leftCallback)
         threading.Thread(target=self.procesPeople).start()
         print ("einde def people")
 
@@ -46,10 +46,8 @@ class PeoplePerception(object):
         print ("in process def")
         #stay looping to check if second boolean is tru or false
         while True:
-            print ("in while true")
             #if there are more than 1 person visible run the code
             while (self._peopleCounter >1):
-                print ("in 2e while")
                 #save al ID's from visible poeple in an list
                 self._peopleList = self._memProxy.getData("PeoplePerception/VisiblePeopleList")
                 distanceList=[]

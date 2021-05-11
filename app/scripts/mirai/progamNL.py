@@ -1,7 +1,8 @@
 import time
-from mirai._mirai import Mirai
 
 class dutchProgram(object):
+    def __init__(self, mirai):
+        self.mirai = Mirai("mirai.robot.hva-robots.nl", 9559)
 
     def q0(self):
         print ("ben bij vraag 4")
@@ -73,7 +74,6 @@ class dutchProgram(object):
             self.q2()
 
     def askForHelp (self):
-        self.mirai = Mirai("mirai.robot.hva-robots.nl", 9559)
         self.mirai.speechRecognition.setLanguage("Dutch")
         self.mirai.speechRecognition.startSpeecheRecognition()
 

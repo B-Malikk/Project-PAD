@@ -1,16 +1,23 @@
 """
 A sample showing how to make a Python script as an app.
 """
+import threading
+
 from mirai._mirai import Mirai
 
 
 class Main(object):
     def __init__(self):
         self.mirai = Mirai("mirai.robot.hva-robots.nl", 9559)
-        self.mirai.motion.rest()
+        self.mirai.motion.wakeUp()
         self.mirai.engagementZone.setFirstLimit(0.5,90)
         self.mirai.engagementZone.setSecondLimit(1.5, 90)
+        self.mirai.textToSpeech.say("kaas")
 
+        thread1 = threading.Thread(target=self.sayScanCard)
+        thread2 = threading.Thread(target=self.sayWelcome)
+        thread1.start()
+        thread2.start()
     def sayScanCard(self):
         previous = self.mirai.engagementZone.personInZone1
         while True:

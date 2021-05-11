@@ -72,5 +72,6 @@ class EngagementZones(object):
             self.procesSecondZone()
 
     def start(self):
-        threading.Thread(target=self.processZones()).start()
+        thread = threading.Thread(target=self.processZones)
+        thread.start()
 

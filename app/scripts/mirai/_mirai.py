@@ -14,7 +14,6 @@ from Tablet import Tablet
 from PeoplePerception.EngagementZone import EngagementZones
 from PeoplePerception.FaceDetection import FaceDetection
 from PeoplePerception.PeoplePerception import PeoplePerception
-#from PeoplePerception.HumanGreeter import HumanGreeter
 from MQTTCardReader import MQTTCardReader
 from MQTTWebListener import MQTTWebListener
 from progamNL import dutchProgram
@@ -53,8 +52,6 @@ class Mirai(object):
         self.mqttCardReader = MQTTCardReader(self)
         self.mqttWebListener = MQTTWebListener(self)
         self.tablet = Tablet(self)
-        self.dutchP= dutchProgram(self)
-        self.ENGP = engProgram(self)
 
     def getProxy(self, name):
         try:

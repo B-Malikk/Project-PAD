@@ -32,7 +32,5 @@ def arm():
     joint.angleInterpolation(names, angleLists, times, isAbsolute)
 
 
-
-arm()
-arm()
+posture_service.goToPosture("StandInit", 0.7)
 arm()

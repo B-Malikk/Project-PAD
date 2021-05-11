@@ -15,7 +15,7 @@ class Main(object):
         previous = self.mirai.engagementZone.personInZone1
         while True:
             if self.mirai.engagementZone.personInZone1 == True and previous == False:
-                pass
+                self.scanner()
                 # Scan card motion - this is for Bryan
                 self.mirai.textToSpeech.say("Scan je pasje")
             previous = self.mirai.engagementZone.personInZone1

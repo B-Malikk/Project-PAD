@@ -25,7 +25,7 @@ def grip():
 def arm():
     #Steekt arm naar voren om pasje te scannen
     names = ["RElbowRoll", "RShoulderPitch", "RWristYaw"]
-    joint.setStiffnesses(names, 0.5)
+    joint.setStiffnesses(names, 1)
     angleLists = [1, 0.785398, 2]
     times = [2, 2, 2]
     isAbsolute = True
@@ -34,5 +34,5 @@ def arm():
 
 
 arm()
-grip()
-posture_service.goToPosture("StandInit", 0.7)
+arm()
+arm()

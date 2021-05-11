@@ -13,15 +13,6 @@ tts = ALProxy("ALTextToSpeech", "mirai.robot.hva-robots.nl",9559)
 posture_service = ALProxy("ALRobotPosture", "mirai.robot.hva-robots.nl",9559)
 tts.setLanguage("Dutch")
 
-
-def grip():
-    names = ["RHand"]
-    joint.setStiffnesses(names, 0.5)
-    angleLists = [0, 1]
-    times = [2, 10]
-    isAbsolute = True
-    joint.angleInterpolation(names, angleLists, times, isAbsolute)
-
 def arm():
     #Steekt arm naar voren om pasje te scannen
     names = ["RElbowRoll", "RShoulderPitch", "RWristYaw"]

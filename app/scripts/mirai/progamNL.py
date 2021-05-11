@@ -1,4 +1,5 @@
 import time
+from mirai._mirai import Mirai
 
 class dutchProgram(object):
 

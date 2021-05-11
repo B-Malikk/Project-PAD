@@ -1,4 +1,6 @@
 import time
+from mirai._mirai import Mirai
+import mirai
 
 class engProgram(object):
 

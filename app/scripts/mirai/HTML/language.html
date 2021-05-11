@@ -26,29 +26,22 @@
 		mqtt.send(message);
 	  }
 
-	 	function onclickPlattegrondl() {
+
+	 	function setlanguageEnglish() {
 	  // send message to change language of pepper to english
 
 		console.log("Connected");
-		message = new Paho.MQTT.Message("plattegrond");
-		message.destinationName = "Mirai/web/button";
+		message = new Paho.MQTT.Message("english");
+		message.destinationName = "Mirai/web/language";
 		mqtt.send(message);
 	  }
 
-	  	 	function onclickPas() {
+	  	 	function setlanguageDutch() {
 	  // send message to change language of pepper to dutch
 
 		console.log("Connected");
-		message = new Paho.MQTT.Message("pas");
-		message.destinationName = "Mirai/web/button";
-		mqtt.send(message);
-	  }
-	  	  	 	function onclickKlaslokaal() {
-	  // send message to change language of pepper to dutch
-
-		console.log("Connected");
-		message = new Paho.MQTT.Message("lokaal");
-		message.destinationName = "Mirai/web/button";
+		message = new Paho.MQTT.Message("dutch");
+		message.destinationName = "Mirai/web/language";
 		mqtt.send(message);
 	  }
 
@@ -69,45 +62,37 @@
 
 	  </script>
 
+
 </head>
 <body>
-<script>
+ 	<script>
 	MQTTconnect();
 	</script>
-<button onclick="document.location='language.html'" class="backbutton">< Terug </button>
 <img src="afbeelding/logo%20hva.png" id="logohva"/>
 
 <div id="div1"></div>
 <img src="afbeelding/1280x720-hva-breed-presentatie-schermen-lcd2.jpg" id="footer"/>
 <div id="main">
 
-    <div onclick="window.location.href='https://hva.mapiq.net/wbh#/places/search-all-(a-z)&floor=E';onclickKlaslokaal();"class="wrap">
-    <div class="card">
-        <img src="afbeelding/zoek.png" alt ="messi" style="width: 100%">
-        <div class="container">
-            <h4 ><b> lokaal zoeken</b></h4>
-          <h4 id =”route1”><b>  </b></h4>
-        </div>
-    </div>
 </div>
-<div onclick="document.location='pasje.html';onclickPas();"class="wrap">
-    <div class="card">
-        <img src="afbeelding/id%202.png" alt ="card" style="width: 100%">
+<div onclick="document.location='hoofdpagina.html';setlanguageDutch();"class="wrap">
+    <div class="card language">
+        <img src="afbeelding/255px-Flag_of_the_Netherlands.svg.png" alt ="card" style="width: 100%">
         <div class="container">
-             <h4 ><b> Ik heb problemen met mijn pasje</b></h4>
 
         </div>
     </div>
 </div>
-<div onclick="document.location='plattegrond.html';onclickPlattegrondl();"class="wrap">
-    <div class="card">
-        <img src="afbeelding/pin.png" alt ="pin" style="width: 100%">
+
+<div onclick="document.location='hoofdpagina-Eng.html';setlanguageEnglish();"class="wrap">
+    <div class="card language2">
+        <img src="afbeelding/Flag_of_Great_Britain_(English_version).png" alt ="card" style="width: 100%">
         <div class="container">
-             <h4><b> waar ben ik </b></h4>
 
         </div>
     </div>
 </div>
+
 </div>
 
 

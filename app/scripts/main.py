@@ -9,9 +9,7 @@ from mirai._mirai import Mirai
 class Main(object):
     def __init__(self):
         self.mirai = Mirai("mirai.robot.hva-robots.nl", 9559)
-        self.mirai.motion.wakeUp()
         self.mirai.engagementZone.setFirstLimit(1,90)
-        self.mirai.engagementZone(4,8)
         print(self.mirai.engagementZone.getFirstLimit())
 
         self.mirai.textToSpeech.say("kaas")
@@ -39,7 +37,6 @@ class Main(object):
                 self.mirai.textToSpeech.say("Welkom in het Wibauthuis")
 
 if __name__ == "__main__":
-
     main = Main()
 
 

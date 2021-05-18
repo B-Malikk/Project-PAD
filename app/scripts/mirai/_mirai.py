@@ -52,8 +52,8 @@ class Mirai(object):
         self.mqttCardReader = MQTTCardReader(self)
         self.mqttWebListener = MQTTWebListener(self)
         self.tablet = Tablet(self)
-        self.program1=dutchProgram(self)
-        self.program2 = dutchProgram(self)
+        #self.program1=dutchProgram(self)
+        #self.program2 = dutchProgram(self)
 
     def getProxy(self, name):
         try:

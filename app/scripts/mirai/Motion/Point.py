@@ -12,10 +12,10 @@ tts.setLanguage("Dutch")
 
 def point():
     # Steekt arm naar voren om pasje te scannen
-    names = ["LShoulderRoll", "LShoulderPitch"]
+    names = ["LShoulderRoll", "LShoulderPitch", "LElbowRoll", "LWristYaw"]
     joint.setStiffnesses(names, 1)
-    angleLists = [2, 2]
-    times = [2, 2]
+    angleLists = [3, 3, -0.0087, -1.8329]
+    times = [1, 1, 2, 2]
     isAbsolute = True
     joint.angleInterpolation(names, angleLists, times, isAbsolute)
 

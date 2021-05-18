@@ -24,37 +24,45 @@ class PeoplePerception(object):
         self._proxy.setTimeBeforePersonDisappears(time)
         self._proxy.setTimeBeforeVisiblePersonDisappears(time)
 
-        #give callback when event rises
-        self._memProxy.subscribeToEvent('PeoplePerception/JustArrived', 'this', 'arrivedCallback')
-        #self.subscriber=self._memProxy.subscribeToEvent('PeoplePerception/JustArrived')
-        #self.subscriber.signal.connect(self.arrivedCallback)
+        while True:
+            #give callback when event rises
+            #self._memProxy.subscribeToEvent('PeoplePerception/JustArrived', 'this', 'arrivedCallback')
+            self.subscriber=self._memProxy.subscribeToEvent('PeoplePerception/JustArrived')
+            self.subscriber.signal.connect(self.arrivedCallback)
 
-        # give callback when event rises
-        self._memProxy.subscribeToEvent('PeoplePerception/JustLeft', 'this', 'leftCallback')
-        #self.subscriber1=self._memProxy.subscriber('PeoplePerception/JustLeft()')
-        #self.subscriber1.signal.connect(self.leftCallback)
-        threading.Thread(target=self.procesPeople).start()
-        print ("einde def people")
+            # give callback when event rises
+            #self._memProxy.subscribeToEvent('PeoplePerception/JustLeft', 'this', 'leftCallback')
+            self.subscriber1=self._memProxy.subscriber('PeoplePerception/JustLeft')
+            self.subscriber1.signal.connect(self.leftCallback)
+            threading.Thread(target=self.procesPeople).start()
+            print ("einde def people")
 
-    def arrivedCallback(self):
-        self._peopleCounter = +1
+    def arrivedCallback(self,val):
+        if val != []:  # als value niet leeg is count 1
+            self._peopleCounter = +1
 
-    def leftCallback(self):
-        self._peopleCounter = -1
+    def leftCallback(self,val):
+        if val != []:  # als value niet leeg is minus 1
+            self._peopleCounter = -1
 
     def procesPeople(self):
         print ("in process def")
-        #stay looping to check if second boolean is tru or false
+        #stay looping to check if second boolean is true or false
         while True:
             #if there are more than 1 person visible run the code
             while (self._peopleCounter >1):
                 #save al ID's from visible poeple in an list
                 self._peopleList = self._memProxy.getData("PeoplePerception/VisiblePeopleList")
+                print "dit is people list"
+                print self._peopleList
                 distanceList=[]
                 for i in range (len(self._peopleList)):
                     # get the distance from al the visible poeple
                     distance = self._memProxy.getData("PeoplePerception/Person/" + str(self._peopleList[i]) + "/Distance")
                     distanceList.append(distance)
+
+                print "dit is distance list"
+                print distanceList
 
                 for j in range (len(distanceList)):
                     #phytagorean theorie to know the unknow distance

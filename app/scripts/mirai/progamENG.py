@@ -1,7 +1,7 @@
 import time
 from MQTT import MQTTListenerBaseClass
 
-class engProgram(MQTTListenerBaseClass):
+class engProgram():
     def __init__(self, mirai):
 
         def q0(self):

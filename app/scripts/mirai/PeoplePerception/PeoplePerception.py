@@ -27,7 +27,7 @@ class PeoplePerception(object):
         while True:
             #give callback when event rises
             #self._memProxy.subscribeToEvent('PeoplePerception/JustArrived', 'this', 'arrivedCallback')
-            self.subscriber=self._memProxy.subscribeToEvent('PeoplePerception/JustArrived')
+            self.subscriber=self._memProxy.subscriber('PeoplePerception/JustArrived')
             self.subscriber.signal.connect(self.arrivedCallback)
 
             # give callback when event rises
@@ -35,7 +35,6 @@ class PeoplePerception(object):
             self.subscriber1=self._memProxy.subscriber('PeoplePerception/JustLeft')
             self.subscriber1.signal.connect(self.leftCallback)
             threading.Thread(target=self.procesPeople).start()
-            print ("einde def people")
 
     def arrivedCallback(self,val):
         if val != []:  # als value niet leeg is count 1
@@ -46,7 +45,6 @@ class PeoplePerception(object):
             self._peopleCounter = -1
 
     def procesPeople(self):
-        print ("in process def")
         #stay looping to check if second boolean is true or false
         while True:
             #if there are more than 1 person visible run the code

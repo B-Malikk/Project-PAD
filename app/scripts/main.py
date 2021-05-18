@@ -29,6 +29,7 @@ class Main(object):
             personInzone1 = self.mirai.engagementZone.personInZone1
             if personInzone1:
                 # Scan card motion - this is for Bryan
+                print ("werkt")
                 self.mirai.textToSpeech.say("Scan je pasje")
 
     def sayWelcome(self):

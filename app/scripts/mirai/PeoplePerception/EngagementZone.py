@@ -41,14 +41,17 @@ class EngagementZones(object):
             self.personInZone1 = False
 
     def processZones(self):
+        print "processing"
         while True:
             self.subscriber = self._memProxy.subscriber("EngagementZones/PersonEnteredZone1")
             self.subscriber.signal.connect(self.setInfoZone1a)
+            print (" in while")
 
             self.subscriber1 = self._memProxy.subscriber("EngagementZones/PersonMovedAway")
             self.subscriber1.signal.connect(self.setInfoZone1b)
 
     def start(self):
+        print "engage gestart"
         thread = threading.Thread(target=self.processZones)
         thread.start()
 

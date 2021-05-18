@@ -34,7 +34,7 @@ class FaceDetection(object):
 
 
     def startFaceDetection(self):
-        #self._proxy.setTrackingEnabled(False)
+        #self._proxy.setTrackingEnabled(True)
         # Subscribe to the ALFaceDetection proxy
         # This means that the module will write in ALMemory with
         # the given period 500

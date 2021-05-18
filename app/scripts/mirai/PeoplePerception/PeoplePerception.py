@@ -9,7 +9,6 @@ class PeoplePerception(object):
         self._memProxy = mirai.getProxy('ALMemory')
         self._peopleList = []
         self._peopleCounter = 0
-        self.startPeopleDetection(4, 10)
 
     def setRange(self, range):
         self._proxy.setMaximumDetectionRange(range)

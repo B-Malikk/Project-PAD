@@ -98,3 +98,5 @@ class Motion(object):
         times = [2, 2, 2]
         isAbsolute = True
         self._proxy.angleInterpolation(names, angleLists, times, isAbsolute)
+
+        

@@ -9,8 +9,10 @@ from mirai._mirai import Mirai
 class Main(object):
     def __init__(self):
         self.mirai = Mirai("mirai.robot.hva-robots.nl", 9559)
-        self.mirai.engagementZone.setFirstLimit(1,90)
+        self.mirai.engagementZone.setFirstLimit(0.1,90)
+        self.mirai.engagementZone.start()
         print(self.mirai.engagementZone.getFirstLimit())
+
 
         self.mirai.textToSpeech.say("kaas")
         #self.mirai.tablet.closePage()
@@ -25,6 +27,7 @@ class Main(object):
         while True:
             personInzone1 = self.mirai.engagementZone.personInZone1
             if personInzone1:
+                self.mirai.motion.scanner()
                 # Scan card motion - this is for Bryan
                 print ("werkt")
                 self.mirai.textToSpeech.say("Scan je pasje")

@@ -28,48 +28,25 @@ class EngagementZones(object):
     def getAngle(self):
         return self._proxy.getlimitAngle()
 
-    def processFirstZone(self):
-        # give callback when event rises(person in zone 1)
-        self._memProxy.subscribeToEvent('EngagementZones/PersonEnteredZone1','EngagementZones','setInfoZone1a')
 
-        #subscriber1 = self._memProxy.subscriber('EngagementZones/PersonEnteredZone1')
-        #subscriber1.signal.connect(self.setInfoZone1a())
-        # give callback when event rises(person left zone 1)
-        self._memProxy.subscribeToEvent('EngagementZones/PersonMovedAway', 'EngagementZones', 'setInfoZone1b')
-        #subscriber2=self._memProxy.subscriber('EngagementZones/PersonMovedAway')
-        #subscriber2.signal.connect(self.setInfoZone1b())
+    def setInfoZone1a(self,val):
+        print("person entered zone 1")
+        if val != []:  # als value niet leeg is dan is er iemand in zone 1
+            self.personInZone1 = True
+        elif val == []:
+            self.personInZone1 = False
 
-    def getInfoZone1(self):
-        return self.personInZone1
-
-    def setInfoZone1a(self):
-        self.personInZone1 = True
-
-    def setInfoZone1b(self):
-        self.personInZone1 = False
-
-    def procesSecondZone(self):
-        # give callback when event rises(person in zone 2)
-        self._memProxy.subscribeToEvent('EngagementZones/PersonEnteredZone2', 'EngagementZones', 'setInfoZone2a')
-        #subscriber1=self._memProxy.subscribeToEvent('EngagementZones/PersonEnteredZone2')
-        #subscriber1.signal.connect(self.setInfoZone2a())
-        # give callback when event rises(person left zone 2)
-        self._memProxy.subscribeToEvent('EngagementZones/PersonMovedAway', 'EngagementZones', 'setInfoZone2b')
-        #subscriber2=self._memProxy.subscribeToEvent('EngagementZones/PersonMovedAway')
-        #subscriber2.signal.connect(self.setInfoZone2b())
-
-    def getInfoZone2(self):
-        return self.personInZone2
-
-    def setInfoZone2a(self):
-        self.personInZone2=True
-    def setInfoZone2b(self):
-        self.personInZone2=False
+    def setInfoZone1b(self,val):
+        if val != []:  # als value niet leeg is dan heeft iemand zone 1 verlaten
+            self.personInZone1 = False
 
     def processZones(self):
         while True:
-            self.processFirstZone()
-            self.procesSecondZone()
+            self.subscriber = self._memProxy.subscriber("EngagementZones/PersonEnteredZone1")
+            self.subscriber.signal.connect(self.setInfoZone1a)
+
+            self.subscriber1 = self._memProxy.subscriber("EngagementZones/PersonMovedAway")
+            self.subscriber1.signal.connect(self.setInfoZone1b)
 
     def start(self):
         thread = threading.Thread(target=self.processZones)

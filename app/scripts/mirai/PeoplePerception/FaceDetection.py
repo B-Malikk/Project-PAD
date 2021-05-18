@@ -12,17 +12,29 @@ class FaceDetection(object):
         self._faceId = None
         self._distance = None
         self._gotFace = False
+        threading.Thread(target=self.startFaceDetection).start()
+
+
         # Get the services
 
     def processFaceDetection(self):
 
         while self.faceDetectionStarted:
-            self._memProxy.subscribeToEvent('FaceDetected', 'FaceDetection', 'setFaceInfo')
+            self.subscriber = self._memProxy.subscriber("FaceDetected")
+            self.subscriber.signal.connect(self.on_human_tracked)
+
+    def on_human_tracked(self, value):
+        if value == []:  # empty value when the face disappears
+            self._gotFace = False
+        elif not self._gotFace:  # only speak the first time a face appears
+            self._gotFace = True
+            print "I saw a face!"
+
 
 
 
     def startFaceDetection(self):
-        self._proxy.setTrackingEnabled(False)
+        #self._proxy.setTrackingEnabled(False)
         # Subscribe to the ALFaceDetection proxy
         # This means that the module will write in ALMemory with
         # the given period 500

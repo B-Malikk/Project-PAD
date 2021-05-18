@@ -11,16 +11,15 @@ class Main(object):
         self.mirai = Mirai("mirai.robot.hva-robots.nl", 9559)
         self.mirai.motion.wakeUp()
         self.mirai.engagementZone.setFirstLimit(1,90)
+        self.mirai.engagementZone(4,8)
         print(self.mirai.engagementZone.getFirstLimit())
 
         self.mirai.textToSpeech.say("kaas")
-        self.mirai.tablet.closePage()
+        #self.mirai.tablet.closePage()
         #self.mirai.tablet.openPage("https://oege.ie.hva.nl/~polmpm/robot/language.html")
 
-        thread = threading.Thread(target=self.mirai.peoplePerception.startPeopleDetection(5,8))
         thread1 = threading.Thread(target=self.sayScanCard)
         thread2 = threading.Thread(target=self.sayWelcome)
-        thread.start()
         thread1.start()
         thread2.start()
 

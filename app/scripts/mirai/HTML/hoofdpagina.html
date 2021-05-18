@@ -15,7 +15,7 @@
 		var reconnectTimeout = 2000;
 
         var host="azsx.nl";
-		var port=8080
+		var port=8083
 
         function onConnect() {
 	  // Once a connection has been made, make a subscription and send a message.
@@ -60,6 +60,7 @@
 		var options = {
 
 			timeout: 3,
+            useSSL:true,
 			onSuccess: onConnect,
 
 		 };

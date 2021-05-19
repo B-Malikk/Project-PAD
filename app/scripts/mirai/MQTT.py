@@ -32,3 +32,5 @@ class MQTTListenerBaseClass(object):
     def on_event(self, msg):
         print(msg.topic + " " + str(msg.payload) + " (you should override the on_event method)")
 
+    def publish(self, payload=None):
+        self.client.publish(self.topic, payload)

@@ -2,6 +2,7 @@
 A sample showing how to make a Python script as an app.
 """
 import threading
+import time
 
 from mirai._mirai import Mirai
 
@@ -9,14 +10,15 @@ from mirai._mirai import Mirai
 class Main(object):
     def __init__(self):
         self.mirai = Mirai("mirai.robot.hva-robots.nl", 9559)
-        self.mirai.engagementZone.setFirstLimit(0.1,90)
-        self.mirai.engagementZone.start()
-        print(self.mirai.engagementZone.getFirstLimit())
+        #self.mirai.motion.wakeUp()
+        self.mirai.motion.hoofd()
+        self.mirai.peoplePerception.setRange(4)
+        self.mirai.peoplePerception.setDisappearTime(10)
 
 
         self.mirai.textToSpeech.say("kaas")
         #self.mirai.tablet.closePage()
-        #self.mirai.tablet.openPage("https://oege.ie.hva.nl/~polmpm/robot/language.html")
+        self.mirai.tablet.openPage("https://oege.ie.hva.nl/~polmpm/robot/language.html")
 
         thread1 = threading.Thread(target=self.sayScanCard)
         thread2 = threading.Thread(target=self.sayWelcome)
@@ -25,17 +27,15 @@ class Main(object):
 
     def sayScanCard(self):
         while True:
-            personInzone1 = self.mirai.engagementZone.personInZone1
-            if personInzone1:
+            if self.mirai.peoplePerception.getNewPersonDistance() <= 1 and self.mirai.peoplePerception.getNewPersonDistance() >= 0.5:
                 self.mirai.motion.scanner()
-                # Scan card motion - this is for Bryan
                 print ("werkt")
                 self.mirai.textToSpeech.say("Scan je pasje")
+                time.sleep(20)
 
     def sayWelcome(self):
-        previous = self.mirai.peoplePerception._peopleCounter
         while True:
-            if self.mirai.peoplePerception._peopleCounter == 1 and previous == 0:
+            if self.mirai.peoplePerception.newPersonDetected:
                 self.mirai.animations.Hey.run(1)
                 self.mirai.textToSpeech.say("Welkom in het Wibauthuis")
 

@@ -12,8 +12,8 @@ class Main(object):
         self.mirai = Mirai("mirai.robot.hva-robots.nl", 9559)
         #self.mirai.motion.wakeUp()
         self.mirai.motion.hoofd()
-        self.mirai.peoplePerception.setRange(4)
-        self.mirai.peoplePerception.setDisappearTime(10)
+        self.mirai.peoplePerception.setRange(6)
+        self.mirai.peoplePerception.setDisappearTime(20)
 
 
         self.mirai.textToSpeech.say("kaas")
@@ -28,20 +28,22 @@ class Main(object):
     def sayScanCard(self):
         while True:
             if self.mirai.peoplePerception.getNewPersonDistance() <= 1 and self.mirai.peoplePerception.getNewPersonDistance() >= 0.8 and self.mirai.robotState.getPosture()=='open':
+                print ("scan pasje")
                 self.mirai.robotState.setPosture('scan')
                 self.mirai.motion.scanner()
                 self.mirai.textToSpeech.say("Scan je pasje")
                 self.mirai.robotState.setPosture('open')
-                time.sleep(20)
+                time.sleep(10)
 
     def sayWelcome(self):
         while True:
             if self.mirai.peoplePerception.newPersonDetected and self.mirai.robotState.getPosture()=='open':
+                print ("welkom")
                 self.mirai.robotState.setPosture('welcome')
                 self.mirai.animations.Hey.run(1)
                 self.mirai.textToSpeech.say("Welkom in het Wibauthuis")
                 self.mirai.robotState.setPosture('open')
-                time.sleep(20)
+                time.sleep(10)
 
 
 

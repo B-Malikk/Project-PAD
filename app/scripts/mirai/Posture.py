@@ -5,12 +5,6 @@ class Posture(object):
         self.proxy = mirai.getProxy("ALRobotPosture")
         self.currentPosture = 'open'
 
-    def getPosture(self):
-        return self.currentPosture
-
-
-    def setPosture(self, postureName):
-        self.currentPosture = postureName
 
 
     def apply(self, blocking=True):

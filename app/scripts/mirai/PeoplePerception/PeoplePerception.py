@@ -35,7 +35,7 @@ class PeoplePerception(object):
         #self._memProxy.subscribeToEvent('PeoplePerception/JustLeft', 'this', 'leftCallback')
         #self.subscriber1=self._memProxy.subscriber('PeoplePerception/JustLeft')
         #self.subscriber1.signal.connect(self.leftCallback)
-        #threading.Thread(target=self.procesPeople).start()
+        threading.Thread(target=self.procesPeople).start()
 
     def arrivedCallback(self,id):
         print "new person"
@@ -56,6 +56,7 @@ class PeoplePerception(object):
 
     def procesPeople(self):
         #stay looping to check if second boolean is true or false
+        print ("in procespeople")
         while True:
             # save al ID's from visible poeple in an list
             self._peopleList = self._memProxy.getData("PeoplePerception/VisiblePeopleList")
@@ -65,22 +66,26 @@ class PeoplePerception(object):
                 print "dit is people list"
                 print self._peopleList
                 distanceList=[]
-                for i in range (len(self._peopleList)):
+                for person in self._peopleList:
                     # get the distance from al the visible poeple
-                    distance = self._memProxy.getData("PeoplePerception/Person/" + str(self._peopleList[i]) + "/Distance")
-                    distanceList.append(distance)
+                    try:
+                        distance = self._memProxy.getData("PeoplePerception/Person/" + str(person) + "/Distance")
+                        distanceList.append(distance)
+                    except:
+                        pass
 
                 print "dit is distance list"
                 print distanceList
 
-                for j in range (len(distanceList)):
-                    #phytagorean theorie to know the unknow distance
+                def tooClose(givenDistance, distanceList):
+                    for distance in distanceList:
+                        range = [distance - .75, distance + .75]
+                        if givenDistance > range[0] and givenDistance < range[1]:
+                            return True
+                    return False
 
-                    try: distanceC=distanceList[(j+1)]
-                    except:distanceC=distanceList[j]
-
-                    distanceA=distanceList[j]
-                    distanceB=distanceC**2-distanceA**2
-                    if ((distanceB**0,5) <= 1.5):
+                for distance in distanceList:
+                    if tooClose(distance, distanceList):
                         print(" je staat te dichtbij")
                         self._mirai.textToSpeech.say("Houden jullie rekening met de annderhalve meter")
+                        break

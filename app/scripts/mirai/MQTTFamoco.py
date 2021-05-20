@@ -123,10 +123,12 @@ class MQTTFamoco(object):
 
     def on_error(self):
         if self.mirai:
+            self.mirai.motion.setStiffnesses(1.0)
             self.mirai.textToSpeech.say("Er ging iets mis.")
 
     def on_success(self):
         if self.mirai:
+            self.mirai.motion.setStiffnesses(1.0)
             self.mirai.textToSpeech.say("Welkom.")
             self.mirai.motion.scanner()
             if self.mirai:

@@ -2,12 +2,14 @@ import threading
 import time
 
 class EngagementZones(object):
+
     personInZone1=False
     personInZone2=False
 
     def __init__(self, mirai):
         self._mirai = mirai
         self._proxy = mirai.getProxy('ALEngagementZones')
+        self._pproxy = mirai.getProxy('ALPeoplePerception')
         self._memProxy = mirai.getProxy('ALMemory')
         self.start()
 
@@ -29,11 +31,11 @@ class EngagementZones(object):
         return self._proxy.getlimitAngle()
 
 
-    def setInfoZone1a(self,val):
+    def setInfoZone1a(self,event, id, subid):
         print("person entered zone 1")
-        if val != []:  # als value niet leeg is dan is er iemand in zone 1
+        if event != []:  # als value niet leeg is dan is er iemand in zone 1
             self.personInZone1 = True
-        elif val == []:
+        elif event == []:
             self.personInZone1 = False
 
     def setInfoZone1b(self,val):
@@ -42,13 +44,15 @@ class EngagementZones(object):
 
     def processZones(self):
         print "processing"
-        while True:
-            self.subscriber = self._memProxy.subscriber("EngagementZones/PersonEnteredZone1")
-            self.subscriber.signal.connect(self.setInfoZone1a)
-            print (" in while")
+        self.ppsubscriber = self._memProxy.subscriber("PeoplePerception/PeopleDetected")
+        self.ppsubscriber.signal.connect
 
-            self.subscriber1 = self._memProxy.subscriber("EngagementZones/PersonMovedAway")
-            self.subscriber1.signal.connect(self.setInfoZone1b)
+        self.subscriber = self._memProxy.subscriber("EngagementZones/PersonEnteredZone1")
+        self.subscriber.signal.connect(self.setInfoZone1a)
+
+
+        self.subscriber1 = self._memProxy.subscriber("EngagementZones/PersonMovedAway")
+        self.subscriber1.signal.connect(self.setInfoZone1b)
 
     def start(self):
         print "engage gestart"

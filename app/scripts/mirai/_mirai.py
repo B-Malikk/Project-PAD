@@ -17,6 +17,7 @@ from PeoplePerception.PeoplePerception import PeoplePerception
 from MQTTCardReader import MQTTCardReader
 from MQTTFamoco import MQTTFamoco
 from MQTTWebListener import MQTTWebListener
+from RobotState import RobotState
 from progamNL import dutchProgram
 from progamENG import engProgram
 
@@ -53,6 +54,7 @@ class Mirai(object):
         self.mqttFamoco = MQTTFamoco(self)
         self.mqttWebListener = MQTTWebListener(self)
         self.tablet = Tablet(self)
+        self.robotState=RobotState(self)
         #self.program1=dutchProgram(self)
         #self.program2 = dutchProgram(self)
 

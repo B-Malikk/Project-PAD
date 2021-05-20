@@ -99,4 +99,5 @@ class Motion(object):
         isAbsolute = True
         self._proxy.angleInterpolation(names, angleLists, times, isAbsolute)
 
-        
+    def hoofd(self):
+        self._proxy.angleInterpolation("HeadPitch", -0.4, 2, True)

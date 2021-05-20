@@ -27,21 +27,24 @@ class Main(object):
 
     def sayScanCard(self):
         while True:
-            if self.mirai.peoplePerception.getNewPersonDistance() <= 1 and self.mirai.peoplePerception.getNewPersonDistance() >= 0.8 and self.mirai.posture.getPosture()=='open':
-                self.mirai.posture.setPosture('scan')
+            if self.mirai.peoplePerception.getNewPersonDistance() <= 1 and self.mirai.peoplePerception.getNewPersonDistance() >= 0.8 and self.mirai.robotState.getPosture()=='open':
+                self.mirai.robotState.setPosture('scan')
                 self.mirai.motion.scanner()
                 self.mirai.textToSpeech.say("Scan je pasje")
-                self.mirai.posture.setPosture('open')
+                self.mirai.robotState.setPosture('open')
                 time.sleep(20)
 
     def sayWelcome(self):
         while True:
-            if self.mirai.peoplePerception.newPersonDetected and self.mirai.posture.getPosture()=='open':
-                self.mirai.posture.setPosture('welcome')
+            if self.mirai.peoplePerception.newPersonDetected and self.mirai.robotState.getPosture()=='open':
+                self.mirai.robotState.setPosture('welcome')
                 self.mirai.animations.Hey.run(1)
                 self.mirai.textToSpeech.say("Welkom in het Wibauthuis")
-                self.mirai.posture.setPosture('open')
+                self.mirai.robotState.setPosture('open')
                 time.sleep(20)
+
+
+
 
 if __name__ == "__main__":
     main = Main()

@@ -2,8 +2,8 @@
 #include <PubSubClient.h>
 #include <SimpleKalmanFilter.h>
 
-#define WIFI_SSID "Transrights"
-#define WIFI_PASSWORD "knuffeltjes!54"
+#define WIFI_SSID "SSID"
+#define WIFI_PASSWORD "WACHTWOORD"
 
 #define MQTT_HOST "mqtt.hva-robots.nl"
 #define MQTT_PORT 1883

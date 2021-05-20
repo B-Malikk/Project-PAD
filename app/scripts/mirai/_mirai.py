@@ -15,6 +15,7 @@ from PeoplePerception.EngagementZone import EngagementZones
 from PeoplePerception.FaceDetection import FaceDetection
 from PeoplePerception.PeoplePerception import PeoplePerception
 from MQTTCardReader import MQTTCardReader
+from MQTTFamoco import MQTTFamoco
 from MQTTWebListener import MQTTWebListener
 from progamNL import dutchProgram
 from progamENG import engProgram
@@ -49,7 +50,7 @@ class Mirai(object):
         self.engagementZone = EngagementZones(self)
         self.faceDetection = FaceDetection(self)
         self.peoplePerception = PeoplePerception(self)
-        self.mqttCardReader = MQTTCardReader(self)
+        self.mqttFamoco = MQTTFamoco(self)
         self.mqttWebListener = MQTTWebListener(self)
         self.tablet = Tablet(self)
         #self.program1=dutchProgram(self)

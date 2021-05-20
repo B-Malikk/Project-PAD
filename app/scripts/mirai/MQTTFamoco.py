@@ -40,8 +40,7 @@ class FamacoEventDetection(object):
                 self.setEvent(EVENT_NORMAL)
             elif self.lastEvent != EVENT_NORMAL and value != self.getMode() and self.shouldFireEvent(value):
                 diff = datetime.utcnow() - self.lastEventChange
-                if diff.seconds > 20:
-                    print("new normal!")
+                if diff.seconds > 10:
 
                     # Empty buffer
                     self.pastReadings = []
@@ -79,8 +78,8 @@ class FamacoEventDetection(object):
 class MQTTFamoco(object):
     client = None
     hostname = 'mqtt.hva-robots.nl'
-    topic = 'robots/mirai/scan'
-    client_id = 'dekkerm54'
+    topic = 'dekkerm54/scan'
+    client_id = 'dekkerm54_pas_sub'
     username = 'dekkerm54'
     password = 'En6Gd6CEZqxTSAQ4ROyn'
 
@@ -122,10 +121,10 @@ class MQTTFamoco(object):
         self.client.publish(self.topic, payload)
 
     def on_error(self):
-        print("Error!")
+        if self.mirai:
+            self.mirai.textToSpeech.say("Er ging iets mis.")
 
     def on_success(self):
-        print("Success!")
         if self.mirai:
             self.mirai.textToSpeech.say("Welkom.")
 

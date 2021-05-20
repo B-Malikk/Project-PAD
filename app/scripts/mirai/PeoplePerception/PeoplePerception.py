@@ -1,5 +1,6 @@
 import threading
 import time
+import math
 
 
 class PeoplePerception(object):
@@ -84,6 +85,7 @@ class PeoplePerception(object):
                 print "dit is people list"
                 print self._peopleList
                 distanceList=[]
+                angleList=[]
                 for person in self._peopleList:
                     angleList = self.peopleData.get(person)
                     # get the distance from al the visible poeple
@@ -93,18 +95,11 @@ class PeoplePerception(object):
                     except:
                         pass
 
-                print "dit is distance list"
-                print distanceList
-
-                def tooClose(givenDistance, distanceList):
-                    for distance in distanceList:
-                        range = [distance - .75, distance + .75]
-                        if givenDistance > range[0] and givenDistance < range[1]:
-                            return True
-                    return False
-
-                for distance in distanceList:
-                    if tooClose(distance, distanceList):
+                for i in range(len(self._peopleList)):
+                    angle=(angleList[i]-angleList[i+1])
+                    lenghtA=distanceList[i]
+                    lenghtB=distanceList[i+1]
+                    distance=math.sqrt(lenghtA**2+lenghtB**2-2*lenghtA*lenghtB*math.cos(angle))
+                    if distance<=1.5:
                         print(" je staat te dichtbij")
                         self._mirai.textToSpeech.say("Houden jullie rekening met de annderhalve meter")
-                        break

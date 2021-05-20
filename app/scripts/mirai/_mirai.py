@@ -52,6 +52,7 @@ class Mirai(object):
         self.faceDetection = FaceDetection(self)
         self.peoplePerception = PeoplePerception(self)
         self.mqttFamoco = MQTTFamoco(self)
+        self.mqttCardReader = MQTTCardReader(self)
         self.mqttWebListener = MQTTWebListener(self)
         self.tablet = Tablet(self)
         self.robotState=RobotState(self)

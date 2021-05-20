@@ -46,7 +46,10 @@ class PeoplePerception(object):
 
 
     def getNewPersonDistance(self):
-        return self._memProxy.getData("PeoplePerception/Person/" + str(self.newPersonID) + "/Distance")
+        try:
+            return self._memProxy.getData("PeoplePerception/Person/" + str(self.newPersonID) + "/Distance")
+        except:
+            pass
 
 
 

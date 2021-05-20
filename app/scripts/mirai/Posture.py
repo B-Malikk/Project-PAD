@@ -3,12 +3,21 @@ class Posture(object):
     def __init__(self, mirai):
         self.name = self.__class__.__name__
         self.proxy = mirai.getProxy("ALRobotPosture")
+        self.currentPosture = 'open'
 
     def apply(self, blocking=True):
         if not blocking:
             self.proxy.post.goToPosture(self.name, 1.0)
         else:
             self.proxy.goToPosture(self.name, 1.0)
+
+    def getPosture(self):
+        return self.currentPosture
+
+
+    def setPosture(self,postureName):
+        self.currentPosture = postureName
+
 
 class StandInit(Posture):
     pass

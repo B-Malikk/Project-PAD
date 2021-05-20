@@ -17,7 +17,7 @@ class Main(object):
 
 
         self.mirai.textToSpeech.say("kaas")
-        #self.mirai.tablet.closePage()
+        self.mirai.tablet.closePage()
         self.mirai.tablet.openPage("https://oege.ie.hva.nl/~polmpm/robot/language.html")
 
         thread1 = threading.Thread(target=self.sayScanCard)
@@ -27,17 +27,21 @@ class Main(object):
 
     def sayScanCard(self):
         while True:
-            if self.mirai.peoplePerception.getNewPersonDistance() <= 1 and self.mirai.peoplePerception.getNewPersonDistance() >= 0.5:
+            if self.mirai.peoplePerception.getNewPersonDistance() <= 1 and self.mirai.peoplePerception.getNewPersonDistance() >= 0.8 and self.mirai.posture.getPosture()=='open':
+                self.mirai.posture.setPosture('scan')
                 self.mirai.motion.scanner()
-                print ("werkt")
                 self.mirai.textToSpeech.say("Scan je pasje")
+                self.mirai.posture.setPosture('open')
                 time.sleep(20)
 
     def sayWelcome(self):
         while True:
-            if self.mirai.peoplePerception.newPersonDetected:
+            if self.mirai.peoplePerception.newPersonDetected and self.mirai.posture.getPosture()=='open':
+                self.mirai.posture.setPosture('welcome')
                 self.mirai.animations.Hey.run(1)
                 self.mirai.textToSpeech.say("Welkom in het Wibauthuis")
+                self.mirai.posture.setPosture('open')
+                time.sleep(20)
 
 if __name__ == "__main__":
     main = Main()

@@ -9,12 +9,13 @@ EVENT_NORMAL = 0
 EVENT_SUCCESS = 1
 EVENT_ERROR = -1
 
+
 class FamacoEventDetection(object):
     pastReadings = []
     MAX_BUFFER_SIZE = 100
 
     lastEvent = 0
-    lastEventChange = None #datetime.utcnow()
+    lastEventChange = None  # datetime.utcnow()
 
     callbackObject = None
 
@@ -51,7 +52,6 @@ class FamacoEventDetection(object):
 
                     self.setEvent(EVENT_NORMAL)
 
-
     def shouldFireEvent(self, value):
         values = [x['value'] for x in self.pastReadings[-4:-1]]
         lastValue = value
@@ -72,8 +72,9 @@ class FamacoEventDetection(object):
         self.lastEvent = event
         if event == EVENT_ERROR:
             self.callbackObject.on_error()
-        elif event ==  EVENT_SUCCESS:
+        elif event == EVENT_SUCCESS:
             self.callbackObject.on_success()
+
 
 class MQTTFamoco(object):
     client = None
@@ -127,6 +128,10 @@ class MQTTFamoco(object):
     def on_success(self):
         if self.mirai:
             self.mirai.textToSpeech.say("Welkom.")
+            self.mirai.motion.scanner()
+            if self.mirai:
+                self.mirai.motion.setAngles("RElbowRoll", 0, 4)
+
 
 if __name__ == "__main__":
     listener = MQTTFamoco(None)

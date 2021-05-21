@@ -3,6 +3,16 @@ import time
 import math
 from datetime import datetime
 
+class Position(object):
+    x = 0
+    y = 0
+
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+    def __str__(self):
+        return "(x: {:.2f}, y: {:.2f})".format(self.x, self.y)
 
 class Person(object):
     id = None
@@ -11,59 +21,64 @@ class Person(object):
     yawAngle = None
     lastSeen = None
 
+    rawData = None
+    position = None
+
     def __init__(self, data):
         self.id = data[0]
-        self.distance = data[1]
-        self.pitchAngle = data[2]
-        self.yawAngle = data[3]
-        self.seen()
+        self.update(data)
+        self.rawData = data
 
     def seen(self):
         self.lastSeen = datetime.utcnow()
 
+    def update(self, data):
+        self.distance = data[1]
+        self.pitchAngle = math.degrees(data[2])
+        self.yawAngle = math.degrees(data[3])
+        self.seen()
+        self.updatePosition()
+
     def equals(self, person):
         return person.id == self.id
 
+    def updatePosition(self):
+        angleA = math.radians(90)
+        angleB = math.radians(self.yawAngle if self.yawAngle > 0 else -1*self.yawAngle)
+
+        distanceA = self.distance
+        distanceB = (distanceA / math.sin(angleA)) * math.sin(angleB)
+        angleC = math.radians(180 - math.degrees(angleA) - math.degrees(angleB))
+        distanceC = (distanceA / math.sin(angleA)) * math.sin(angleC)
+
+        x = distanceB if self.yawAngle > 0 else -1*distanceB
+        y = distanceC
+        self.position = Position(x, y)
+
     def __str__(self):
-        return "ID: {}, distance: {}".format(self.id, int(self.distance*10)/10)
+        return "Person (ID: {}, distance: {:.2f}m, pitch: {}, angle: {}, pos: {})".format(self.id, self.distance, self.pitchAngle, self.yawAngle, self.position)
 
 class PeoplePerception(object):
 
     def __init__(self, mirai):
         self._mirai = mirai
         self._proxy = mirai.getProxy('ALPeoplePerception')
-        self._proxy.subscribe("PeoplePerceptionSubscriber") # This is needed for it to work!
 
         self._memProxy = mirai.getProxy('ALMemory')
         self._peopleList = []
 
-        self.startPeopleDetection()
-
-    def setRange(self, range):
-        self._proxy.setMaximumDetectionRange(range)
-
-    def setDisappearTime(self, time):
-        self._proxy.setTimeBeforePersonDisappears(time)
-        self._proxy.setTimeBeforeVisiblePersonDisappears(time)
-
-    def reset(self):
-        self._proxy.resetPopulation()
-
-    def startPeopleDetection(self):
-        self.reset()
         threading.Thread(target=self.processPeople).start()
 
     def arrivedCallback(self, person):
         print("arrivedCallback")
-        self._mirai.textToSpeech.say("welkom")
-
 
     def leftCallback(self, person):
         print("leftCallback")
-        self._mirai.textToSpeech.say("doei")
 
     def processPeople(self):
         while True:
+
+            self._proxy.subscribe("PeoplePerceptionSubscriber")  # This is needed for it to work!
             # add visible people to self._peopleList
             visiblePeople = self._memProxy.getData("PeoplePerception/VisiblePeopleList")
             peopleDetected = self._memProxy.getData("PeoplePerception/PeopleDetected")
@@ -73,11 +88,7 @@ class PeoplePerception(object):
                     person = Person(data)
                     if person.id in visiblePeople:
                         self.addPerson(person) # calls arrivedCallback()
-
-            # update last seen timestamp for visible people
-            for personId in visiblePeople:
-                person = self.findPerson(personId)
-                person.seen()
+                        # updates last seen timestamp for visible people as well
 
             # remove people who aren't visible for a while
             for person in self._peopleList:
@@ -85,6 +96,11 @@ class PeoplePerception(object):
                 if person.id not in visiblePeople and diff.seconds > 0.5:
                     self._peopleList.remove(person)
                     self.leftCallback(person) # calls leftCallback()
+
+            for person in self._peopleList:
+                print(person)
+
+            self.coronaProofing()
 
     def findPerson(self, id):
         for person in self._peopleList:
@@ -95,6 +111,12 @@ class PeoplePerception(object):
     def addPerson(self, personToAdd):
         for person in self._peopleList:
             if person.id == personToAdd.id:
+                person.update(personToAdd.rawData)
                 return
         self._peopleList.append(personToAdd)
         self.arrivedCallback(personToAdd)
+        return personToAdd
+
+    def coronaProofing(self):
+        if len(self._peopleList) >= 2:
+            pass

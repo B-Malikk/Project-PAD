@@ -14,7 +14,9 @@ class SpeechRecognition(object):
         self._speechRecognitionstarted=False
 
     def setVocabulary(self, vocabulary, wordSpotting=False):
+        self._proxy.pause(True)
         self._proxy.setVocabulary(vocabulary, wordSpotting)
+        self._proxy.pause(False)
 
     def getAudioExpression(self):
         self._audioExpression = self._proxy.getAudioExpression()
@@ -33,24 +35,28 @@ class SpeechRecognition(object):
         return self._proxy.getLanguage()
 
     def setLanguage(self, language):
+        self._proxy.pause(True)
         supported = self._proxy.getAvailableLanguages()
         if language not in supported:
             raise Exception("Language is not supported! Only the following languages can be used: {}".format(supported))
         self._proxy.setLanguage(language)
         self._language = language
+        self._proxy.pause(False)
 
     def startSpeecheRecognition(self):
+        print "speech started"
         try:
             self._proxy.unsubscribe("Test")
         except:
             pass
-        self._proxy.setVocabulary(self._vocabulary, False)
         self._proxy.subscribe("Test")
-        self.speech_recognition_started = True
+        self._speechRecognitionstarted = True
         threading.Thread(target=self.recognizeWord).start()
+        "thred gestaret"
 
     def recognizeWord(self):
         while self._speechRecognitionstarted:
+            print "in while true"
             recognize = self._memProxy.getData("WordRecognized")
 
             word = recognize[0]

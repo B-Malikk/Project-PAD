@@ -21,6 +21,7 @@ class MQTTWebListener(MQTTListenerBaseClass):
         elif str(msg.payload) == 'plattegrond':
             self.mirai.textToSpeech.say("je bent nu in het HVA Wibauthuis aan de wibautstraat.")
         #elif str(msg.payload) == 'dutch':
+
             #self.mirai.dialog.start_dialog("Dutch",self.topic_content2)
 
         elif str(msg.payload) == 'card':

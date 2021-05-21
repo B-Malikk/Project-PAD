@@ -25,13 +25,13 @@ class Dialog(object):
 
         while self._dialogStarted:
             time.sleep(1)
-            #try:
-                #raw_input("\nSpeak to the robot using rules from both the activated topics. Press Enter when finished:")
-            #finally:
-                #self.stop_dialog(self._topicName)
+            try:
+                raw_input("\nSpeak to the robot using rules from both the activated topics. Press Enter when finished:")
+            finally:
+                self.stop_dialog(self._topicName)
 
-        #self.dialog_service.deactivateTopic(topicName)
-        #self.dialog_service.unloadTopic(topicName)
+        self.dialog_service.deactivateTopic(topicName)
+        self.dialog_service.unloadTopic(topicName)
 
 
 

@@ -13,13 +13,15 @@ class EngagementZones(object):
         self._pproxy = mirai.getProxy('ALPeoplePerception')
         self._pproxy.subscribe("PeoplePerceptionSubscriber2")
         self._memProxy = mirai.getProxy('ALMemory')
+        self._personEnteredZone1 = False
+        self._personEnteredZone2 = False
         self.start()
 
     def setFirstLimit(self,firsLimit,limitAngle):
         self._proxy.setFirstLimitDistance(firsLimit)
         self._proxy.setLimitAngle(limitAngle)
 
-    def setSecondLimit(self, secondLimit,limitAngle):
+    def setSecondLimit(self,secondLimit,limitAngle):
         self._proxy.setSecondLimitDistance(secondLimit)
         self._proxy.setLimitAngle(limitAngle)
 
@@ -33,28 +35,38 @@ class EngagementZones(object):
         return self._proxy.getlimitAngle()
 
 
-    def setInfoZone1a(self,event, id, subid):
+    def zone1Callback(self,*args):
         print("person entered zone 1")
-        if event != []:  # als value niet leeg is dan is er iemand in zone 1
-            self.personInZone1 = True
-        elif event == []:
-            self.personInZone1 = False
+        self._personEnteredZone1 = True
+        time.sleep(5)
+        self._personEnteredZone1 = False
 
-    def setInfoZone1b(self,val):
-        if val != []:  # als value niet leeg is dan heeft iemand zone 1 verlaten
-            self.personInZone1 = False
+
+
+
+    def zone2Callback(self,*args):
+        print("person entered zone 2")
+        self._personEnteredZone2 = True
+        time.sleep(5)
+        self._personEnteredZone2 = False
+
+
+
+    def movedAwayCallback(self,*args):
+        print("person movedaway")
+
 
     def processZones(self):
         print "processing"
-        self.ppsubscriber = self._memProxy.subscriber("PeoplePerception/PeopleDetected")
-        self.ppsubscriber.signal.connect
 
         self.subscriber = self._memProxy.subscriber("EngagementZones/PersonEnteredZone1")
-        self.subscriber.signal.connect(self.setInfoZone1a)
+        self.subscriber.signal.connect(self.zone1Callback)
+        self.subscriber1 = self._memProxy.subscriber("EngagementZones/PersonEnteredZone2")
+        self.subscriber1.signal.connect(self.zone2Callback)
 
 
-        self.subscriber1 = self._memProxy.subscriber("EngagementZones/PersonMovedAway")
-        self.subscriber1.signal.connect(self.setInfoZone1b)
+        self.subscriber2 = self._memProxy.subscriber("EngagementZones/PersonMovedAway")
+        self.subscriber2.signal.connect(self.movedAwayCallback)
 
     def start(self):
         print "engage gestart"

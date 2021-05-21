@@ -99,5 +99,12 @@ class Motion(object):
         isAbsolute = True
         self._proxy.angleInterpolation(names, angleLists, times, isAbsolute)
 
+    def scan2(self):
+        names = ["RShoulderRoll", "RWristYaw"]
+        angleLists = [1.5, -1.8329]
+        times = [1, 1, 2, 2]
+        isAbsolute = True
+        self._proxy.angleInterpolation(names, angleLists, times, isAbsolute)
+
     def hoofd(self):
         self._proxy.angleInterpolation("HeadPitch", -0.4, 2, True)

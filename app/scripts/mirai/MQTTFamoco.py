@@ -128,7 +128,6 @@ class MQTTFamoco(object):
     def on_success(self):
         if self.mirai:
             self.mirai.textToSpeech.say("Welkom.")
-            self.mirai.motion.setStiffnesses(0)
 
 
 if __name__ == "__main__":

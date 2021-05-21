@@ -3,6 +3,17 @@ import time
 import math
 from datetime import datetime
 
+class Position(object):
+    x = 0
+    y = 0
+
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+    def __str__(self):
+        return "(x: {:.2f}, y: {:.2f})".format(self.x, self.y)
+
 class Person(object):
     id = None
     distance = None
@@ -11,6 +22,7 @@ class Person(object):
     lastSeen = None
 
     rawData = None
+    position = None
 
     def __init__(self, data):
         self.id = data[0]
@@ -25,12 +37,26 @@ class Person(object):
         self.pitchAngle = math.degrees(data[2])
         self.yawAngle = math.degrees(data[3])
         self.seen()
+        self.updatePosition()
 
     def equals(self, person):
         return person.id == self.id
 
+    def updatePosition(self):
+        angleA = math.radians(90)
+        angleB = math.radians(self.yawAngle if self.yawAngle > 0 else -1*self.yawAngle)
+
+        distanceA = self.distance
+        distanceB = (distanceA / math.sin(angleA)) * math.sin(angleB)
+        angleC = math.radians(180 - math.degrees(angleA) - math.degrees(angleB))
+        distanceC = (distanceA / math.sin(angleA)) * math.sin(angleC)
+
+        x = distanceB if self.yawAngle > 0 else -1*distanceB
+        y = distanceC
+        self.position = Position(x, y)
+
     def __str__(self):
-        return "Person (ID: {}, distance: {}m, pitch: {}, angle: {})".format(self.id, str(self.distance)[0:3], self.pitchAngle, self.yawAngle)
+        return "Person (ID: {}, distance: {:.2f}m, pitch: {}, angle: {}, pos: {})".format(self.id, self.distance, self.pitchAngle, self.yawAngle, self.position)
 
 class PeoplePerception(object):
 
@@ -92,4 +118,5 @@ class PeoplePerception(object):
         return personToAdd
 
     def coronaProofing(self):
-        pass
+        if len(self._peopleList) >= 2:
+            pass

@@ -1,8 +1,10 @@
 import math
+import threading
 from Chains import Head, LArm, RArm, Leg
 
 class Motion(object):
     """Base motion class. Contains all motion related things (body parts, joints, movement, etc)."""
+
 
     def __init__(self, mirai):
         self._proxy = mirai.getProxy("ALMotion")
@@ -92,10 +94,9 @@ class Motion(object):
         self._proxy.angleInterpolation(names, angleLists, times, isAbsolute)
 
     def scanner(self):
-        # Steekt arm naar voren om pasje te scannen
-        names = ["RElbowRoll", "RShoulderPitch", "RWristYaw"]
-        angleLists = [1, 0.785398, 2]
-        times = [2, 2, 2]
+        names = ["RShoulderRoll", "RWristYaw"]
+        angleLists = [1.5, -1.8329]
+        times = [1, 1, 2, 2]
         isAbsolute = True
         self._proxy.angleInterpolation(names, angleLists, times, isAbsolute)
 

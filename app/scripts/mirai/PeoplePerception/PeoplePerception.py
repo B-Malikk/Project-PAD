@@ -1,19 +1,43 @@
 import threading
 import time
 import math
+from datetime import datetime
 
+
+class Person(object):
+    id = None
+    distance = None
+    pitchAngle = None
+    yawAngle = None
+    lastSeen = None
+
+    def __init__(self, data):
+        self.id = data[0]
+        self.distance = data[1]
+        self.pitchAngle = data[2]
+        self.yawAngle = data[3]
+        self.seen()
+
+    def seen(self):
+        self.lastSeen = datetime.utcnow()
+
+    def equals(self, person):
+        return person.id == self.id
+
+    def __str__(self):
+        return "ID: {}, distance: {}".format(self.id, int(self.distance*10)/10)
 
 class PeoplePerception(object):
 
     def __init__(self, mirai):
         self._mirai = mirai
         self._proxy = mirai.getProxy('ALPeoplePerception')
+        self._proxy.subscribe("PeoplePerceptionSubscriber") # This is needed for it to work!
+
         self._memProxy = mirai.getProxy('ALMemory')
         self._peopleList = []
-        self.newPersonDetected = False
-        self.newPersonID = None
+
         self.startPeopleDetection()
-        self.peopleData = {}
 
     def setRange(self, range):
         self._proxy.setMaximumDetectionRange(range)
@@ -26,80 +50,51 @@ class PeoplePerception(object):
         self._proxy.resetPopulation()
 
     def startPeopleDetection(self):
-        self.reset()#reset people population and counter
+        self.reset()
+        threading.Thread(target=self.processPeople).start()
 
-        #give callback when event rises
-        #self._memProxy.subscribeToEvent('PeoplePerception/JustArrived', 'this', 'arrivedCallback')
-        self.subscriber=self._memProxy.subscriber('PeoplePerception/JustArrived')
-        self.subscriber.signal.connect(self.arrivedCallback)
-
-
-        self.subscriber1=self._memProxy.subscriber('PeoplePerception/PeopleDetected')
-        self.subscriber1.signal.connect(self.peopleDetected)
-
-        # give callback when event rises
-        #self._memProxy.subscribeToEvent('PeoplePerception/JustLeft', 'this', 'leftCallback')
-        #self.subscriber1=self._memProxy.subscriber('PeoplePerception/JustLeft')
-        #self.subscriber1.signal.connect(self.leftCallback)
-        threading.Thread(target=self.procesPeople).start()
-
-    def peopleDetected(self, data):
-        allData=data
-        personData_i = allData[1][0]
-        personData_ID = personData_i[0]
-        personData_YawAngle = personData_i[3]
-        print personData_ID
-        print personData_YawAngle
-        self.peopleData.update({personData_ID : personData_YawAngle})
+    def arrivedCallback(self, person):
+        print("arrivedCallback")
+        self._mirai.textToSpeech.say("welkom")
 
 
+    def leftCallback(self, person):
+        print("leftCallback")
+        self._mirai.textToSpeech.say("doei")
 
-    def arrivedCallback(self,id):
-        print "new person"
-        self.newPersonDetected = True
-        self.newPersonID= id
-        time.sleep(5)
-        self.newPersonDetected = False
-
-
-    def getNewPersonDistance(self):
-        try:
-            return self._memProxy.getData("PeoplePerception/Person/" + str(self.newPersonID) + "/Distance")
-
-        except:
-            pass
-
-
-
-
-    def procesPeople(self):
-        #stay looping to check if second boolean is true or false
-        print ("in procespeople")
+    def processPeople(self):
         while True:
-            # save al ID's from visible poeple in an list
-            self._peopleList = self._memProxy.getData("PeoplePerception/VisiblePeopleList")
+            # add visible people to self._peopleList
+            visiblePeople = self._memProxy.getData("PeoplePerception/VisiblePeopleList")
+            peopleDetected = self._memProxy.getData("PeoplePerception/PeopleDetected")
+            if peopleDetected:
+                peopleDetected = peopleDetected[1]
+                for data in peopleDetected:
+                    person = Person(data)
+                    if person.id in visiblePeople:
+                        self.addPerson(person) # calls arrivedCallback()
 
+            # update last seen timestamp for visible people
+            for personId in visiblePeople:
+                person = self.findPerson(personId)
+                person.seen()
 
-            #if there are more than 1 person visible run the code
-            while (len(self._peopleList) >=2):
-                print "dit is people list"
-                print self._peopleList
-                distanceList=[]
-                angleList=[]
-                for person in self._peopleList:
-                    angleList = self.peopleData.get(person)
-                    # get the distance from al the visible poeple
-                    try:
-                        distance = self._memProxy.getData("PeoplePerception/Person/" + str(person) + "/Distance")
-                        distanceList.append(distance)
-                    except:
-                        pass
+            # remove people who aren't visible for a while
+            for person in self._peopleList:
+                diff = datetime.utcnow() - person.lastSeen
+                if person.id not in visiblePeople and diff.seconds > 0.5:
+                    self._peopleList.remove(person)
+                    self.leftCallback(person) # calls leftCallback()
 
-                for i in range(len(self._peopleList)):
-                    angle=(angleList[i]-angleList[i+1])
-                    lenghtA=distanceList[i]
-                    lenghtB=distanceList[i+1]
-                    distance=math.sqrt(lenghtA**2+lenghtB**2-2*lenghtA*lenghtB*math.cos(angle))
-                    if distance<=1.5:
-                        print(" je staat te dichtbij")
-                        self._mirai.textToSpeech.say("Houden jullie rekening met de annderhalve meter")
+    def findPerson(self, id):
+        for person in self._peopleList:
+            if person.id == id:
+                return person
+        return False
+
+    def addPerson(self, personToAdd):
+        for person in self._peopleList:
+            if person.id == personToAdd.id:
+                return
+        self._peopleList.append(personToAdd)
+        self.arrivedCallback(personToAdd)

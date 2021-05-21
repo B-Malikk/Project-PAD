@@ -9,7 +9,9 @@ class EngagementZones(object):
     def __init__(self, mirai):
         self._mirai = mirai
         self._proxy = mirai.getProxy('ALEngagementZones')
+        self._proxy.subscribe("EngagementZoneSubscriber")
         self._pproxy = mirai.getProxy('ALPeoplePerception')
+        self._pproxy.subscribe("PeoplePerceptionSubscriber2")
         self._memProxy = mirai.getProxy('ALMemory')
         self.start()
 

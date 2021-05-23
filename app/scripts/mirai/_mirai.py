@@ -20,6 +20,7 @@ from MQTTWebListener import MQTTWebListener
 from RobotState import RobotState
 from progamNL import dutchProgram
 from progamENG import engProgram
+import paho.mqtt.client as mqtt
 
 
 class Mirai(object):
@@ -73,3 +74,8 @@ class Mirai(object):
                 msg += " It may not be available on a virtual robot."
 
             raise Exception(msg)
+
+    def mqttPublish(topic, message):
+        client = mqtt.Client()
+        client.connect('azsx.nl', 1883, 60)
+        client.publish('Mirai/' + topic, message)

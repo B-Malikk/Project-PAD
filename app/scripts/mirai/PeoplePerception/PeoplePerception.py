@@ -55,8 +55,12 @@ class Person(object):
         y = distanceC
         self.position = Position(x, y)
 
+    def distanceTo(self, person):
+        return math.dist([self.position.x, self.position.y], [person.position.x, person.position.y])
+
     def __str__(self):
         return "Person (ID: {}, distance: {:.2f}m, pitch: {}, angle: {}, pos: {})".format(self.id, self.distance, self.pitchAngle, self.yawAngle, self.position)
+
 
 class PeoplePerception(object):
 
@@ -70,10 +74,10 @@ class PeoplePerception(object):
         threading.Thread(target=self.processPeople).start()
 
     def arrivedCallback(self, person):
-        print("arrivedCallback")
+        self._mirai.mqttPublish('PeoplePerception/personArrived', '')
 
     def leftCallback(self, person):
-        print("leftCallback")
+        self._mirai.mqttPublish('PeoplePerception/personLeft', '')
 
     def processPeople(self):
         while True:
@@ -118,5 +122,13 @@ class PeoplePerception(object):
         return personToAdd
 
     def coronaProofing(self):
+        def peopleAreTooClose():
+            for person in self._peopleList:
+                for otherPerson in self._peopleList:
+                    if person.distanceTo(otherPerson) < 1.5:
+                        return True
+            return False
+
         if len(self._peopleList) >= 2:
-            pass
+            if peopleAreTooClose():
+                self._mirai.mqttPublish('PeoplePerception/tooClose', '')

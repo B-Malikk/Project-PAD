@@ -12,6 +12,6 @@ class Tablet(object):
 
     def reload(self):
         self._proxy.resetTablet()
-        
+
     def openImage(self):
         self._proxy.showImage()

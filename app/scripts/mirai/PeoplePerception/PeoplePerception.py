@@ -66,11 +66,15 @@ class PeoplePerception(object):
 
         self._memProxy = mirai.getProxy('ALMemory')
         self._peopleList = []
+        self._newPersonDetected = False
 
         threading.Thread(target=self.processPeople).start()
 
     def arrivedCallback(self, person):
         print("arrivedCallback")
+        self._newPersonDetected = True
+        time.sleep(5)
+        self._newPersonDetected = False
 
     def leftCallback(self, person):
         print("leftCallback")
@@ -93,7 +97,7 @@ class PeoplePerception(object):
             # remove people who aren't visible for a while
             for person in self._peopleList:
                 diff = datetime.utcnow() - person.lastSeen
-                if person.id not in visiblePeople and diff.seconds > 0.5:
+                if person.id not in visiblePeople and diff.seconds > 3:
                     self._peopleList.remove(person)
                     self.leftCallback(person) # calls leftCallback()
 
@@ -114,7 +118,7 @@ class PeoplePerception(object):
                 person.update(personToAdd.rawData)
                 return
         self._peopleList.append(personToAdd)
-        self.arrivedCallback(personToAdd)
+        threading.Thread(target=self.arrivedCallback, args=[personToAdd]).start()
         return personToAdd
 
     def coronaProofing(self):

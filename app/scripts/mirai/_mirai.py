@@ -13,7 +13,7 @@ from Dialog import Dialog
 from Tablet import Tablet
 from PeoplePerception.EngagementZone import EngagementZones
 from PeoplePerception.FaceDetection import FaceDetection
-#from PeoplePerception.PeoplePerception import PeoplePerception
+from PeoplePerception.PeoplePerception import PeoplePerception
 from MQTTCardReader import MQTTCardReader
 from MQTTFamoco import MQTTFamoco
 from MQTTWebListener import MQTTWebListener
@@ -50,7 +50,7 @@ class Mirai(object):
         self.dialog = Dialog(self)
         self.engagementZone = EngagementZones(self)
         self.faceDetection = FaceDetection(self)
-        #self.peoplePerception = PeoplePerception(self)
+        self.peoplePerception = PeoplePerception(self)
         self.mqttFamoco = MQTTFamoco(self)
         self.mqttCardReader = MQTTCardReader(self)
         self.mqttWebListener = MQTTWebListener(self)

@@ -52,16 +52,23 @@ class SpeechRecognition(object):
         self._proxy.subscribe("Test")
         self._speechRecognitionstarted = True
         threading.Thread(target=self.recognizeWord).start()
-        "thred gestaret"
+
 
     def recognizeWord(self):
         while self._speechRecognitionstarted:
-            print "in while true"
-            recognize = self._memProxy.getData("WordRecognized")
+            try:
+                self._memProxy.removeData("WordRecognized")
+            except:
+                pass
 
-            word = recognize[0]
-            print word
-            return word
+            try:
+                recognize = self._memProxy.getData("WordRecognized")
+
+                word = recognize[0]
+                print word
+                return word
+            except:
+                pass
 
     #def recognizeWord(self, debug=False):
         #if not self._vocabulary:

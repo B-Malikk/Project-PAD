@@ -122,13 +122,7 @@ class MQTTFamoco(object):
         self.client.publish(self.topic, payload)
 
     def on_error(self):
-        if self.mirai:
-            self.mirai.textToSpeech.say("Er ging iets mis.")
+        self.mirai.mqttPublish('CardReader/success', '')
 
     def on_success(self):
-        if self.mirai:
-            self.mirai.textToSpeech.say("Welkom.")
-
-
-if __name__ == "__main__":
-    listener = MQTTFamoco(None)
+        self.mirai.mqttPublish('CardReader/error', '')

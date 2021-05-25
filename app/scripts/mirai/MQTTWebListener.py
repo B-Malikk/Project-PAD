@@ -21,8 +21,10 @@ class MQTTWebListener(MQTTListenerBaseClass):
     def on_event(self, msg):
         print(msg.topic + " " + str(msg.payload))
         if str(msg.payload) == 'pas':
-            self.mirai.textToSpeech.say("ik verwijs je door naar de balie.")
+            self.mirai.robotState.setPosture('pass')
             self.mirai.motion.point()
+            self.mirai.textToSpeech.say("ik verwijs je door naar de balie.")
+            self.mirai.robotState.setPosture('open')
         elif str(msg.payload) == 'lokaal':
             self.mirai.textToSpeech.say("vull alleen je lokaal nummer in.")
         elif str(msg.payload) == 'plattegrond':
@@ -34,8 +36,10 @@ class MQTTWebListener(MQTTListenerBaseClass):
             #self.mirai.dialog.start_dialog("Dutch",self.topic_content2)
 
         elif str(msg.payload) == 'card':
-            self.mirai.textToSpeech.say("I will refer you to the counter.")
+            self.mirai.robotState.setPosture('card')
             self.mirai.motion.point()
+            self.mirai.textToSpeech.say("I will refer you to the counter.")
+            self.mirai.robotState.setPosture('open')
         elif str(msg.payload) == 'map':
             self.mirai.textToSpeech.say("you are now in the HVA Wibauthuis on the wibautstraat.")
         elif str(msg.payload) == 'id':

@@ -16,12 +16,13 @@ class MQTTWebListener(MQTTListenerBaseClass):
                        'lokaal.\n '
                        'u: (Waar kan ik eten [halen? "kopen?"]) Achter mij is een kantine waar eten verkocht wordt.\n'
                        'u: (Goede middag) Goede middag, veel succes tijdens je les!\n'
-                       'u: ([e:FrontTactilTouched e:MiddleTactilTouched e:RearTactilTouched]) You touched my head!\n')
+                       'u: ([e:FrontTactilTouched e:MiddleTactilTouched e:RearTactilTouched]) niet aanraken!\n')
 
     def on_event(self, msg):
         print(msg.topic + " " + str(msg.payload))
         if str(msg.payload) == 'pas':
             self.mirai.textToSpeech.say("ik verwijs je door naar de balie.")
+            self.mirai.motion.point()
         elif str(msg.payload) == 'lokaal':
             self.mirai.textToSpeech.say("vull alleen je lokaal nummer in.")
         elif str(msg.payload) == 'plattegrond':
@@ -34,6 +35,7 @@ class MQTTWebListener(MQTTListenerBaseClass):
 
         elif str(msg.payload) == 'card':
             self.mirai.textToSpeech.say("I will refer you to the counter.")
+            self.mirai.motion.point()
         elif str(msg.payload) == 'map':
             self.mirai.textToSpeech.say("you are now in the HVA Wibauthuis on the wibautstraat.")
         elif str(msg.payload) == 'id':

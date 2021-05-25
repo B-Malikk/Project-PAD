@@ -39,6 +39,8 @@ class Person(object):
         self.seen()
         self.updatePosition()
 
+
+
     def equals(self, person):
         return person.id == self.id
 
@@ -79,6 +81,10 @@ class PeoplePerception(object):
 
         threading.Thread(target=self.processPeople).start()
 
+    def setDisappearTime(self, time):
+        self._proxy.setTimeBeforePersonDisappears(time)
+        self._proxy.setTimeBeforeVisiblePersonDisappears(time)
+
     def arrivedCallback(self, person):
         self._mirai.mqttPublish('PeoplePerception/personArrived', '')
 
@@ -103,7 +109,7 @@ class PeoplePerception(object):
             # remove people who aren't visible for a while
             for person in self._peopleList:
                 diff = datetime.utcnow() - person.lastSeen
-                if person.id not in visiblePeople and diff.seconds > 0.5:
+                if person.id not in visiblePeople and diff.seconds > 3:
                     self._peopleList.remove(person)
                     self.leftCallback(person) # calls leftCallback()
 

@@ -12,6 +12,7 @@ class SpeechRecognition(object):
         self._language = self.getLanguage()
         self._subscriptionName = 'MiraiSpeechRecognition'
         self._speechRecognitionstarted=False
+        self._word=None
 
     def setVocabulary(self, vocabulary, wordSpotting=False):
         self._proxy.pause(True)
@@ -64,9 +65,9 @@ class SpeechRecognition(object):
             try:
                 recognize = self._memProxy.getData("WordRecognized")
 
-                word = recognize[0]
-                print word
-                return word
+                self._word = recognize[0]
+                print self._word
+                return self._word
             except:
                 pass
 

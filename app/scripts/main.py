@@ -14,10 +14,14 @@ class Main(MQTTListenerBaseClass):
     topic = 'Mirai/#'
     lastMessage = {}
     lastAction = {}
-    running = False
+
+    messages = []
 
     def __init__(self, mirai):
         super(Main, self).__init__(mirai)
+        thread = threading.Thread(target=self.processMessages)
+        thread.start()
+
         self.mirai.motion.wakeUp()
         self.mirai.motion.hoofd()
         self.mirai.peoplePerception.setDisappearTime(10)
@@ -34,7 +38,17 @@ class Main(MQTTListenerBaseClass):
         self.mirai.tablet.openPage("https://oege.ie.hva.nl/~polmpm/robot/language.html")
         #self.mirai.tablet.openPage("https://www.google.nl")
 
-    def on_event(self, msg):
+    def on_message(self, client, userdata, msg):
+        self.messages.append(msg)
+
+    def processMessages(self):
+        while True:
+            if len(self.messages) > 0:
+                msg = self.messages[0]
+                self.messages.pop(0)
+                self.handleMessage(msg)
+
+    def handleMessage(self, msg):
         topic = msg.topic
         print(topic)
         self.lastMessage.update({topic: datetime.utcnow()})

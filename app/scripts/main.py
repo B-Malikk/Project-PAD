@@ -6,11 +6,12 @@ import time
 import random
 
 from mirai._mirai import Mirai
+from mirai.MQTT import MQTTListenerBaseClass
 
 
-class Main(object):
-    def __init__(self):
-        self.mirai = Mirai("mirai.robot.hva-robots.nl", 9559)
+class Main(MQTTListenerBaseClass):
+    def __init__(self, mirai):
+        super(Main, self).__init__(mirai)
         self.mirai.motion.wakeUp()
         self.mirai.motion.hoofd()
         vocabulary=['ja','nee']
@@ -31,17 +32,24 @@ class Main(object):
         thread1.start()
         thread2.start()
 
-    def sayScanCard(self):
-        while True:
+    def on_event(self, msg):
+        topic = msg.topic
+        if topic == 'Mirai/CardReader/success':
+            self.mirai.textToSpeech.say("Welkom")
 
-            if self.mirai.engagementZone._personEnteredZone2 and self.mirai.robotState.getPosture()== 'open':
+        elif topic == 'Mirai/PeoplePerception/tooClose':
+            self.mirai.textToSpeech.say("Denken jullie om de anderhalve meter?")
+
+        elif topic == 'Mirai/EngagementZone/enteredZone2':
+            if self.mirai.robotState.getPosture() == 'open':
                 print ("wil je pasje scannen")
                 self.mirai.robotState.setPosture('scan')
                 self.mirai.textToSpeech.say("Scan je pasje")
                 self.mirai.robotState.setPosture('open')
                 time.sleep(2)
 
-            if self.mirai.engagementZone._personEnteredZone1 and self.mirai.robotState.getPosture()== 'open':
+        elif topic == 'Mirai/EngagementZone/enteredZone1':
+            if self.mirai.robotState.getPosture() == 'open':
                 self.mirai.robotState.setPosture('help')
                 self.mirai.textToSpeech.say("kan ik je ergens mee helpen")
                 self.mirai.speechRecognition.startSpeecheRecognition()
@@ -57,33 +65,29 @@ class Main(object):
                         time.sleep(20)
                         self.mirai.robotState.setPosture('open')
 
-
-
                 if self.mirai.speechRecognition.recognizeWord() == 'nee':
                         self.mirai.speechRecognition.stop()
                         self.mirai.textToSpeech.say("fijne dag nog")
                         time.sleep(10)
                         self.mirai.robotState.setPosture('open')
 
-    def sayWelcome(self):
-        while True:
-            if self.mirai.peoplePerception._newPersonDetected == True and self.mirai.robotState.getPosture()=='open':
-                print ("welkom")
-                listGestures=["hallo ", "goedemiddag","salaam","nihhaauu","merhabaa"]
-                groet=random.choice(listGestures)
-                self.mirai.robotState.setPosture('welcome')
-                self.mirai.animations.Hey.run(1)
-                self.mirai.textToSpeech.say(groet)
-                self.mirai.textToSpeech.say("Welkom in het Wibauthuis")
-                time.sleep(2)
-                self.mirai.robotState.setPosture('open')
-                time.sleep(15)
-
-
+            elif topic == 'Mirai/PeoplePerception/personArrived':
+                if self.mirai.robotState.getPosture() == 'open':
+                    print ("welkom")
+                    listGestures=["hallo ", "goedemiddag","salaam","nihhaauu","merhabaa"]
+                    groet=random.choice(listGestures)
+                    self.mirai.robotState.setPosture('welcome')
+                    self.mirai.animations.Hey.run(1)
+                    self.mirai.textToSpeech.say(groet)
+                    self.mirai.textToSpeech.say("Welkom in het Wibauthuis")
+                    time.sleep(2)
+                    self.mirai.robotState.setPosture('open')
+                    time.sleep(15)
 
 
 if __name__ == "__main__":
-    main = Main()
+    mirai = Mirai("mirai.robot.hva-robots.nl", 9559)
+    main = Main(mirai)
 
 
 

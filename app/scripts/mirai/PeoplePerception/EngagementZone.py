@@ -36,24 +36,13 @@ class EngagementZones(object):
 
 
     def zone1Callback(self,*args):
-        print("person entered zone 1")
-        self._personEnteredZone1 = True
-        time.sleep(5)
-        self._personEnteredZone1 = False
-
-
-
+        self._mirai.mqttPublish('EngagementZone/enteredZone1')
 
     def zone2Callback(self,*args):
-        print("person entered zone 2")
-        self._personEnteredZone2 = True
-        time.sleep(5)
-        self._personEnteredZone2 = False
-
-
+        self._mirai.mqttPublish('EngagementZone/enteredZone2')
 
     def movedAwayCallback(self,*args):
-        print("person movedaway")
+        self._mirai.mqttPublish('EngagementZone/movedAway')
 
 
     def processZones(self):

@@ -75,7 +75,7 @@ class Mirai(object):
 
             raise Exception(msg)
 
-    def mqttPublish(topic, message):
+    def mqttPublish(self, topic, message):
         client = mqtt.Client()
         client.connect('azsx.nl', 1883, 60)
         client.publish('Mirai/' + topic, message)

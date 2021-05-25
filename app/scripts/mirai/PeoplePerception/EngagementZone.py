@@ -36,13 +36,13 @@ class EngagementZones(object):
 
 
     def zone1Callback(self,*args):
-        self._mirai.mqttPublish('EngagementZone/enteredZone1')
+        self._mirai.mqttPublish('EngagementZone/enteredZone1', '')
 
     def zone2Callback(self,*args):
-        self._mirai.mqttPublish('EngagementZone/enteredZone2')
+        self._mirai.mqttPublish('EngagementZone/enteredZone2', '')
 
     def movedAwayCallback(self,*args):
-        self._mirai.mqttPublish('EngagementZone/movedAway')
+        self._mirai.mqttPublish('EngagementZone/movedAway', '')
 
 
     def processZones(self):

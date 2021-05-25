@@ -31,6 +31,8 @@ class Main(MQTTListenerBaseClass):
 
     def on_event(self, msg):
         topic = msg.topic
+        print(topic)
+
         if topic == 'Mirai/CardReader/success':
             self.mirai.textToSpeech.say("Welkom")
 

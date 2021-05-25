@@ -56,7 +56,13 @@ class Person(object):
         self.position = Position(x, y)
 
     def distanceTo(self, person):
-        return math.dist([self.position.x, self.position.y], [person.position.x, person.position.y])
+        x1 = self.position.x
+        x2 = person.position.x
+
+        y1 = self.position.y
+        y2 = person.position.y
+        dist = math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
+        return dist
 
     def __str__(self):
         return "Person (ID: {}, distance: {:.2f}m, pitch: {}, angle: {}, pos: {})".format(self.id, self.distance, self.pitchAngle, self.yawAngle, self.position)

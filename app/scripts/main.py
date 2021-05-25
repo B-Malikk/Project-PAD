@@ -27,11 +27,6 @@ class Main(MQTTListenerBaseClass):
         self.mirai.tablet.openPage("https://oege.ie.hva.nl/~polmpm/robot/language.html")
         #self.mirai.tablet.openPage("https://www.google.nl")
 
-        thread1 = threading.Thread(target=self.sayScanCard)
-        thread2 = threading.Thread(target=self.sayWelcome)
-        thread1.start()
-        thread2.start()
-
     def on_event(self, msg):
         topic = msg.topic
         if topic == 'Mirai/CardReader/success':

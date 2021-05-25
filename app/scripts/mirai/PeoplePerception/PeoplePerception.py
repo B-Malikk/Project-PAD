@@ -107,8 +107,8 @@ class PeoplePerception(object):
                     self._peopleList.remove(person)
                     self.leftCallback(person) # calls leftCallback()
 
-            for person in self._peopleList:
-                print(person)
+            #for person in self._peopleList:
+            #    print(person)
 
             self.coronaProofing()
 

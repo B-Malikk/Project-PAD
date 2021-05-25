@@ -71,18 +71,18 @@ class Main(MQTTListenerBaseClass):
                         time.sleep(10)
                         self.mirai.robotState.setPosture('open')
 
-            elif topic == 'Mirai/PeoplePerception/personArrived':
-                if self.mirai.robotState.getPosture() == 'open':
-                    print ("welkom")
-                    listGestures=["hallo ", "goedemiddag","salaam","nihhaauu","merhabaa"]
-                    groet=random.choice(listGestures)
-                    self.mirai.robotState.setPosture('welcome')
-                    self.mirai.animations.Hey.run(1)
-                    self.mirai.textToSpeech.say(groet)
-                    self.mirai.textToSpeech.say("Welkom in het Wibauthuis")
-                    time.sleep(2)
-                    self.mirai.robotState.setPosture('open')
-                    time.sleep(15)
+        elif topic == 'Mirai/PeoplePerception/personArrived':
+            if self.mirai.robotState.getPosture() == 'open':
+                print ("welkom")
+                listGestures=["hallo ", "goedemiddag","salaam","nihhaauu","merhabaa"]
+                groet=random.choice(listGestures)
+                self.mirai.robotState.setPosture('welcome')
+                self.mirai.animations.Hey.run(1)
+                self.mirai.textToSpeech.say(groet)
+                self.mirai.textToSpeech.say("Welkom in het Wibauthuis")
+                time.sleep(2)
+                self.mirai.robotState.setPosture('open')
+                time.sleep(15)
 
 
 if __name__ == "__main__":

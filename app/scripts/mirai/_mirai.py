@@ -9,7 +9,6 @@ from Motion.Motion import Motion
 from Posture import Postures
 from SpeechRecognition import SpeechRecognition
 from TextToSpeech import TextToSpeech
-from Dialog import Dialog
 from Tablet import Tablet
 from PeoplePerception.EngagementZone import EngagementZones
 from PeoplePerception.FaceDetection import FaceDetection
@@ -19,6 +18,7 @@ from MQTTFamoco import MQTTFamoco
 from MQTTWebListener import MQTTWebListener
 from RobotState import RobotState
 from Conversation import Dialog
+from BasicAwareness import BasicAwareness
 import paho.mqtt.client as mqtt
 
 
@@ -59,6 +59,7 @@ class Mirai(object):
         #self.program1=dutchProgram(self)
         #self.program2 = dutchProgram(self)
         self.Dialog = Dialog(self)
+        self.basicAwareness= BasicAwareness(self)
 
     def getProxy(self, name):
         try:

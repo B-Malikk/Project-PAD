@@ -24,9 +24,11 @@ class Main(MQTTListenerBaseClass):
 
         self.mirai.motion.wakeUp()
         self.mirai.motion.hoofd()
-        self.mirai.peoplePerception.setDisappearTime(10)
+        self.mirai.basicAwareness.setBA(True)
+        self.mirai.basicAwareness.setEnagement("SemiEngaged")
+        self.mirai.peoplePerception.setDisappearTime(15)
         vocabulary=['ja','nee']
-        self.mirai.textToSpeech.sayAnimated("test voor kaas", mode= 'random')
+        self.mirai.textToSpeech.sayAnimated("kaas", mode= 'random')
         self.mirai.speechRecognition.setLanguage("Dutch")
         self.mirai.speechRecognition.setVocabulary(vocabulary)
 
@@ -64,42 +66,44 @@ class Main(MQTTListenerBaseClass):
 
         elif topic == 'Mirai/EngagementZone/enteredZone2'and self.mirai.robotState.getPosture()=='open':
             if self.timeSinceAction(topic) > 10:
+                self.mirai.basicAwareness.pausAwareness()
                 print ("wil je pasje scannen")
                 self.updateAction(topic)
                 self.mirai.robotState.setPosture('scan')
                 self.mirai.textToSpeech.sayAnimated("Scan je pasje", mode= 'random')
                 time.sleep(2)
                 self.mirai.robotState.setPosture('open')
+                self.mirai.basicAwareness.resumeAwareness()
 
         elif topic == 'Mirai/EngagementZone/enteredZone1' and self.mirai.robotState.getPosture()=='open':
-            #if self.timeSinceAction(topic) > 10:
-            self.mirai.robotState.setPosture('help')
-            self.mirai.textToSpeech.sayAnimated("kan ik je ergens mee helpen", mode= 'random')
-            self.mirai.textToSpeech.sayAnimated("selecteer een probleem op het tablet", mode= 'random')
-            time.sleep(2)
-            self.mirai.robotState.setPosture('open')
+            if self.timeSinceAction(topic) > 10:
+                self.mirai.basicAwareness.pausAwareness()
+                self.mirai.robotState.setPosture('help')
+                self.mirai.textToSpeech.sayAnimated("kan ik je ergens mee helpen", mode= 'random')
+                self.mirai.textToSpeech.sayAnimated("selecteer een probleem op het taplet", mode= 'random')
+                self.mirai.speechRecognition.startSpeecheRecognition()
+                self.mirai.speechRecognition.cleareMemory()
 
+                while not (self.mirai.speechRecognition._word == 'ja' or self.mirai.speechRecognition._word == 'nee'):
+                    print "while not"
 
-            #self.mirai.speechRecognition.startSpeecheRecognition()
+                if self.mirai.speechRecognition._word == 'ja':
+                        self.mirai.speechRecognition.stop()
+                        self.mirai.textToSpeech.sayAnimated("selecteer een taal op het taplet")
+                        self.mirai.robotState.setPosture('tablet')
+                        self.mirai.basicAwareness.resumeAwareness()
 
-                #while not (self.mirai.speechRecognition._word == 'ja' or self.mirai.speechRecognition._word == 'nee'):
-                    #time.sleep(1)
-                #print "uit while not"
-
-                #if self.mirai.speechRecognition._word == 'ja':
-                        #self.mirai.speechRecognition.stop()
-                        #self.mirai.textToSpeech.say("selecteer een taal op de tablet")
-                        #self.mirai.robotState.setPosture('tablet')
-
-                #if self.mirai.speechRecognition._word == 'nee':
-                        #self.mirai.speechRecognition.stop()
-                        #self.mirai.textToSpeech.say("fijne dag nog")
-                        #time.sleep(1)
-                        #self.mirai.robotState.setPosture('open')
-                #self.updateAction(topic)
+                if self.mirai.speechRecognition._word == 'nee':
+                        self.mirai.speechRecognition.stop()
+                        self.mirai.textToSpeech.sayAnimated("fijne dag nog")
+                        time.sleep(1)
+                        self.mirai.robotState.setPosture('open')
+                        self.mirai.basicAwareness.resumeAwareness()
+                self.updateAction(topic)
 
         elif topic == 'Mirai/PeoplePerception/personArrived' and self.mirai.robotState.getPosture()=='open':
             if self.timeSinceAction(topic) > 10:
+                self.mirai.basicAwareness.pausAwareness()
                 listGestures=["hallo ", "goedemiddag","salaam","nihhaauu","merhabaa"]
                 groet=random.choice(listGestures)
                 self.updateAction(topic)
@@ -109,6 +113,7 @@ class Main(MQTTListenerBaseClass):
                 self.mirai.textToSpeech.say("Welkom in het Wibauthuis")
                 time.sleep(2)
                 self.mirai.robotState.setPosture('open')
+                self.mirai.basicAwareness.resumeAwareness()
 
     def updateAction(self, topic):
         self.lastAction.update({topic: datetime.utcnow()})

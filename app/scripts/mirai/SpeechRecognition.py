@@ -1,6 +1,5 @@
 import time
 import threading
-
 class SpeechRecognition(object):
     def __init__(self, mirai):
         self._proxy = mirai.getProxy('ALSpeechRecognition')
@@ -13,6 +12,13 @@ class SpeechRecognition(object):
         self._subscriptionName = 'MiraiSpeechRecognition'
         self._speechRecognitionstarted=False
         self._word=None
+
+
+    def cleareMemory(self):
+        try:
+            self._memProxy.removeData("WordRecognized")
+        except:
+            pass
 
     def setVocabulary(self, vocabulary, wordSpotting=False):
         self._proxy.pause(True)

@@ -18,8 +18,7 @@ from MQTTCardReader import MQTTCardReader
 from MQTTFamoco import MQTTFamoco
 from MQTTWebListener import MQTTWebListener
 from RobotState import RobotState
-from progamNL import dutchProgram
-from progamENG import engProgram
+from Conversation import Dialog
 import paho.mqtt.client as mqtt
 
 
@@ -59,6 +58,7 @@ class Mirai(object):
         self.robotState=RobotState(self)
         #self.program1=dutchProgram(self)
         #self.program2 = dutchProgram(self)
+        self.Dialog = Dialog(self)
 
     def getProxy(self, name):
         try:

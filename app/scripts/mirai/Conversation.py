@@ -20,23 +20,23 @@ class Dialog(object):
         self._topicName = None
         self._dialogStarted = False
 
-    def activateTopic(self, topiccontent, topicname, language):
+    def activateTopic(self, topiccontent, language):
         self._proxy.loadTopicContent(topiccontent)
-        self._proxy.activateTopic(topicname)
+        self._proxy.activateTopic(topiccontent)
         self._proxy.setLanguage(language)
         self._proxy.subscribe('my_dialog_example')
 
-    def deactivateTopic(self, topicname):
+    def deactivateTopic(self, topiccontent):
         try:
-
+            print
         finally:
             # stopping the dialog engine
             self._proxy.unsubscribe('my_dialog_example')
 
             # Deactivating all topics
-            self._proxy.deactivateTopic(topicname)
+            self._proxy.deactivateTopic(topiccontent)
 
             # now that the dialog engine is stopped and there are no more activated topics,
             # we can unload all topics and free the associated memory
-            self._proxy.unloadTopic(topicname)
+            self._proxy.unloadTopic(topiccontent)
             #mqtt listner back = stop

@@ -26,11 +26,11 @@ class MQTTWebListener(MQTTListenerBaseClass):
             self.mirai.textToSpeech.say("ik verwijs je door naar de balie.")
             self.mirai.robotState.setPosture('open')
         elif str(msg.payload) == 'lokaal':
-            self.mirai.textToSpeech.say("vull alleen je lokaal nummer in.")
+            self.mirai.textToSpeech.sayAnimated("vull alleen je lokaal nummer in.", mode= 'random')
         elif str(msg.payload) == 'plattegrond':
-            self.mirai.textToSpeech.say("je bent nu in het HVA Wibauthuis aan de wibautstraat.")
+            self.mirai.textToSpeech.sayAnimated("je bent nu in het HVA Wibauthuis aan de wibautstraat.", mode= 'random')
         elif str(msg.payload) == 'dutch':
-            self.mirai.textToSpeech.say("selecteer een probleem of roep het naar mij")
+            self.mirai.textToSpeech.sayAnimated("selecteer een probleem of roep het naar mij", mode= 'random')
             self.mirai.Dialog.activateTopic(self.topic_content_1," Dutch")
 
             #self.mirai.dialog.start_dialog("Dutch",self.topic_content2)
@@ -38,12 +38,12 @@ class MQTTWebListener(MQTTListenerBaseClass):
         elif str(msg.payload) == 'card':
             self.mirai.robotState.setPosture('card')
             self.mirai.motion.point()
-            self.mirai.textToSpeech.say("I will refer you to the counter.")
+            self.mirai.textToSpeech.sayAnimated("I will refer you to the counter.", mode= 'random')
             self.mirai.robotState.setPosture('open')
         elif str(msg.payload) == 'map':
-            self.mirai.textToSpeech.say("you are now in the HVA Wibauthuis on the wibautstraat.")
+            self.mirai.textToSpeech.sayAnimated("you are now in the HVA Wibauthuis on the wibautstraat.", mode= 'random')
         elif str(msg.payload) == 'id':
-            self.mirai.textToSpeech.say("only enter your classroom number.")
+            self.mirai.textToSpeech.sayAnimated("only enter your classroom number.", mode= 'random')
         if str(msg.payload) == 'english':
-            self.mirai.textToSpeech.say("select a problem or ask me")
+            self.mirai.textToSpeech.sayAnimated("select a problem or ask me", mode= 'random')
             #self.mirai.ENGP.askForHelp()

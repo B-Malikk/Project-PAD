@@ -7,6 +7,7 @@
 #ALSpeakingMovement
 #   Enables to start autonomously movements during the speech of the robot.
 
+
 class Ability(object):
     _service = 'AL_Service'
 

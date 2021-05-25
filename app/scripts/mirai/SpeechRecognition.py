@@ -71,29 +71,6 @@ class SpeechRecognition(object):
             except:
                 pass
 
-    #def recognizeWord(self, debug=False):
-        #if not self._vocabulary:
-            #raise Exception("No vocabulary has been set yet.")
-        #if debug:
-            #print("vocab: {}\nexpression: {}\nlanguage: {}".format(self._vocabulary, self._expression, self._language))
-
-        #self._proxy.subscribe(self._subscriptionName)
-
-        #recognized = None
-        #while not recognized:
-            #try:
-                #words = self._memProxy.getData("WordRecognized")
-                #if debug:
-                    #prnt(words)
-
-                #recognized = words[0]
-        #except:
-                #time.sleep(.1)
-                #continue
-
-        #self._proxy.unsubscribe(self._subscriptionName)
-        #return recognized
-
     def stop(self):
         self._speechRecognitionstarted = False
         try:

@@ -26,7 +26,7 @@ class Main(MQTTListenerBaseClass):
         self.mirai.motion.hoofd()
         self.mirai.peoplePerception.setDisappearTime(10)
         vocabulary=['ja','nee']
-        self.mirai.textToSpeech.say("kaas")
+        self.mirai.textToSpeech.sayAnimated("test voor kaas", mode= 'random')
         self.mirai.speechRecognition.setLanguage("Dutch")
         self.mirai.speechRecognition.setVocabulary(vocabulary)
 
@@ -55,11 +55,11 @@ class Main(MQTTListenerBaseClass):
 
         if topic == 'Mirai/CardReader/success':
             self.updateAction(topic)
-            self.mirai.textToSpeech.say("Welkom")
+            self.mirai.textToSpeech.sayAnimated("Welkom", mode= 'random')
 
         elif topic == 'Mirai/PeoplePerception/tooClose':
             if self.timeSinceAction(topic) > 10:
-                self.mirai.textToSpeech.say("Denken jullie om de anderhalve meter?")
+                self.mirai.textToSpeech.sayAnimated("Denken jullie om de anderhalve meter?", mode= 'random')
                 self.updateAction(topic)
 
         elif topic == 'Mirai/EngagementZone/enteredZone2'and self.mirai.robotState.getPosture()=='open':
@@ -67,15 +67,15 @@ class Main(MQTTListenerBaseClass):
                 print ("wil je pasje scannen")
                 self.updateAction(topic)
                 self.mirai.robotState.setPosture('scan')
-                self.mirai.textToSpeech.say("Scan je pasje")
+                self.mirai.textToSpeech.sayAnimated("Scan je pasje", mode= 'random')
                 time.sleep(2)
                 self.mirai.robotState.setPosture('open')
 
         elif topic == 'Mirai/EngagementZone/enteredZone1' and self.mirai.robotState.getPosture()=='open':
             #if self.timeSinceAction(topic) > 10:
             self.mirai.robotState.setPosture('help')
-            self.mirai.textToSpeech.say("kan ik je ergens mee helpen")
-            self.mirai.textToSpeech.say("selecteer een probleem op het tablet")
+            self.mirai.textToSpeech.sayAnimated("kan ik je ergens mee helpen", mode= 'random')
+            self.mirai.textToSpeech.sayAnimated("selecteer een probleem op het tablet", mode= 'random')
             time.sleep(2)
             self.mirai.robotState.setPosture('open')
 

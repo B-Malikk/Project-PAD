@@ -10,6 +10,8 @@ from mirai.MQTT import MQTTListenerBaseClass
 
 
 class Main(MQTTListenerBaseClass):
+    topic = 'Mirai/#'
+
     def __init__(self, mirai):
         super(Main, self).__init__(mirai)
         self.mirai.motion.wakeUp()

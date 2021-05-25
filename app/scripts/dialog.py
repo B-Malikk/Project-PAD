@@ -7,6 +7,7 @@ import qi
 import argparse
 import sys
 
+
 def main(session):
     """
     This example uses ALDialog methods.
@@ -19,11 +20,17 @@ def main(session):
     # writing topics' qichat code as text strings (end-of-line characters are important!)
     topic_content_1 = ('topic: ~example_topic_content()\n'
                        'language: dun\n'
-                       'concept:(food) [fruits chicken beef eggs]\n'
-                       'u: (I [want "would like"] {some} _~food) Sure! You must really like $1 .\n'
-                       'u: (how are you today) Hello human, I am fine thank you and you?\n'
-                       'u: (hoe gaat het?) gaat je niks aan\n'
-                       'u: (Good morning Nao did you sleep well) No damn! You forgot to switch me off!\n'
+                       'concept:(Help) [help vraag]\n'
+                       # 'u: (I [want "would like"] {some} _~food) Sure! You must really like $1 .\n'
+                       'u: ([Ik heb hulp nodig. "Kan je me helpen?"]) Waar kan ik je mee helpen?\n'
+                       'u: (Mijn pasje [werkt "doet het"] niet) Voor problemen met je pasje kan je terecht bij de '
+                       'balie\n '
+                       'u: (Waar is de balie?) Welkom leerling, de balie is aan de linker kant.\n'
+                       'u: (Hoe gaat het?) Gaat je niks aan\n'
+                       'u: ([Waar "Hoe"] kan ik mijn lokaal vinden) Op mijn tablet kan je de route vinden naar elk '
+                       'lokaal.\n '
+                       'u: (Waar kan ik eten [halen? "kopen?"]) Achter mij is een kantine waar eten verkocht wordt.\n'
+                       'u: (Goede middag) Goede middag, veel succes tijdens je les!\n'
                        'u: ([e:FrontTactilTouched e:MiddleTactilTouched e:RearTactilTouched]) You touched my head!\n')
 
     topic_content_2 = ('topic: ~dummy_topic()\n'
@@ -62,7 +69,8 @@ def main(session):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--ip", type=str, default="mirai.robot.hva-robots.nl",
-                        help="Robot's IP address. If on a robot or a local Naoqi - use '127.0.0.1' (this is the default value).")
+                        help="Robot's IP address. If on a robot or a local Naoqi - use '127.0.0.1' (this is the "
+                             "default value).")
     parser.add_argument("--port", type=int, default=9559,
                         help="port number, the default value is OK in most cases")
 

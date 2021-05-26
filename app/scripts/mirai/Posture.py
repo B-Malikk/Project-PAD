@@ -3,7 +3,6 @@ class Posture(object):
     def __init__(self, mirai):
         self.name = self.__class__.__name__
         self.proxy = mirai.getProxy("ALRobotPosture")
-        self.currentPosture = 'open'
 
 
 

@@ -22,20 +22,29 @@ class Main(MQTTListenerBaseClass):
         thread = threading.Thread(target=self.processMessages)
         thread.start()
 
-        self.mirai.motion.wakeUp()
+        #Motion/speech
+        self.mirai.motion.wakeUp()  # awake robot
+        self.mirai.posture.StandInit.apply()
         self.mirai.motion.hoofd()
-        self.mirai.basicAwareness.setBA(True)
-        self.mirai.basicAwareness.setEnagement("SemiEngaged")
-        self.mirai.peoplePerception.setDisappearTime(15)
-        vocabulary=['ja','nee']
-        self.mirai.textToSpeech.sayAnimated("kaas", mode= 'random')
+        self.mirai.textToSpeech.setVolume(0.3)
+        self.mirai.textToSpeech.sayAnimated("kaas", mode='random')
+
+        #Awareness/Perception
+        self.mirai.basicAwareness.setBA(False)  # basic awareness on specialy human tracking
+        #self.mirai.basicAwareness.setEnagement("SemiEngaged") # sret sensitifitie mode for people who engage the robot
+        self.mirai.peoplePerception.setDisappearTime(15) # Set time for how long a person disappears from the PeopleList if he/she is no more visible.
+
+        #Speechrecognition
+        vocabulary=['ja','nee','haloo','ssttt','remoer','aardappel','flesje','boom']
         self.mirai.speechRecognition.setLanguage("Dutch")
         self.mirai.speechRecognition.setVocabulary(vocabulary)
 
+        #Enagementzone
         self.mirai.engagementZone.setFirstLimit(0.7, 90)
-        self.mirai.engagementZone.setSecondLimit(1.5,90)
+        self.mirai.engagementZone.setSecondLimit(1.2,90)
         self.mirai.engagementZone.start()
 
+        #Tablet
         self.mirai.tablet.closePage()
         self.mirai.tablet.openPage("https://oege.ie.hva.nl/~polmpm/robot/language.html")
         #self.mirai.tablet.openPage("https://www.google.nl")
@@ -64,25 +73,25 @@ class Main(MQTTListenerBaseClass):
                 self.mirai.textToSpeech.sayAnimated("Denken jullie om de anderhalve meter?", mode= 'random')
                 self.updateAction(topic)
 
-        elif topic == 'Mirai/EngagementZone/enteredZone2'and self.mirai.robotState.getPosture()=='open':
+        elif topic == 'Mirai/EngagementZone/enteredZone2'and self.mirai.robotState.getPosture() == 'open':
             if self.timeSinceAction(topic) > 10:
-                self.mirai.basicAwareness.pausAwareness()
                 print ("wil je pasje scannen")
                 self.updateAction(topic)
                 self.mirai.robotState.setPosture('scan')
                 self.mirai.textToSpeech.sayAnimated("Scan je pasje", mode= 'random')
                 time.sleep(2)
                 self.mirai.robotState.setPosture('open')
-                self.mirai.basicAwareness.resumeAwareness()
 
-        elif topic == 'Mirai/EngagementZone/enteredZone1' and self.mirai.robotState.getPosture()=='open':
+        elif topic == 'Mirai/EngagementZone/enteredZone1' and self.mirai.robotState.getPosture() == 'open':
             if self.timeSinceAction(topic) > 10:
-                self.mirai.basicAwareness.pausAwareness()
                 self.mirai.robotState.setPosture('help')
                 self.mirai.textToSpeech.sayAnimated("kan ik je ergens mee helpen", mode= 'random')
-                self.mirai.textToSpeech.sayAnimated("selecteer een probleem op het taplet", mode= 'random')
+                #self.mirai.textToSpeech.sayAnimated("selecteer een probleem op het taplet", mode= 'random')
                 self.mirai.speechRecognition.startSpeecheRecognition()
-                self.mirai.speechRecognition.cleareMemory()
+                try:
+                    self.mirai.speechRecognition.cleareMemory()
+                except:
+                    pass
 
                 while not (self.mirai.speechRecognition._word == 'ja' or self.mirai.speechRecognition._word == 'nee'):
                     print "while not"

@@ -30,6 +30,7 @@ class MQTTWebListener(MQTTListenerBaseClass):
         elif str(msg.payload) == 'plattegrond':
             self.mirai.textToSpeech.sayAnimated("je bent nu in het HVA Wibauthuis aan de wibautstraat.", mode= 'random')
         elif str(msg.payload) == 'dutch':
+            self.mirai.textToSpeech.setLanguage("Dutch")
             self.mirai.textToSpeech.sayAnimated("selecteer een probleem of roep het naar mij", mode= 'random')
             self.mirai.Dialog.activateTopic(self.topic_content_1," Dutch")
 
@@ -45,5 +46,6 @@ class MQTTWebListener(MQTTListenerBaseClass):
         elif str(msg.payload) == 'id':
             self.mirai.textToSpeech.sayAnimated("only enter your classroom number.", mode= 'random')
         if str(msg.payload) == 'english':
+            self.mirai.textToSpeech.setLanguage("English")
             self.mirai.textToSpeech.sayAnimated("select a problem or ask me", mode= 'random')
             #self.mirai.ENGP.askForHelp()

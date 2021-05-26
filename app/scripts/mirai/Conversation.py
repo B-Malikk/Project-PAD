@@ -8,9 +8,9 @@ class Dialog(object):
         self._dialogStarted = False
 
     def activateTopic(self, topiccontent, language):
+        self._proxy.setLanguage(language)
         topicname = self._proxy.loadTopicContent(topiccontent)
         self._proxy.activateTopic(topicname)
-        self._proxy.setLanguage(language)
         self._proxy.subscribe('my_dialog_example')
 
     def deactivateTopic(self, topiccontent):

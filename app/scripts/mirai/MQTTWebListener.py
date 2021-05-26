@@ -4,17 +4,18 @@ from Conversation import Dialog
 
 class MQTTWebListener(MQTTListenerBaseClass):
     topic = 'Mirai/web/#'
-    topic_content_nl = ('topic: ~topic35()\n'
+    topic_content_nl = ('topic: ~topic36()\n'
                         'language: dun\n'
                         'concept:(Help) [help vraag]\n'
                         'u: (Ik heb hulp nodig) Ik hoor graag je vraag!\n'
                         'u: (Hoe gaat het?) Met mij gaat het perfect\n'
                         'u: (ik ben mijn pasje kwijt) Voor vragen over je pasje kan je naar de balie\n'
                         'u: (Ik weet niet waar mijn lokaal is) Op mijn tablet kan je je lokaal vinden\n'
-                        'u: (Waar is de balie?) De balie is aan de linker kant van mij'
-                        'u: (Waar ben ik?) Je bent in het Wibauthuis\n')
+                        'u: (Waar is de balie?) De balie is aan de linker kant van mij\n'
+                        'u: (Waar ben ik?) Je bent in het Wibauthuis\n'
+                        'u: (sterf) Val dood\n')
 
-    topic_content_en = ('topic: ~topic41()\n'
+    topic_content_en = ('topic: ~topic42()\n'
                         'language: enu\n'
                         'concept:(Help) [help question]\n'
                         'u: (I need your help) I would love to help you!\n'

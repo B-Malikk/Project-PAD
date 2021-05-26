@@ -5,6 +5,7 @@ from naoqi import ALProxy
 
 
 from Motion.Motion import Motion
+from Motion import Animations
 from Posture import Postures
 from SpeechRecognition import SpeechRecognition
 from TextToSpeech import TextToSpeech
@@ -41,6 +42,7 @@ class Mirai(object):
 
         self.posture = Postures(self)
         self.motion = Motion(self)
+        self.animations = Animations(self)
         self.textToSpeech = TextToSpeech(self)
         self.dialog = Dialog(self)
         self.engagementZone = EngagementZones(self)

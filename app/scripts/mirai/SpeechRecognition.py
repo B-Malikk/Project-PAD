@@ -25,19 +25,6 @@ class SpeechRecognition(object):
         self._proxy.setVocabulary(vocabulary, wordSpotting)
         self._proxy.pause(False)
 
-    def getAudioExpression(self):
-        self._audioExpression = self._proxy.getAudioExpression()
-        return self._audioExpression
-
-    def getVisualExpression(self):
-        return self._visualExpression
-
-    def setAudioExpression(self, bool):
-        self._proxy.setAudioExpression(bool)
-
-    def setVisualExpression(self, bool):
-        self._proxy.setVisualExpression(bool)
-
     def getLanguage(self):
         return self._proxy.getLanguage()
 

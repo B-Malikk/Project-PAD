@@ -32,10 +32,10 @@ class Main(MQTTListenerBaseClass):
         #Awareness/Perception
         self.mirai.basicAwareness.setBA(False)  # basic awareness on specialy human tracking
         #self.mirai.basicAwareness.setEnagement("SemiEngaged") # sret sensitifitie mode for people who engage the robot
-        self.mirai.peoplePerception.setDisappearTime(15) # Set time for how long a person disappears from the PeopleList if he/she is no more visible.
+        self.mirai.peoplePerception.setDisappearTime(30) # Set time for how long a person disappears from the PeopleList if he/she is no more visible.
 
         #Speechrecognition
-        vocabulary=['ja','nee','haloo','ssttt','remoer','aardappel','flesje','boom']
+        vocabulary=['ja','nee','help mij','ik ben mijn pasje kwijt','Ik weet niet waar mijn lokaal is']
         self.mirai.speechRecognition.setLanguage("Dutch")
         self.mirai.speechRecognition.setVocabulary(vocabulary)
 
@@ -46,6 +46,7 @@ class Main(MQTTListenerBaseClass):
 
         #Tablet
         self.mirai.tablet.closePage()
+        time.sleep(5)
         self.mirai.tablet.openPage("https://oege.ie.hva.nl/~polmpm/robot/language.html")
         #self.mirai.tablet.openPage("https://www.google.nl")
 

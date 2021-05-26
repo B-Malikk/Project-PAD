@@ -4,25 +4,26 @@ from Conversation import Dialog
 
 class MQTTWebListener(MQTTListenerBaseClass):
     topic = 'Mirai/web/#'
-    topic_content_nl = ('topic: ~topic30()\n'
-                       'language: dun\n'
-                       'concept:(Help) [help vraag]\n'
-                       'u: (Ik heb hulp nodig) Ik hoor graag je vraag!\n'
-                       'u: (Hoe gaat het?) Met mij gaat het perfect\n'
-                       'u: (ik ben mijn pasje kwijt) Voor vragen over je pasje kan je naar de balie\n'
-                       'u: (Ik weet niet waar mijn lokaal is) Op mijn tablet kan je je lokaal vinden\n'
-                       'u: (Waar is de balie?) De balie is aan de linker kant van mij'
-                       'u: (Waar ben ik?) Je bent in het Wibauthuis\n')
+    topic_content_nl = ('topic: ~topic35()\n'
+                        'language: dun\n'
+                        'concept:(Help) [help vraag]\n'
+                        'u: (Ik heb hulp nodig) Ik hoor graag je vraag!\n'
+                        'u: (Hoe gaat het?) Met mij gaat het perfect\n'
+                        'u: (ik ben mijn pasje kwijt) Voor vragen over je pasje kan je naar de balie\n'
+                        'u: (Ik weet niet waar mijn lokaal is) Op mijn tablet kan je je lokaal vinden\n'
+                        'u: (Waar is de balie?) De balie is aan de linker kant van mij'
+                        'u: (Waar ben ik?) Je bent in het Wibauthuis\n')
 
-    topic_content_en = ('topic: ~topic40()\n'
-                       'language: enu\n'
-                       'concept:(Help) [help question]\n'
-                       'u: (I need your help) I would love to help you!\n'
-                       'u: (How are you doing?) I am doing amazing.\n'
-                       'u: (I lost my school ID) You can talk to someone at the information desk about your school ID\n'
-                       'u: (I dont know where my classroom is) You can find the route to your classroom on my tablet\n'
-                       'u: (Where is the information desk?) The information desk is on my left\n'
-                       'u: (Where am I?) You are in the Wibauthouse\n')
+    topic_content_en = ('topic: ~topic41()\n'
+                        'language: enu\n'
+                        'concept:(Help) [help question]\n'
+                        'u: (I need your help) I would love to help you!\n'
+                        'u: (How are you doing?) I am doing amazing.\n'
+                        'u: (I lost my school ID) You can talk to someone at the information desk about your school '
+                        'ID\n '
+                        'u: (I dont know where my classroom is) You can find the route to your classroom on my tablet\n'
+                        'u: (Where is the information desk?) The information desk is on my left\n'
+                        'u: (Where am I?) You are in the Wibauthouse\n')
 
     # Speechrecognition
     vocabularyNl = ['ik ben mijn pasje kwijt', 'Ik weet niet waar mijn lokaal is',

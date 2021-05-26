@@ -35,6 +35,15 @@
 		mqtt.send(message);
 	  }
 
+	  	 	function onclickBack() {
+	  // send message to change language of pepper to english
+
+		console.log("Connected");
+		message = new Paho.MQTT.Message("terug");
+		message.destinationName = "Mirai/web/button";
+		mqtt.send(message);
+	  }
+
 	  	 	function onclickPas() {
 	  // send message to change language of pepper to dutch
 
@@ -75,14 +84,14 @@
 <script>
 	MQTTconnect();
 	</script>
-<button onclick="document.location='language.html'" class="backbutton">< Terug </button>
+<button onclick="document.location='language.html';onclickBack();" class="backbutton">< Terug </button>
 <img src="afbeelding/logo%20hva.png" id="logohva"/>
 
 <div id="div1"></div>
 <img src="afbeelding/1280x720-hva-breed-presentatie-schermen-lcd2.jpg" id="footer"/>
 <div id="main">
 
-    <div onclick="window.location='testpagina.html';onclickKlaslokaal();"class="wrap">
+    <div onclick="window.location='wibaut-map.html';onclickKlaslokaal();"class="wrap">
     <div class="card">
         <img src="afbeelding/zoek.png" alt ="messi" style="width: 100%">
         <div class="container">

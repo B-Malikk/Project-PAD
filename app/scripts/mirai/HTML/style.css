@@ -44,6 +44,11 @@ html, body {
     width: 600px;
 }
 
+.card.image2 img {
+    width: 1017px;
+    float: left;
+}
+
 .card.text {
     width: 600px;
     box-shadow: none;

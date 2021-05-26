@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="style.css" type="text/css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1280, user-scalable=no" />
+    <title>Map</title>
+        <script type="text/javascript" src="jquery.imagemapster.js"></script>
+
+
+</head>
+<body>
+<img src="afbeelding/logo%20hva.png" id="logohva"/>
+<img src="afbeelding/1280x720-hva-breed-presentatie-schermen-lcd2.jpg" id="footer"/>
+<button onclick="document.location='hoofdpagina-Eng.html'" class="backbutton">< Terug </button>
+        <div class="card image2">
+            <img id="floor0" src="afbeelding/floor0edit.png" align="left" usemap="#floor0">
+            <div class="container">
+            </div>
+        </div>
+<map id="floor_0" name="floor0map">
+    <area target="" alt="Canteen" name="Canteen" href="#" coords="356,36,349,151,180,149,205,32" shape="poly">
+
+
+</map>
+ <script type="text/javascript">//<![CDATA[
+
+
+   // a cross reference of area names to text to be shown for each area
+    var xref = {
+        Canteen: "<b>Canteen</b> lekker eten!",
+
+    };
+
+    var defaultDipTooltip = 'I know you want the dip. But it\'s loaded with saturated fat, just skip it '
+        +'and enjoy as many delicious, crisp vegetables as you can eat.';
+
+    var image = $('#vegetables');
+
+    image.mapster(
+    {
+        fillOpacity: 0.4,
+        fillColor: "d42e16",
+        stroke: true,
+        strokeColor: "3320FF",
+        strokeOpacity: 0.8,
+        strokeWidth: 4,
+        singleSelect: true,
+        mapKey: 'name',
+        listKey: 'name',
+        onClick: function (e) {
+            var newToolTip = defaultDipTooltip;
+
+            // update text depending on area selected
+            $('#selections').html(xref[e.key]);
+
+            // if Asparagus selected, change the tooltip
+            if (e.key === 'asparagus') {
+                newToolTip = "OK. I know I have come down on the dip before, but let's be real. "
+                    +"Raw asparagus without any of that delicious ranch and onion dressing "
+                    +"slathered all over it is not so good.";
+            }
+            image.mapster('set_options', {
+                areas: [{
+                    key: "dip",
+                    toolTip: newToolTip
+                    }]
+                });
+        },
+        showToolTip: true,
+        toolTipClose: ["tooltip-click", "area-click"],
+        areas: [
+            {
+                key: "redpepper",
+                fillColor: "ffffff"
+            },
+            {
+                key: "yellowpepper",
+                fillColor: "000000"
+            },
+            {
+                key: "carrots",
+                fillColor: "000000"
+            },
+            {
+                key: "dip",
+                toolTip: defaultDipTooltip
+            },
+            {
+                key: "asparagus",
+                strokeColor: "FFFFFF"
+            }
+            ]
+    });
+
+
+  //]]></script>
+
+
+
+
+</body>
+</html>

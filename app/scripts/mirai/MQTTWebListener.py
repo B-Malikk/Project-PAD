@@ -4,15 +4,16 @@ from Conversation import Dialog
 
 class MQTTWebListener(MQTTListenerBaseClass):
     topic = 'Mirai/web/#'
-    topic_content_1 = ('topic: ~topic30()\n'
-                       'language: dun\n'
-                       'concept:(Help) [help vraag]\n'
-                       'u: (Ik heb hulp nodig) Ik hoor graag je vraag!\n'
-                       'u: (Hoe gaat het?) Met mij gaat het perfect\n'
-                       'u: (ik ben mijn pasje kwijt) Voor vragen over je pasje kan je naar de balie\n'
-                       'u: (Ik weet niet waar mijn lokaal is) Op mijn tablet kan je je lokaal vinden\n'
-                       'u: (Waar is de balie?) De balie is aan de linker kant van mij'
-                       'u: (Waar ben ik?) Je bent in het Wibauthuis\n')
+    topic_content_1 = ("""
+topic: ~topic33()
+language: dun
+concept:(Help) [help vraag]
+u: (Ik heb hulp nodig) Ik hoor graag je vraag!
+u: (Hoe gaat het?) Met mij gaat het perfect
+u: (ik ben mijn pasje kwijt) Voor vragen over je pasje kan je naar de balie
+u: (Ik weet niet waar mijn lokaal is) Op mijn tablet kan je je lokaal vinden
+u: (Waar is de balie?) De balie is aan de linker kant van mij
+u: (Waar ben ik?) Je bent in het Wibauthuis""")
 
     # Speechrecognition
     vocabularyNl = ['ja', 'nee', 'help mij', 'ik ben mijn pasje kwijt', 'Ik weet niet waar mijn lokaal is',

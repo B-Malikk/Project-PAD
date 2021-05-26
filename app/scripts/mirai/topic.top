@@ -1,7 +1,0 @@
-topic_content2 = ('topic: ~topic3()\n'
-                       'language: enu\n'
-                       'proposal: Kan ik je ergens mee helpen\n'
-                       'u1: ([ja jahoor jawel yes inderdaad wil je me helpen help]) waarmee kan ik je helpen .\n'
-                       'u2: ([pasje mijn pasje kwijt pasje stuk]) ik verwijz je door naar de balie .\n'
-                       'u2: ([lokaal kamer klas ]) pak de linker lift .\n'
-                       'u1: ([nee no nope nada hoeft niet doei]) fijne dag nog\n')

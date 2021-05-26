@@ -1,6 +1,5 @@
 import math
 import threading
-from Chains import Head, LArm, RArm, Leg
 
 class Motion(object):
     """Base motion class. Contains all motion related things (body parts, joints, movement, etc)."""
@@ -9,10 +8,6 @@ class Motion(object):
     def __init__(self, mirai):
         self._proxy = mirai.getProxy("ALMotion")
         self._tts = mirai.getProxy("ALTextToSpeech")
-        self.head = Head(mirai)
-        self.leftArm = LArm(mirai)
-        self.rightArm = RArm(mirai)
-        self.leg = Leg(mirai)
 
     def wakeUp(self):
         self._proxy.wakeUp()

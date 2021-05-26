@@ -20,7 +20,6 @@ class TextToSpeech(object):
 
     def setSpeed(self, speed):
         self._proxy.setParameter('speed', speed)
-
     def setVolume(self,volume):
         self._proxy.setVolume(volume)
 

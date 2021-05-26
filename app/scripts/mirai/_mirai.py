@@ -3,17 +3,14 @@ import qi
 import sys
 from naoqi import ALProxy
 
-from Animations import Animations
-from Autonomy import AutonomousMovement
+
 from Motion.Motion import Motion
 from Posture import Postures
 from SpeechRecognition import SpeechRecognition
 from TextToSpeech import TextToSpeech
 from Tablet import Tablet
 from PeoplePerception.EngagementZone import EngagementZones
-from PeoplePerception.FaceDetection import FaceDetection
 from PeoplePerception.PeoplePerception import PeoplePerception
-from MQTTCardReader import MQTTCardReader
 from MQTTFamoco import MQTTFamoco
 from MQTTWebListener import MQTTWebListener
 from RobotState import RobotState
@@ -42,22 +39,16 @@ class Mirai(object):
             self.speechRecognition = SpeechRecognition(self)
 
 
-        self.animations = Animations(self)
-        self.autonomous = AutonomousMovement(self)
         self.posture = Postures(self)
         self.motion = Motion(self)
         self.textToSpeech = TextToSpeech(self)
         self.dialog = Dialog(self)
         self.engagementZone = EngagementZones(self)
-        self.faceDetection = FaceDetection(self)
         self.peoplePerception = PeoplePerception(self)
         self.mqttFamoco = MQTTFamoco(self)
-        self.mqttCardReader = MQTTCardReader(self)
         self.mqttWebListener = MQTTWebListener(self)
         self.tablet = Tablet(self)
         self.robotState=RobotState(self)
-        #self.program1=dutchProgram(self)
-        #self.program2 = dutchProgram(self)
         self.Dialog = Dialog(self)
         self.basicAwareness= BasicAwareness(self)
 

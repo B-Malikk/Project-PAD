@@ -1,19 +1,15 @@
 
 class Dialog(object):
     """Base motion class. Contains all motion related things (body parts, joints, movement, etc)."""
-    topic_content_1 = ('topic: ~example_topic_content()\n'
+    topic_content_1 = ('topic: ~topic23()\n'
                        'language: dun\n'
                        'concept:(Help) [help vraag]\n'
-                       'u: ([Ik heb hulp nodig. "Kan je me helpen?"]) Waar kan ik je mee helpen?\n'
-                       'u: (Mijn pasje [werkt "doet het"] niet) Voor problemen met je pasje kan je terecht bij de '
-                       'balie\n '
-                       'u: (Waar is de balie?) Welkom leerling, de balie is aan de linker kant.\n'
-                       'u: (Hoe gaat het?) Gaat je niks aan\n'
-                       'u: ([Waar "Hoe"] kan ik mijn lokaal vinden) Op mijn tablet kan je de route vinden naar elk '
-                       'lokaal.\n '
-                       'u: (Waar kan ik eten [halen? "kopen?"]) Achter mij is een kantine waar eten verkocht wordt.\n'
-                       'u: (Goede middag) Goede middag, veel succes tijdens je les!\n'
-                       'u: ([e:FrontTactilTouched e:MiddleTactilTouched e:RearTactilTouched]) You touched my head!\n')
+                       # 'u: (I [want "would like"] {some} _~food) Sure! You must really like $1 .\n'
+                       'u: (kaas) Gaat je niks aan\n'
+                       'u: (help mij) Nee\n'
+                       'u: (ik ben mijn pasje kwijt) ga naar de balie\n'
+                       'u: (Ik weet niet waar mijn lokaal is) Op mijn tablet kan je je lokaal vinden\n'
+                       'u: (Waar ben ik) Je bent in het wibauthuis\n')
 
     def __init__(self, mirai):
         self._proxy = mirai.getProxy("ALDialog")
@@ -21,8 +17,8 @@ class Dialog(object):
         self._dialogStarted = False
 
     def activateTopic(self, topiccontent, language):
-        self._proxy.loadTopicContent(topiccontent)
-        self._proxy.activateTopic(topiccontent)
+        topicname = self._proxy.loadTopicContent(topiccontent)
+        self._proxy.activateTopic(topicname)
         self._proxy.setLanguage(language)
         self._proxy.subscribe('my_dialog_example')
 

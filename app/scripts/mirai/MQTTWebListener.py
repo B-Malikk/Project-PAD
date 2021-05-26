@@ -14,6 +14,14 @@ class MQTTWebListener(MQTTListenerBaseClass):
                         'u: (Ik weet niet waar mijn lokaal is) Op mijn tablet kan je je lokaal vinden\n'
                         'u: (Waar ben ik) Je bent in het wibauthuis\n')
 
+    # Speechrecognition
+    vocabularyNl = ['ja', 'nee', 'help mij', 'ik ben mijn pasje kwijt', 'Ik weet niet waar mijn lokaal is',
+                  'Ik heb hulp nodig', 'Hoe gaat het?']
+
+    # Speechrecognition
+    vocabularyEn = ['ja', 'nee', 'help mij', 'ik ben mijn pasje kwijt', 'Ik weet niet waar mijn lokaal is',
+                  'Ik heb hulp nodig', 'Hoe gaat het?']
+
     def on_event(self, msg):
         print(msg.topic + " " + str(msg.payload))
         if str(msg.payload) == 'pas':
@@ -28,6 +36,7 @@ class MQTTWebListener(MQTTListenerBaseClass):
         elif str(msg.payload) == 'dutch':
             self.mirai.robotState.setPosture('dialog')
             self.mirai.textToSpeech.setLanguage("Dutch")
+            self.mirai.speechRecognition.setVocabulary(self.vocabularyNl)
             self.mirai.textToSpeech.say("selecteer een probleem of roep het naar mij")
             self.mirai.Dialog.activateTopic(self.topic_content_1,"Dutch")
 
@@ -45,5 +54,6 @@ class MQTTWebListener(MQTTListenerBaseClass):
         elif str(msg.payload) == 'english':
             self.mirai.robotState.setPosture('dialog')
             self.mirai.textToSpeech.setLanguage("English")
+            self.mirai.speechRecognition.setVocabulary(self.vocabularyEn)
             self.mirai.Dialog.activateTopic(self.topic_content_1, "English")
             self.mirai.textToSpeech.say("select a problem or ask me")

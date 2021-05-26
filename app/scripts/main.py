@@ -35,7 +35,7 @@ class Main(MQTTListenerBaseClass):
         self.mirai.peoplePerception.setDisappearTime(30) # Set time for how long a person disappears from the PeopleList if he/she is no more visible.
 
         #Speechrecognition
-        vocabulary=['ja','nee','help mij','ik ben mijn pasje kwijt','Ik weet niet waar mijn lokaal is']
+        vocabulary=['ja','nee','help mij','ik ben mijn pasje kwijt','Ik weet niet waar mijn lokaal is', 'Ik heb hulp nodig', 'Hoe gaat het?']
         self.mirai.speechRecognition.setLanguage("Dutch")
         self.mirai.speechRecognition.setVocabulary(vocabulary)
 
@@ -85,6 +85,9 @@ class Main(MQTTListenerBaseClass):
 
         elif topic == 'Mirai/EngagementZone/enteredZone1' and self.mirai.robotState.getPosture() == 'open':
             if self.timeSinceAction(topic) > 10:
+                vocabulary = ['ja', 'nee', 'hallo', 'brood', 'boom', 'appelflap', 'deur', 'ssht', 'remoer']
+                self.mirai.speechRecognition.setLanguage("Dutch")
+                self.mirai.speechRecognition.setVocabulary(vocabulary)
                 self.mirai.robotState.setPosture('help')
                 self.mirai.textToSpeech.sayAnimated("kan ik je ergens mee helpen", mode= 'random')
                 #self.mirai.textToSpeech.sayAnimated("selecteer een probleem op het taplet", mode= 'random')

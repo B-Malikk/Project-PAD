@@ -71,10 +71,11 @@ class Person(object):
 
 
 class PeoplePerception(object):
-
+    currentlyTracked = None
     def __init__(self, mirai):
         self._mirai = mirai
         self._proxy = mirai.getProxy('ALPeoplePerception')
+        self._tProxy = mirai.getProxy('ALTracker')
 
         self._memProxy = mirai.getProxy('ALMemory')
         self._peopleList = []
@@ -117,6 +118,7 @@ class PeoplePerception(object):
             #    print(person)
 
             self.coronaProofing()
+            self.trackClosest()
 
     def findPerson(self, id):
         for person in self._peopleList:
@@ -144,3 +146,47 @@ class PeoplePerception(object):
         if len(self._peopleList) >= 2:
             if peopleAreTooClose():
                 self._mirai.mqttPublish('PeoplePerception/tooClose', '')
+
+
+    def getClosest(self):
+        closestPerson = None
+        for person in self._peopleList:
+            if not closestPerson:
+                closestPerson = person
+            else:
+                if person.distance < closestPerson.distance:
+                    closestPerson = person
+        return closestPerson
+
+    def trackClosest(self):
+        closestPerson = self.getClosest()
+        if closestPerson:
+
+            if self.currentlyTracked not in self._peopleList:
+                self.stopTracking()
+
+            if not self.currentlyTracked:
+                self.trackPerson(closestPerson)
+
+            elif closestPerson != self.currentlyTracked:
+                self.stopTracking()
+                self.trackPerson(closestPerson)
+
+    def trackPerson(self, person):
+        targetName = 'People'
+        PersonId  = [person.id]
+        self._tProxy.registerTarget(targetName, PersonId)
+        self._tProxy.track(targetName)
+        self.currentlyTracked = person
+
+    def stopTracking(self):
+        self._tProxy.stopTracker()
+        self._tProxy.unregisterAllTargets()
+        self.currentlyTracked = None
+
+
+
+
+
+
+

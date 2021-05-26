@@ -78,7 +78,7 @@ class Main(MQTTListenerBaseClass):
                 print ("wil je pasje scannen")
                 self.updateAction(topic)
                 self.mirai.robotState.setPosture('scan')
-                self.mirai.textToSpeech.sayAnimated("Scan je pasje", mode= 'random')
+                self.mirai.textToSpeech.sayAnimated("wil je pasje scannen", mode= 'contextual')
                 time.sleep(2)
                 self.mirai.robotState.setPosture('open')
 

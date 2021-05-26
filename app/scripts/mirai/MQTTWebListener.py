@@ -22,7 +22,10 @@ class MQTTWebListener(MQTTListenerBaseClass):
             self.mirai.textToSpeech.say("vull alleen je lokaal nummer in.")
         elif str(msg.payload) == 'plattegrond':
             self.mirai.textToSpeech.say("je bent nu in het HVA Wibauthuis aan de wibautstraat.")
+        elif str(msg.payload) == 'terug':
+            self.mirai.Dialog.deactivateTopic(self.topic_content_1)
         elif str(msg.payload) == 'dutch':
+            self.mirai.textToSpeech.setLanguage("Dutch")
             self.mirai.textToSpeech.say("selecteer een probleem of roep het naar mij")
             self.mirai.Dialog.activateTopic(self.topic_content_1," Dutch")
 
@@ -34,6 +37,8 @@ class MQTTWebListener(MQTTListenerBaseClass):
             self.mirai.textToSpeech.say("you are now in the HVA Wibauthuis on the wibautstraat.")
         elif str(msg.payload) == 'id':
             self.mirai.textToSpeech.say("only enter your classroom number.")
-        if str(msg.payload) == 'english':
+        elif str(msg.payload) == 'back':
+            pass
+        elif str(msg.payload) == 'english':
+            self.mirai.textToSpeech.setLanguage("English")
             self.mirai.textToSpeech.say("select a problem or ask me")
-            #self.mirai.ENGP.askForHelp()

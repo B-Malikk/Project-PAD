@@ -81,26 +81,26 @@ class Motion(object):
     def disableIdle(self):
         self._proxy.setIdlePostureEnabled('Body', False)
 
-    def point(self):
+    def point(self): #Points to service desk
         names = ["LShoulderRoll", "LShoulderPitch", "LElbowRoll", "LWristYaw"]
         angleLists = [3, 3, -0.0087, -1.8329]
         times = [1, 1, 2, 2]
         isAbsolute = True
         self._proxy.angleInterpolation(names, angleLists, times, isAbsolute)
 
-    def scanner(self):
+    def scanner(self): #Adresses the scanner
         names = ["RShoulderRoll", "RShoulderPitch", "RElbowRoll", "RWristYaw"]
         angleLists = [3, 3, -0.0087, -1.8329]
         times = [1, 1, 2, 2]
         isAbsolute = True
         self._proxy.angleInterpolation(names, angleLists, times, isAbsolute)
 
-    def scan2(self):
+    def scan2(self): #Adresses the scanner
         names = ["RShoulderRoll", "RWristYaw"]
         angleLists = [1.5, -1.8329]
         times = [1, 1, 2, 2]
         isAbsolute = True
         self._proxy.angleInterpolation(names, angleLists, times, isAbsolute)
 
-    def hoofd(self):
+    def hoofd(self): #Tilts the head up a bit
         self._proxy.angleInterpolation("HeadPitch", -0.2, 2, True)

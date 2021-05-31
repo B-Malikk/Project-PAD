@@ -30,7 +30,7 @@ python app/main.py
 ## Additional information
 
 - The documentation for this project can be found under the `docs/` folder.
-- A website has to be hosted somewhere, its HTML files can be found under `app/mirai/HTML/`
+- A website has to be hosted somewhere, its HTML files can be found under `app/mirai/HTML/` and its url is loaded on the tablet in main.py
 - The Main class is an MQTT subscriber as well, please do not run anything that blocks the main thread in it. (Such as `time.sleep()`)
 
 ## Contributors

@@ -5,7 +5,7 @@ ALBasicAwareness is a simple way to make the robot establish and keep eye contac
 
 ## Methods
 ### \_\_init\_\_(*self*, *mirai*)
-This method initialises all the attributes of the Conversation class. The attributes can later be accessed by using
+This method initialises all the attributes of the BasicAwareness class. The attributes can later be accessed by using
 the self method. 
 
 __Parameters__

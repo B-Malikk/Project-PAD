@@ -50,9 +50,9 @@ class Mirai(object):
         self.mqttFamoco = MQTTFamoco(self)
         self.mqttWebListener = MQTTWebListener(self)
         self.tablet = Tablet(self)
-        self.robotState=RobotState(self)
+        self.robotState = RobotState(self)
         self.Dialog = Dialog(self)
-        self.basicAwareness= BasicAwareness(self)
+        self.basicAwareness = BasicAwareness(self)
 
     def getProxy(self, name):
         try:
@@ -73,3 +73,4 @@ class Mirai(object):
         client = mqtt.Client()
         client.connect('azsx.nl', 1883, 60)
         client.publish('Mirai/' + topic, message)
+        client.disconnect()

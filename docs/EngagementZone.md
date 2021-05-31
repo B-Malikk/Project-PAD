@@ -11,6 +11,8 @@ Zone1 nearest zone<br>
 Zone2 farther zone<br>
 Anngle whole angle<br>
 
+<img src="https://gitlab.fdmci.hva.nl/balalib/images/-/raw/master/engage.png" width="200"><br>
+
 
 
 When someone is in one of the zones the memory event is raised <br>

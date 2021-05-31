@@ -1,0 +1,3 @@
+[submodule "hva-pepper-scan"]
+	path = hva-pepper-scan
+	url = https://github.com/evyd13/hva-pepper-scan

@@ -32,24 +32,6 @@ This method sets the arm motions to enabled during the move process.
 
 __Parameters__
 - *self* - A method that can be used to access the attributes that are initialised.
-### moveForward(*self*, *meters*)
-
-### moveLeft(*self*, *meters*)
-
-### moveRight(*self*, *meters*)
-
-### moveBack(*self*, *meters*)
-
-### moveTo(*self*, *x*, *y*, *degrees*)
-
-### moveToward(*self*, *velocityX*, *velocityY*, *velocityAxis*)
-
-### rotateAntiClockWise(*self*, *degrees*)
-
-### rotateClockWise(*self*, *degrees*)
-
-### stopMove(*self*)
-
 ### setAngles(*self*, *joints*, *angles*, *fractionMaxSpeed*)
 This method sets angles. This is a non-blocking call.
 

@@ -21,36 +21,6 @@ class Motion(object):
     def disableArmsMove(self):
         self._proxy.setMoveArmsEnabled(False, False)
 
-    def moveForward(self, meters):
-        self._proxy.moveTo(meters, 0, 0)
-
-    def moveLeft(self, meters):
-        self._proxy.moveTo(0, meters, 0)
-
-    def moveRight(self, meters):
-        self._proxy.moveTo(0, -meters, 0)
-
-    def moveBack(self, meters):
-        self._proxy.moveTo(-meters, 0, 0)
-
-    def moveTo(self, x, y, degrees):
-        self._proxy.moveTo(x, y, math.radians(degrees))
-
-    def moveToward(self, velocityX, velocityY, velocityAxis):
-        # x: +1 and -1 are forward and backward
-        # y: +1 and -1 are left and right
-        # axis: +1 and -1 are anticlockwise and clockwise
-        self._proxy.moveToward(velocityX, velocityY, velocityAxis)
-
-    def rotateAntiClockWise(self, degrees):
-        self._proxy.moveTo(0, 0, math.radians(degrees))
-
-    def rotateClockWise(self, degrees):
-        self._proxy.moveTo(0, 0, math.radians(degrees))
-
-    def stopMove(self):
-        self._proxy.stopMove()
-
     def setAngles(self, joints, angles, fractionMaxSpeed=.4):
         funcNames = []
         for joint in joints:

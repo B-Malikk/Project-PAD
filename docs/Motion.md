@@ -5,7 +5,7 @@ The ALMotion module provides methods which facilitate making the robot move.
 
 ## Methods
 ### \_\_init\_\_(*self*, *mirai*)
-This method initialises all the attributes of the Conversation class. The attributes can later be accessed by using
+This method initialises all the attributes of the Motion class. The attributes can later be accessed by using
 the self method. 
 
 __Parameters__

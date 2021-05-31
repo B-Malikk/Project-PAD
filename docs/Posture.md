@@ -20,7 +20,7 @@ __Parameters__
 - *speed* - Relative speed between 0.0 and 1.0 base code of this project is set to 1.0
 
 ### StandInit(*Posture*)
-predefined posture class to make the robot stand up straight.
+Predefined posture class to make the robot stand up straight.
 
 ### StandZero(*Posture*)
 Predefined posture class to make robot stand straight with arms forward.

@@ -9,7 +9,6 @@ Initialises all the attributes of the posture class. The attributes can later be
 the self method. 
 
 __Parameters__
-- *self* - A method that can be used to access the attributes that are initialised. 
 - *mirai* - The main class Mirai. 
 
 ### apply(*self.name*, *speed*)

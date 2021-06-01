@@ -16,7 +16,6 @@ __Parameters__
 This method starts an animation when called on.
 
 __Parameters__
-- *self* - A method that can be used to access the attributes that are initialised. 
 - *number* - Number of the animation
 - *_async* - Is set to True this means the request will not wait before continuing to the next line of code.
 
@@ -28,7 +27,6 @@ return "animations/[posture]/{}/{}_{}".format(self.group, self.name, number)
 ```
 
 __Parameters__
-- *self* - A method that can be used to access the attributes that are initialised. 
 - *number* - Number of the animation
 - *self.group* - The name of the group 'path'
 - *self.name* - The name of the Class 'path'

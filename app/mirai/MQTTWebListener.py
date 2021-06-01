@@ -43,7 +43,7 @@ class MQTTWebListener(MQTTListenerBaseClass):
             self.mirai.textToSpeech.sayAnimated("vull alleen je lokaal nummer in.", mode='random')
         elif str(msg.payload) == 'plattegrond':
             self.mirai.textToSpeech.sayAnimated("je bent nu in het HVA Wibauthuis aan de wibautstraat.", mode='random')
-        elif str(msg.payload) == 'terug':
+        elif str(msg.payload) == 'terug1':
             self.mirai.robotState.setPosture('open')
             self.mirai.Dialog.deactivateTopic(self.topic_content_nl)
         elif str(msg.payload) == 'dutch':
@@ -62,7 +62,7 @@ class MQTTWebListener(MQTTListenerBaseClass):
             self.mirai.textToSpeech.sayAnimated("you are now in the HVA Wibauthuis on the wibautstraat", mode='random')
         elif str(msg.payload) == 'id':
             self.mirai.textToSpeech.sayAnimated("only enter your classroom number", mode='random')
-        elif str(msg.payload) == 'back':
+        elif str(msg.payload) == 'back1':
             self.mirai.robotState.setPosture('open')
             self.mirai.Dialog.deactivateTopic(self.topic_content_en)
         elif str(msg.payload) == 'english':

@@ -35,11 +35,11 @@
 		mqtt.send(message);
 	  }
 
-	  	 	function onclickBack() {
+	  	 	function onclickBack1() {
 	  // send message to say back
 
 		console.log("Connected");
-		message = new Paho.MQTT.Message("back");
+		message = new Paho.MQTT.Message("back1");
 		message.destinationName = "Mirai/web/button";
 		mqtt.send(message);
 	  }
@@ -84,7 +84,7 @@
 <script>
 	MQTTconnect();
 	</script>
-<button onclick="document.location='language.html';onclickBack();" class="backbutton">< Back </button>
+<button onclick="document.location='language.html';onclickBack1();" class="backbutton">< Back </button>
 <img src="afbeelding/logo%20hva.png" id="logohva"/>
 
 <div id="div1"></div>

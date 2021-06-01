@@ -35,11 +35,11 @@
 		mqtt.send(message);
 	  }
 
-	  	 	function onclickBack() {
+	  	 	function onclickterug1() {
 	  // send message to change language of pepper to english
 
 		console.log("Connected");
-		message = new Paho.MQTT.Message("terug");
+		message = new Paho.MQTT.Message("terug1");
 		message.destinationName = "Mirai/web/button";
 		mqtt.send(message);
 	  }
@@ -84,7 +84,7 @@
 <script>
 	MQTTconnect();
 	</script>
-<button onclick="document.location='language.html';onclickBack();" class="backbutton">< Terug </button>
+<button onclick="document.location='language.html';onclickterug1();" class="backbutton">< Terug </button>
 <img src="afbeelding/logo%20hva.png" id="logohva"/>
 
 <div id="div1"></div>

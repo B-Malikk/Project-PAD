@@ -121,42 +121,38 @@ input:focus {
 
 <body translate="no" >
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
 
-<script>
-    $(document).ready(function(){
-    $(".list li").on("click", function(){
-        var dataId = $(this).attr("data-id");
-        alert("The data-id of clicked item is: " + dataId);
-    });
-});
-</script>
+<button onclick="document.location='hoofdpagina.html';" class="backbutton">< Terug </button>
+
 
 
 <div id="users">
   <input class="search" placeholder="Search" />
+
   <button class="sort" data-sort="name">
     Sort by name
   </button>
   <ul class="list">
     <li data-id="1">
-      <a href="#" class="link name">Technical Space 00C95</a>
-      <p class="floor">0</p>
-      <p class="direction">right"</p>
+      <a href="#" class="link name">place: Technical Space 00C95</a>
+      <p class="floor">floor:0</p>
+      <p class="direction">Direction:right"</p>
     </li>
         <li data-id="2">
-      <a href="#" class="link name">Toilets</a>
-      <p class="floor">0</p>
-      <p class="direction">left"</p>
+      <a href="#" class="link name">Place: Toilets</a>
+      <p class="floor">floor:0</p>
+      <p class="direction">Direction:left"</p>
     </li>
         <li data-id="3">
-      <a href="#" class="link name">Lecture Hall 01B05</a>
-      <p class="floor">1</p>
-      <p class="direction">right"</p>
+      <a href="#" class="link name">Place: Lecture Hall 01B05</a>
+      <p class="floor">floor:1</p>
+      <p class="direction">Direction:right"</p>
     </li>
         <li data-id="4">
-      <a href="#" class="link name">Office 01A17</a>
-      <p class="floor">1</p>
-      <p class="direction">left"</p>
+      <a href="#" class="link name">Place: Office 01A17</a>
+      <p class="floor">floor:1</p>
+      <p class="direction">Direction:left"</p>
     </li>
 
   </ul>

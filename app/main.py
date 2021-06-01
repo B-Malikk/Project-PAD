@@ -19,18 +19,16 @@ class Main(MQTTListenerBaseClass):
 
     def __init__(self, mirai):
         super(Main, self).__init__(mirai)
-        thread = threading.Thread(target=self.processMessages)
-        thread.start()
 
         #Motion/speech
+        self.mirai.textToSpeech.sayAnimated("kaas", mode='random')
         self.mirai.motion.wakeUp()  # awake robot
         self.mirai.posture.StandInit.apply()
-        self.mirai.motion.hoofd()
-        self.mirai.textToSpeech.setVolume(0.3)
-        self.mirai.textToSpeech.sayAnimated("kaas", mode='random')
+        #self.mirai.motion.hoofd()
+        self.mirai.textToSpeech.setVolume(0.7)
 
         #Awareness/Perception
-        self.mirai.basicAwareness.setBA(False)  # basic awareness on specialy human tracking
+        #self.mirai.basicAwareness.setBA(False)  # basic awareness on specialy human tracking
         #self.mirai.basicAwareness.setEnagement("SemiEngaged") # sret sensitifitie mode for people who engage the robot
         self.mirai.peoplePerception.setDisappearTime(30) # Set time for how long a person disappears from the PeopleList if he/she is no more visible.
 
@@ -40,8 +38,8 @@ class Main(MQTTListenerBaseClass):
         self.mirai.speechRecognition.setVocabulary(vocabulary)
 
         #Enagementzone
-        self.mirai.engagementZone.setFirstLimit(0.7, 90)
-        self.mirai.engagementZone.setSecondLimit(1.2,90)
+        self.mirai.engagementZone.setFirstLimit(0.7, 180)
+        self.mirai.engagementZone.setSecondLimit(1.2,180)
         self.mirai.engagementZone.start()
 
         #Tablet
@@ -50,8 +48,12 @@ class Main(MQTTListenerBaseClass):
         self.mirai.tablet.openPage("https://oege.ie.hva.nl/~polmpm/robot/language.html")
         #self.mirai.tablet.openPage("https://www.google.nl")
 
+        thread = threading.Thread(target=self.processMessages)
+        thread.start()
+
     def on_message(self, client, userdata, msg):
-        self.messages.append(msg)
+        if self.mirai.robotState.getPosture()=='open':
+            self.messages.append(msg)
 
     def processMessages(self):
         while True:
@@ -75,16 +77,15 @@ class Main(MQTTListenerBaseClass):
                 self.updateAction(topic)
 
         elif topic == 'Mirai/EngagementZone/enteredZone2'and self.mirai.robotState.getPosture() == 'open':
-            if self.timeSinceAction(topic) > 10:
-                print ("wil je pasje scannen")
+            if self.timeSinceAction(topic) > 15:
                 self.updateAction(topic)
                 self.mirai.robotState.setPosture('scan')
-                self.mirai.textToSpeech.sayAnimated("wil je pasje scannen", mode= 'contextual')
+                self.mirai.textToSpeech.sayAnimated("vergeet niet je pasje te scannen", mode= 'contextual')
                 time.sleep(2)
                 self.mirai.robotState.setPosture('open')
 
         elif topic == 'Mirai/EngagementZone/enteredZone1' and self.mirai.robotState.getPosture() == 'open':
-            if self.timeSinceAction(topic) > 10:
+            if self.timeSinceAction(topic) > 15:
                 vocabulary = ['ja', 'nee', 'hallo', 'brood', 'boom', 'appelflap', 'deur', 'ssht', 'remoer']
                 self.mirai.speechRecognition.setLanguage("Dutch")
                 self.mirai.speechRecognition.setVocabulary(vocabulary)
@@ -116,8 +117,7 @@ class Main(MQTTListenerBaseClass):
                 self.mirai.robotState.setPosture('open')
 
         elif topic == 'Mirai/PeoplePerception/personArrived' and self.mirai.robotState.getPosture()=='open':
-            if self.timeSinceAction(topic) > 10:
-                self.mirai.basicAwareness.pausAwareness()
+            if self.timeSinceAction(topic) > 15:
                 listGestures=["hallo ", "goedemiddag","salaam","nihhaauu","merhabaa"]
                 groet=random.choice(listGestures)
                 self.updateAction(topic)
@@ -127,7 +127,6 @@ class Main(MQTTListenerBaseClass):
                 self.mirai.textToSpeech.say("Welkom in het Wibauthuis")
                 time.sleep(2)
                 self.mirai.robotState.setPosture('open')
-                self.mirai.basicAwareness.resumeAwareness()
 
     def updateAction(self, topic):
         self.lastAction.update({topic: datetime.utcnow()})

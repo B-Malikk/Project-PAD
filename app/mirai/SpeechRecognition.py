@@ -5,9 +5,9 @@ class SpeechRecognition(object):
         self._proxy = mirai.getProxy('ALSpeechRecognition')
         self._memProxy = mirai.getProxy('ALMemory')
         self._vocabulary = None
-        self._audioExpression = self.getAudioExpression()
+        #self._audioExpression = self.getAudioExpression()
         self._visualExpression = True
-        self.setVisualExpression(True)
+        #self.setVisualExpression(True)
         self._language = self.getLanguage()
         self._subscriptionName = 'MiraiSpeechRecognition'
         self._speechRecognitionstarted=False

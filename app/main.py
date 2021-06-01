@@ -19,15 +19,13 @@ class Main(MQTTListenerBaseClass):
 
     def __init__(self, mirai):
         super(Main, self).__init__(mirai)
-        thread = threading.Thread(target=self.processMessages)
-        thread.start()
 
         #Motion/speech
+        self.mirai.textToSpeech.sayAnimated("kaas", mode='random')
         self.mirai.motion.wakeUp()  # awake robot
         self.mirai.posture.StandInit.apply()
-        self.mirai.motion.hoofd()
+        #self.mirai.motion.hoofd()
         self.mirai.textToSpeech.setVolume(0.7)
-        self.mirai.textToSpeech.sayAnimated("kaas", mode='random')
 
         #Awareness/Perception
         #self.mirai.basicAwareness.setBA(False)  # basic awareness on specialy human tracking
@@ -50,8 +48,12 @@ class Main(MQTTListenerBaseClass):
         self.mirai.tablet.openPage("https://oege.ie.hva.nl/~polmpm/robot/language.html")
         #self.mirai.tablet.openPage("https://www.google.nl")
 
+        thread = threading.Thread(target=self.processMessages)
+        thread.start()
+
     def on_message(self, client, userdata, msg):
-        self.messages.append(msg)
+        if self.mirai.robotState.getPosture()=='open':
+            self.messages.append(msg)
 
     def processMessages(self):
         while True:
@@ -70,21 +72,20 @@ class Main(MQTTListenerBaseClass):
             self.mirai.textToSpeech.sayAnimated("Welkom", mode= 'random')
 
         elif topic == 'Mirai/PeoplePerception/tooClose':
-            if self.timeSinceAction(topic) > 60:
+            if self.timeSinceAction(topic) > 10:
                 self.mirai.textToSpeech.sayAnimated("Denken jullie om de anderhalve meter?", mode= 'random')
                 self.updateAction(topic)
 
         elif topic == 'Mirai/EngagementZone/enteredZone2'and self.mirai.robotState.getPosture() == 'open':
-            if self.timeSinceAction(topic) > 60:
-                print ("wil je pasje scannen")
+            if self.timeSinceAction(topic) > 15:
                 self.updateAction(topic)
                 self.mirai.robotState.setPosture('scan')
-                self.mirai.textToSpeech.sayAnimated("wil je pasje scannen", mode= 'contextual')
+                self.mirai.textToSpeech.sayAnimated("vergeet niet je pasje te scannen", mode= 'contextual')
                 time.sleep(2)
                 self.mirai.robotState.setPosture('open')
 
         elif topic == 'Mirai/EngagementZone/enteredZone1' and self.mirai.robotState.getPosture() == 'open':
-            if self.timeSinceAction(topic) > 60:
+            if self.timeSinceAction(topic) > 15:
                 vocabulary = ['ja', 'nee', 'hallo', 'brood', 'boom', 'appelflap', 'deur', 'ssht', 'remoer']
                 self.mirai.speechRecognition.setLanguage("Dutch")
                 self.mirai.speechRecognition.setVocabulary(vocabulary)
@@ -116,7 +117,7 @@ class Main(MQTTListenerBaseClass):
                 self.mirai.robotState.setPosture('open')
 
         elif topic == 'Mirai/PeoplePerception/personArrived' and self.mirai.robotState.getPosture()=='open':
-            if self.timeSinceAction(topic) > 60:
+            if self.timeSinceAction(topic) > 15:
                 listGestures=["hallo ", "goedemiddag","salaam","nihhaauu","merhabaa"]
                 groet=random.choice(listGestures)
                 self.updateAction(topic)

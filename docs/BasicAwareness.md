@@ -9,14 +9,12 @@ This method initialises all the attributes of the BasicAwareness class. The attr
 the self method. 
 
 __Parameters__
-- *self* - A method that can be used to access the attributes that are initialised. 
 - *mirai* - The main class Mirai. 
 
 ### setBA(*self*, *bool*)
 This method enables or disables basic awareness.
 
 __Parameters__
-- *self* - A method that can be used to access the attributes that are initialised. 
 - *bool* - True to enable it, false to disable it.
 
 
@@ -24,19 +22,14 @@ __Parameters__
 This method sets the engagement mode.
 
 __Parameters__
-- *self* - a method that can be used to access the attributes that are initialised. 
 - *mode* - a method that allows the engagement mode a wider range of behaviors such as "Unengaged", "FullyEngaged" and "SemiEngaged".
 
 ### pausAwareness(*self*)
 Manually pauses ALBasicAwareness.
 
-__Parameters__
-- *self* - a method that can be used to access the attributes that are initialised. 
 
 ### resumeAwareness(*self*)
 Manually resumes ALBasicAwareness.
 
-__Parameters__
-- *self* - a method that can be used to access the attributes that are initialised. 
 
 

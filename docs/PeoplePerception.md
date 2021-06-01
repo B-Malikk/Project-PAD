@@ -1,4 +1,4 @@
-# Mirai
+# PeoplePerception
 
 ## What it does
 The PeoplePerception class is a bit extensive. It uses two of NAOqi's APIs, ALPeoplePerception and ALTracker.

@@ -112,6 +112,8 @@ class PeoplePerception(object):
                 if person.id not in visiblePeople and diff.seconds > 0.5:
                     self._peopleList.remove(person)
                     self.leftCallback(person) # calls leftCallback()
+                    if len(self._peopleList) == 0:
+                        self._mirai.mqttPublish('PeoplePerception/noPeople', '')
 
             #for person in self._peopleList:
             #    print(person)
@@ -182,3 +184,5 @@ class PeoplePerception(object):
         self._tProxy.stopTracker()
         self._tProxy.unregisterAllTargets()
         self.currentlyTracked = None
+
+

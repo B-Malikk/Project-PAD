@@ -1,25 +1,23 @@
 # Tablet
 
 ## What is does
-The tablet class is for showing content on the tablet of Pepper and controlling it
+The tablet class is used to show content on Pepper's tablet and for controlling the tablet.
 
 ## Methods
-### •	•	def openPage(self,url):
-This method opens html website on the tablet
+### openPage(*url*):
+This method opens an html website on the tablet.
 
 __Parameters__
-- *url* - A method that can be used to access the attributes that are initialised.
+- *url* - This can be used to access the attributes that are initialised
 
-### •	def closePage(self):
-closes html website on the tablet
+### closePage():
+This method closes html website on the tablet.
 
- 
+### reload():
+This method reloads the tablet, i.e. clean the stack of activities, the web browser content, and the web browser cache.
 
-### •	def reload(self):
-Reloads the tablet, i.e. clean the stack of activities, the web browser content, and the web browser cache
-
-### •	openImage(self):
-Opens image on tablet
+### openImage():
+This method opens image on tablet
  
 
  

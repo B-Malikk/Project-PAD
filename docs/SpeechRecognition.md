@@ -1,26 +1,27 @@
 # SpeechRecognition
 
 ## What it does
-The SpeechRecognition class gives to the Mirai (pepper)<br> 
-the ability to recognize predefined words or phrases in several languages.<br>
+The SpeechRecognition class gives to the Mirai (pepper)  
+the ability to recognize predefined words or phrases in several languages.  
 
 
-##How does it work
--Before starting, SpeechRecognition needs to be fed by the list of phrases that should be recognized.<br>
--If something is heard, the element is placed  in the key WordRecognized.<br>
+## How does it work
+-Before starting, SpeechRecognition needs to be fed by the list of phrases that should be recognized.  
+-If something is heard, the element is placed  in the key WordRecognized.  
 
 
-##Method list
+## Method list
 
 #### setVocabulary(parameter1, parameter2)
-Sets the list of words/phrases (vocabulary) that should be recognized by the speech recognition engine.<br> 
-If word spotting is disabled (default), the engine expects to hear one of the specified words, nothing more, nothing less. <br>
-If enabled, the specified words can be pronounced in the middle of a whole sentenced.<br>  
+Sets the list of words/phrases (vocabulary) that should be recognized by the speech recognition engine.  
+If word spotting is disabled (default), the engine expects to hear one of the specified words, nothing more, 
+nothing less.  
+When enabled, the specified words can be pronounced in the middle of a whole sentenced.    
 
  
 __Parameters__
 - *parameter1* - List of words that should be recognized
-- *parameter2* - Enable wordspotting(True) or disable it (False)
+- *parameter2* - Enable word spotting(True) or disable it (False)
 
 
 #### setLanguage(parameter)
@@ -31,23 +32,22 @@ __Parameters__
 - *parameter* - Name of one of the available languages Example: ‘Dutch’
 
 #### getLanguage()
-Returns the language currently used by the speech recognition system<br>
+Returns the language currently used by the speech recognition system.  
 
-#### startSpeecheRecognition()
-starts the speechRecognition andSubscribes to ALSpeechRecognition.<br>
- This causes the module to start writing information to ALMemory in “WordRecognized”.<br>
+#### startSpeechRecognition()
+Starts the speechRecognition and Subscribes to ALSpeechRecognition.  
+This causes the module to start writing information to ALMemory in “WordRecognized”.  
 
-#### cleareMemory()
-Removes data from “WordRecognized” in ALMemory <br>
+#### clearMemory()
+Removes data from “WordRecognized” in ALMemory.  
 
 #### stop()
-Unsubscribes to ALSpeechRecognition.<br>
-This causes the module to stop writing information to ALMemory in “WordRecognized”.<br>
+Unsubscribes to ALSpeechRecognition.  
+This causes the module to stop writing information to ALMemory in “WordRecognized”.  
  
  
 #### recognizeWord()
-Returns the specified words that has been recognized<br>
- 
+Returns the specified words that has been recognized.  
 
 
 

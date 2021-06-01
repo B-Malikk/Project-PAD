@@ -5,8 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=1280, user-scalable=no" />
     <title>Map</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
         <script type="text/javascript" src="jquery.imagemapster.js"></script>
 
 
@@ -37,7 +35,7 @@
     var defaultDipTooltip = 'I know you want the dip. But it\'s loaded with saturated fat, just skip it '
         +'and enjoy as many delicious, crisp vegetables as you can eat.';
 
-    var image = $('#floor0');
+    var image = $('#vegetables');
 
     image.mapster(
     {
@@ -73,7 +71,7 @@
         toolTipClose: ["tooltip-click", "area-click"],
         areas: [
             {
-                key: "canteen",
+                key: "redpepper",
                 fillColor: "ffffff"
             },
             {

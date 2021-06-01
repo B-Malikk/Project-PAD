@@ -5,7 +5,7 @@ The class EngagementZone allows you to classify zones to detect people and/or mo
  using their position in space of the Mirai <pepper>
 
 
-##How does it work
+## How does it work
 The engagement zones are defined by the following
 Zone1 nearest zone<br>
 Zone2 farther zone<br>
@@ -21,7 +21,7 @@ and you can now when some one entersthe zone or leaves the zone
 
 
 
-##Method list
+## Method list
 
 
 #### setFirstLimit (parameter1, parameter2)

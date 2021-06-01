@@ -123,6 +123,64 @@ input:focus {
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
 
+    <script type = "text/javascript" language = "javascript">
+		var mqtt;
+		var reconnectTimeout = 2000;
+
+        var host="azsx.nl";
+		var port=8083
+
+        function onConnect() {
+	  // Once a connection has been made, make a subscription and send a message.
+
+		console.log("Connected ");
+		message = new Paho.MQTT.Message("Hello World");
+		message.destinationName = "Mirai/web/language";
+		mqtt.send(message);
+	  }
+
+      function tellPlace(floor, direction) {
+      console.log("Connected ");
+      console.log(floor + direction)
+		message = new Paho.MQTT.Message("Hello World");
+		message.destinationName = "Mirai/web/searchplace";
+		mqtt.send(message);
+
+    }
+
+        function onclickBack() {
+	  // send message to change language of pepper to english
+
+		console.log("Connected");
+		message = new Paho.MQTT.Message("terug");
+		message.destinationName = "Mirai/web/button";
+		mqtt.send(message);
+	  }
+
+
+	  function MQTTconnect() {
+		console.log("connecting to "+ host +" "+ port);
+
+		mqtt = new Paho.MQTT.Client(host,port,"clientjs");
+		var options = {
+
+			timeout: 3,
+            useSSL:true,
+			onSuccess: onConnect,
+
+		 };
+
+		mqtt.connect(options); //connect
+		}
+
+	  </script>
+
+      <script>
+	  MQTTconnect();
+	  </script>
+
+
+
 <button onclick="document.location='hoofdpagina.html';" class="backbutton">< Terug </button>
 
 
@@ -166,6 +224,7 @@ $(".list li").each(function( index ) {
         var floor = $(".floor", this).text().split(":")[1]
         var direction = $(".direction", this).text().split(":")[1]
         console.log(floor + ": " + direction)
+     tellPlace(floor, direction)
     });
 
 });

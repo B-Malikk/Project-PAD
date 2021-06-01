@@ -27,7 +27,7 @@ class MQTTWebListener(MQTTListenerBaseClass):
                         'u: (Where am I?) You are in the Wibauthouse\n')
 
     # Speechrecognition
-    vocabularyNl = ['ik ben mijn pasje kwijt', 'Ik weet niet waar mijn lokaal is',
+    vocabularyNl = ['ik ben mijn pasje kwijt', 'Ik weet niet waar mijn lokaal is','sterf',
                     'Ik heb hulp nodig', 'Hoe gaat het?', 'Waar is de balie?', 'Waar ben ik?']
 
     # Speechrecognition
@@ -37,35 +37,37 @@ class MQTTWebListener(MQTTListenerBaseClass):
     def on_event(self, msg):
         print(msg.topic + " " + str(msg.payload))
         if str(msg.payload) == 'pas':
-            self.mirai.textToSpeech.say("ik verwijs je door naar de balie.")
+            self.mirai.textToSpeech.sayAnimated("ik verwijs je door naar de balie.", mode='random')
+            self.mirai.motion.point()
         elif str(msg.payload) == 'lokaal':
-            self.mirai.textToSpeech.say("vull alleen je lokaal nummer in.")
+            self.mirai.textToSpeech.sayAnimated("vull alleen je lokaal nummer in.", mode='random')
         elif str(msg.payload) == 'plattegrond':
-            self.mirai.textToSpeech.say("je bent nu in het HVA Wibauthuis aan de wibautstraat.")
+            self.mirai.textToSpeech.sayAnimated("je bent nu in het HVA Wibauthuis aan de wibautstraat.", mode='random')
         elif str(msg.payload) == 'terug':
             self.mirai.robotState.setPosture('open')
             self.mirai.Dialog.deactivateTopic(self.topic_content_nl)
         elif str(msg.payload) == 'dutch':
             self.mirai.robotState.setPosture('dialog')
             self.mirai.textToSpeech.setLanguage("Dutch")
-            self.mirai.speechRecognition.setVocabulary(self.vocabularyNl)
-            self.mirai.textToSpeech.say("selecteer een probleem of roep het naar mij")
+            self.mirai.speechRecognition.setVocabulary(self.vocabularyNl,True)
+            self.mirai.textToSpeech.sayAnimated("selecteer een probleem of roep het naar mij", mode='random')
             self.mirai.Dialog.activateTopic(self.topic_content_nl, "Dutch")
 
             # self.mirai.dialog.start_dialog("Dutch",self.topic_content2)
 
         elif str(msg.payload) == 'card':
-            self.mirai.textToSpeech.say("I will refer you to the counter.")
+            self.mirai.textToSpeech.sayAnimated("I will refer you to the counter", mode='random')
+            self.mirai.motion.point()
         elif str(msg.payload) == 'map':
-            self.mirai.textToSpeech.say("you are now in the HVA Wibauthuis on the wibautstraat.")
+            self.mirai.textToSpeech.sayAnimated("you are now in the HVA Wibauthuis on the wibautstraat", mode='random')
         elif str(msg.payload) == 'id':
-            self.mirai.textToSpeech.say("only enter your classroom number.")
+            self.mirai.textToSpeech.sayAnimated("only enter your classroom number", mode='random')
         elif str(msg.payload) == 'back':
             self.mirai.robotState.setPosture('open')
             self.mirai.Dialog.deactivateTopic(self.topic_content_en)
         elif str(msg.payload) == 'english':
             self.mirai.robotState.setPosture('dialog')
             self.mirai.textToSpeech.setLanguage("English")
-            self.mirai.speechRecognition.setVocabulary(self.vocabularyEn)
-            self.mirai.textToSpeech.say("select a problem or ask me")
+            self.mirai.speechRecognition.setVocabulary(self.vocabularyEn,True)
+            self.mirai.textToSpeech.sayAnimated("select a problem or ask me", mode='random')
             self.mirai.Dialog.activateTopic(self.topic_content_en, "English")

@@ -159,7 +159,17 @@ input:focus {
 </div>
 
 
+<script>
 
+$(".list li").each(function( index ) {
+    $(this).click(function() {
+        var floor = $(".floor", this).text().split(":")[1]
+        var direction = $(".direction", this).text().split(":")[1]
+        console.log(floor + ": " + direction)
+    });
+
+});
+</script>
 
 </body>
 

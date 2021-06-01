@@ -9,7 +9,6 @@ This method initialises all the attributes of the Animation class. The attribute
 the self method. 
 
 __Parameters__
-- *self* - A method that can be used to access the attributes that are initialised. 
 - *mirai* - The main class Mirai. 
 
 ### run(*self*, *number=0*, *_async=True*)

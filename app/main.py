@@ -68,7 +68,7 @@ class Main(MQTTListenerBaseClass):
         print(topic)
         self.lastMessage.update({topic: datetime.utcnow()})
 
-        if topic == 'Mirai/CardReader/success':
+        if topic == 'Mirai/CardReader/success' or topic == 'Mirai/CardReader/error':
             self.updateAction(topic)
             self.mirai.textToSpeech.sayAnimated("Welkom", mode= 'random')
 

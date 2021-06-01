@@ -9,7 +9,7 @@ This method initialises all the attributes of the Motion class. The attributes c
 the self method. 
 
 __Parameters__
-- *mirai* - The main class Mirai. 
+- *mirai* - The main class Mirai
 
 ### wakeUp(*self*)
 This method is an effect that wakes the robot up. It turns on stiffness and goes to the StandInit predefined posture.
@@ -27,29 +27,29 @@ This method sets the arm motions to enabled during the move process.
 This method sets angles. This is a non-blocking call.
 
 __Parameters__
-- *joints* -  The name or names of joints, chains, “Body”, “JointActuators”, “Joints” or “Actuators”.
+- *joints* -  The name or names of joints, chains, “Body”, “JointActuators”, “Joints” or “Actuators”
 - *angles* - One or more angles in radians
-- *fractionMaxSpeed* - The fraction of maximum speed to use.
-### setStiffnesses(*self*, *joints*, *stiffnesses*)
+- *fractionMaxSpeed* - The fraction of maximum speed to use
+### setStiffnesses(*joints*, *stiffnesses*)
 This method sets the stiffness of one or more joints. This is a non-blocking call.
 
 __Parameters__
-- *joints* -  The name or names of joints, chains, “Body”, “JointActuators”, “Joints” or “Actuators”.
-- *stiffnesses* - One or more stiffnesses between zero and one.
-### enableIdle(*self*)
+- *joints* -  The name or names of joints, chains, “Body”, “JointActuators”, “Joints” or “Actuators”
+- *stiffnesses* - One or more stiffnesses between zero and one
+### enableIdle()
 Starts idle posture control on a chain.
 
-### disableIdle(*self*)
+### disableIdle()
 Stops idle posture control on a chain.
 
-### point(*self*)
+### point()
 This method moves the left arm to point to the left where the service desk is located.
 
-### scanner(*self*)
+### scanner()
 This method moves the right arm to allow the person to scan if the scanner is attached to the wrist of the robot.
 
-### scan2(*self*)
+### scan2()
 This method moves the right arm to gesture to the scanner pole.
 
-### hoofd(*self*)
+### hoofd()
 This method allows the head of the robot to tilt the head up a little.

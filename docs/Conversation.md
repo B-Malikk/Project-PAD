@@ -11,15 +11,15 @@ This method initialises all the attributes of the Conversation class. The attrib
 the self method. 
 
 __Parameters__
-- *mirai* - the main class Mirai. 
+- *mirai* - the main class Mirai  
 
 ### activateTopic(*topicContent*, *language*)
 This method activates the dialog function when called. The method will set the language chosen by the user, load
 the topic content, activate the topic name and subscribe to the topic.  
 
 __Parameters__ 
-- *topicContent* - a variable which contains the dialog, written by the user.
-- *language* - a string that specifies the language that will be used. 
+- *topicContent* - a variable which contains the dialog, written by the user  
+- *language* - a string that specifies the language that will be used  
 
 ### deactivateTopic(*topicContent*)
 This method deactivates the dialog function when called. The method will unsubscribe to the topic, deactivate the topic
@@ -27,5 +27,5 @@ and unload the topic. It is important to unload the topic when changing the topi
 from occurring. If an error pops up it can be solved by running the unloadTopic command.  
 
 __Parameters__ 
-- *topicContent* - a variable which contains the dialog, written by the user.
-- *language* - a string that specifies the language that will be used.
+- *topicContent* - a variable which contains the dialog, written by the user  
+- *language* - a string that specifies the language that will be used  

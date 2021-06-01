@@ -4,20 +4,20 @@
 The RobotState class contains the (given) current state from the Mirai(pepper).
 
 
-##How does it work
--	The Robotstate contains the current state by default ‘open’
--	The RobotState can by changed by any given string type
+## How does it work
+-	The Robotstate contains the current state by default ‘open’.
+-	The RobotState can by changed by any given string type.
 
 
 
-##Method list
+## Method list
 
 
 #### GetState()
-Returns the current state from the robot. By default ‘open’  can be changed by user using setPosture().<br>
+Returns the current state from the robot. By default ‘open’  can be changed by user using setPosture().  
 
 #### setState(Parameter)
-Sets the state of the mirai to a given string.<br>
+Sets the state of the mirai to a given string.  
 
 __Parameters__
 - *parameter* - (string) Name of the state Example: ‘moving’ 

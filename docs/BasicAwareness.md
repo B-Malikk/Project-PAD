@@ -9,20 +9,21 @@ This method initialises all the attributes of the BasicAwareness class. The attr
 the self method. 
 
 __Parameters__
-- *mirai* - The main class Mirai. 
+- *mirai* - The main class Mirai  
 
 ### setBA(*self*, *bool*)
 This method enables or disables basic awareness.
 
 __Parameters__
-- *bool* - True to enable it, false to disable it.
+- *bool* - True to enable it, false to disable it
 
 
 ### setEnagement(*self*, *mode*)
 This method sets the engagement mode.
 
 __Parameters__
-- *mode* - a method that allows the engagement mode a wider range of behaviors such as "Unengaged", "FullyEngaged" and "SemiEngaged".
+- *mode* - a method that allows the engagement mode a wider range of behaviors such as "Unengaged", 
+"FullyEngaged" and "SemiEngaged"
 
 ### pausAwareness(*self*)
 Manually pauses ALBasicAwareness.

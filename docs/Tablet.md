@@ -8,7 +8,7 @@ The tablet class is used to show content on Pepper's tablet and for controlling 
 This method opens an html website on the tablet.
 
 __Parameters__
-- *url* - This can be used to access the attributes that are initialised.
+- *url* - This can be used to access the attributes that are initialised
 
 ### closePage():
 This method closes html website on the tablet.

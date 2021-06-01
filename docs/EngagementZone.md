@@ -17,7 +17,7 @@ Angle: whole angle
 
 
 When someone is in one of the zones the memory event is raised  
-and you can now when some one entersthe zone or leaves the zone 
+and you can now when some one enters the zone or leaves the zone 
 
 
 
@@ -58,7 +58,7 @@ Start the process of engagement zones
 #### processZones()
 Start the process of engagement zones does process the event for entering zone 1 
 entering zone 2 and when each person leaves.
-For each process a calback is created what subscribes to a topic in the MQTT
+For each process a callback is created what subscribes to a topic in the MQTT
 
 
 When someone enters zone 1 each time a message is published with topic EngagementZones/PersonEnteredZone1  

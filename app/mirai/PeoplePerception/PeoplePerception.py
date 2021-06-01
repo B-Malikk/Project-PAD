@@ -1,5 +1,4 @@
 import threading
-import time
 import math
 from datetime import datetime
 
@@ -39,8 +38,6 @@ class Person(object):
         self.seen()
         self.updatePosition()
 
-
-
     def equals(self, person):
         return person.id == self.id
 
@@ -71,7 +68,9 @@ class Person(object):
 
 
 class PeoplePerception(object):
+
     currentlyTracked = None
+
     def __init__(self, mirai):
         self._mirai = mirai
         self._proxy = mirai.getProxy('ALPeoplePerception')
@@ -110,7 +109,7 @@ class PeoplePerception(object):
             # remove people who aren't visible for a while
             for person in self._peopleList:
                 diff = datetime.utcnow() - person.lastSeen
-                if person.id not in visiblePeople and diff.seconds > 3:
+                if person.id not in visiblePeople and diff.seconds > 0.5:
                     self._peopleList.remove(person)
                     self.leftCallback(person) # calls leftCallback()
 
@@ -183,10 +182,3 @@ class PeoplePerception(object):
         self._tProxy.stopTracker()
         self._tProxy.unregisterAllTargets()
         self.currentlyTracked = None
-
-
-
-
-
-
-

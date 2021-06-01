@@ -29,7 +29,7 @@ class Main(MQTTListenerBaseClass):
 
         #Awareness/Perception
         self.mirai.basicAwareness.setBA(False)  # basic awareness on specialy human tracking
-        #self.mirai.basicAwareness.setEnagement("SemiEngaged") # sret sensitifitie mode for people who engage the robot
+        self.mirai.basicAwareness.setEnagement("SemiEngaged") # sret sensitifitie mode for people who engage the robot
         self.mirai.peoplePerception.setDisappearTime(5) # Set time for how long a person disappears from the PeopleList if he/she is no more visible.
 
         #Speechrecognition
@@ -44,6 +44,7 @@ class Main(MQTTListenerBaseClass):
 
         #Tablet
         self.mirai.tablet.closePage()
+        self.mirai.tablet.reload()
         time.sleep(5)
         self.mirai.tablet.openPage("https://oege.ie.hva.nl/~polmpm/robot/language.html")
         #self.mirai.tablet.openPage("https://www.google.nl")
@@ -72,7 +73,8 @@ class Main(MQTTListenerBaseClass):
             self.mirai.textToSpeech.sayAnimated("Welkom", mode= 'random')
 
         elif topic == 'Mirai/PeoplePerception/noPeople':
-            self.mirai.motion.wakeUp()  # awake robot
+            #self.mirai.motion.wakeUp()  # awake robot
+            self.mirai.motion.hoofd()
             self.mirai.posture.StandInit.apply()
 
         elif topic == 'Mirai/PeoplePerception/tooClose':
@@ -82,14 +84,18 @@ class Main(MQTTListenerBaseClass):
 
         elif topic == 'Mirai/EngagementZone/enteredZone2'and self.mirai.robotState.getPosture() == 'open':
             if self.timeSinceAction(topic) > 15:
+                #self.mirai.basicAwareness.pausAwareness()
                 self.mirai.robotState.setPosture('scan')
                 self.updateAction(topic)
                 self.mirai.textToSpeech.sayAnimated("vergeet niet je pasje te scannen", mode= 'contextual')
                 time.sleep(3)
+
                 self.mirai.robotState.setPosture('open')
+                #self.mirai.basicAwareness.resumeAwareness()
 
         elif topic == 'Mirai/EngagementZone/enteredZone1' and self.mirai.robotState.getPosture() == 'open':
             if self.timeSinceAction(topic) > 15:
+                #self.mirai.basicAwareness.pausAwareness()
                 self.mirai.robotState.setPosture('help')
                 #vocabulary = ['ja', 'nee', 'hallo', 'brood', 'boom', 'appelflap', 'deur', 'ssht', 'remoer']
                 self.mirai.speechRecognition.setLanguage("Dutch")
@@ -120,9 +126,11 @@ class Main(MQTTListenerBaseClass):
                 self.updateAction(topic)
                 time.sleep(3)
                 self.mirai.robotState.setPosture('open')
+                #self.mirai.basicAwareness.resumeAwareness()
 
         elif topic == 'Mirai/PeoplePerception/personArrived' and self.mirai.robotState.getPosture()=='open':
             if self.timeSinceAction(topic) > 15:
+                #self.mirai.basicAwareness.pausAwareness()
                 self.mirai.robotState.setPosture('welcome')
                 listGestures=["hallo ", "goedemiddag","salaam","nihhaauu","merhabaa"]
                 groet=random.choice(listGestures)
@@ -130,6 +138,7 @@ class Main(MQTTListenerBaseClass):
                 self.mirai.textToSpeech.say(groet)
                 self.mirai.textToSpeech.say("Welkom in het Wibauthuis")
                 time.sleep(3)
+                #self.mirai.basicAwareness.resumeAwareness()
                 self.mirai.robotState.setPosture('open')
                 self.updateAction(topic)
 

@@ -131,7 +131,7 @@ input:focus {
       console.log("Connected ");
       console.log(floor + direction)
 		message = new Paho.MQTT.Message(floor + " " + direction);
-		message.destinationName = "Mirai/web/zoekplek";
+		message.destinationName = "Mirai/web/searchplace";
 		mqtt.send(message);
 
     }
@@ -183,7 +183,7 @@ input:focus {
 
 
 
-<button onclick="document.location='hoofdpagina.html';" class="backbutton">< Terug </button>
+<button onclick="document.location='hoofdpagina-eng.html';" class="backbutton">< Terug </button>
 
 
 
@@ -214,27 +214,6 @@ input:focus {
   </ul>
 </div>
 
-    <script>
-function myFunction() {
-  // Declare variables
-  var input, filter, ul, li, a, i, txtValue;
-  input = document.getElementById('myInput');
-  filter = input.value.toUpperCase();
-  ul = document.getElementById("myUL");
-  li = ul.getElementsByTagName('li');
-
-  // Loop through all list items, and hide those who don't match the search query
-  for (i = 0; i < li.length; i++) {
-    a = li[i].getElementsByTagName("a")[0];
-    txtValue = a.textContent || a.innerText;
-    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-      li[i].style.display = "";
-    } else {
-      li[i].style.display = "none";
-    }
-  }
-}
-</script>
 
 <script>
 

@@ -27,7 +27,7 @@
 	  }
 
 	 	function onclickPlattegrondl() {
-	  // send message to change language of pepper to english
+	  // send MQTT message to inform user picked map
 
 		console.log("Connected");
 		message = new Paho.MQTT.Message("map");
@@ -45,7 +45,7 @@
 	  }
 
 	  	 	function onclickPas() {
-	  // send message to change language of pepper to dutch
+	  // send MQTT message to inform user clicked on pass
 
 		console.log("Connected");
 		message = new Paho.MQTT.Message("id");
@@ -53,7 +53,7 @@
 		mqtt.send(message);
 	  }
 	  	  	 	function onclickKlaslokaal() {
-	  // send message to change language of pepper to dutch
+	  // send MQTT message to inform user clicked on find room
 
 		console.log("Connected");
 		message = new Paho.MQTT.Message("classroom");

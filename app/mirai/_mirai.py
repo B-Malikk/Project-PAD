@@ -51,7 +51,6 @@ class Mirai(object):
         self.mqttWebListener = MQTTWebListener(self)
         self.tablet = Tablet(self)
         self.robotState = RobotState(self)
-        self.Dialog = Dialog(self)
         self.basicAwareness = BasicAwareness(self)
 
     def getProxy(self, name):

@@ -54,6 +54,7 @@ class FamacoEventDetection(object):
 
     def shouldFireEvent(self, value):
         values = [x['value'] for x in self.pastReadings[-2:-1]]
+
         lastValue = value
         for value in values:
             if lastValue != value:

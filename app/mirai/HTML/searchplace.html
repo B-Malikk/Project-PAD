@@ -34,7 +34,7 @@
     }
 
         function onclickBack() {
-	  // send message to change language of pepper to english
+	  // send MQTT message to inform user is going back
 
 		console.log("Connected");
 		message = new Paho.MQTT.Message("terug");
@@ -90,17 +90,18 @@
 <button id="myBtn" onclick="myFunction()">vind verdieping</button>
 
 <script type = "text/javascript" language = "javascript">
-    function myFunction() {
-var input = document.getElementById("myInput");
 
-   console.log(input)
-       //var replace = (regex/[^0-9.]/g, '');
-        //var re = new RegExp(replace,input);
-   input.value = input.value.replace(/[^0-9]/g, '');
-    var input = document.getElementById("myInput").value
-    console.log(input)
+//this function gets the input of the user and uses regular expression to get the floor number and calls the tellPlace function with a given parameter to send the floor number over MQtt
+    function myFunction() {
+        var input = document.getElementById("myInput");
+
+        console.log(input)
+
+        input.value = input.value.replace(/[^0-9]/g, '');
+        var input = document.getElementById("myInput").value
+        console.log(input)
         floor = input.substring(1, 2);
-    console.log(floor)
+        console.log(floor)
         tellPlace(floor)
 //$('myInput').val(newValue).trigger('change');
 

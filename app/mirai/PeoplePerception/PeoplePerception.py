@@ -3,6 +3,7 @@ import math
 from datetime import datetime
 
 class Position(object):
+    """Position class, for easy usage like position.x instead of using a dictionary object."""
     x = 0
     y = 0
 
@@ -14,6 +15,9 @@ class Position(object):
         return "(x: {:.2f}, y: {:.2f})".format(self.x, self.y)
 
 class Person(object):
+    """Person class for use in the PeoplePerception class.
+    ID, distance, pitch angle and yaw angle are given at object creation.
+    Use the .equals(person) function to check if the persons are the same."""
     id = None
     distance = None
     pitchAngle = None

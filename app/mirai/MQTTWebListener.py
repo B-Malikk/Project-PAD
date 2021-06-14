@@ -48,13 +48,13 @@ class MQTTWebListener(MQTTListenerBaseClass):
         elif str(msg.payload) == 'terug1':
             print self.mirai.robotState.getPosture()
             self.mirai.robotState.setPosture('open')
-            self.mirai.Dialog.deactivateTopic(self.topic_content_nl)
+            self.mirai.dialog.deactivateTopic(self.topic_content_nl)
         elif str(msg.payload) == 'dutch':
             self.mirai.robotState.setPosture('dialog')
             self.mirai.textToSpeech.setLanguage("Dutch")
             self.mirai.speechRecognition.setVocabulary(self.vocabularyNl,True)
             self.mirai.textToSpeech.sayAnimated("selecteer een probleem of roep het naar mij", mode='random')
-            self.mirai.Dialog.activateTopic(self.topic_content_nl, "Dutch")
+            self.mirai.dialog.activateTopic(self.topic_content_nl, "Dutch")
 
         elif msg.topic == 'Mirai/web/zoekplek':
             print ("in lokaal search")
@@ -73,13 +73,13 @@ class MQTTWebListener(MQTTListenerBaseClass):
         elif str(msg.payload) == 'back1':
             print self.mirai.robotState.getPosture()
             self.mirai.robotState.setPosture('open')
-            self.mirai.Dialog.deactivateTopic(self.topic_content_en)
+            self.mirai.dialog.deactivateTopic(self.topic_content_en)
         elif str(msg.payload) == 'english':
             self.mirai.robotState.setPosture('dialog')
             self.mirai.textToSpeech.setLanguage("English")
             self.mirai.speechRecognition.setVocabulary(self.vocabularyEn,True)
             self.mirai.textToSpeech.sayAnimated("select a problem or ask me", mode='random')
-            self.mirai.Dialog.activateTopic(self.topic_content_en, "English")
+            self.mirai.dialog.activateTopic(self.topic_content_en, "English")
 
         elif msg.topic == 'Mirai/web/searchplace':
             print ("in lokaal search")

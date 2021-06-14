@@ -1,6 +1,5 @@
-
+""" The class allows you to creat a dialog and to give your preferences to the dialiag"""
 class Dialog(object):
-    """Base motion class. Contains all motion related things (body parts, joints, movement, etc)."""
 
     def __init__(self, mirai):
         self._proxy = mirai.getProxy("ALDialog")

@@ -79,7 +79,7 @@ class FamacoEventDetection(object):
 class MQTTFamoco(object):
     client = None
     hostname = 'mqtt.hva-robots.nl'
-    topic = 'dekkerm54/scan'
+    topic = 'robots/mirai/scan'
     client_id = 'dekkerm54_pas_sub'
     username = 'dekkerm54'
     password = 'En6Gd6CEZqxTSAQ4ROyn'
@@ -103,6 +103,7 @@ class MQTTFamoco(object):
 
     def on_message(self, client, userdata, msg):
         self.on_event(msg)
+        print(msg.payload)
 
     def start(self):
         self.client.username_pw_set(self.username, self.password)
@@ -126,3 +127,5 @@ class MQTTFamoco(object):
 
     def on_success(self):
         self.mirai.mqttPublish('CardReader/error', '')
+
+s = MQTTFamoco(None)

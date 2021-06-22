@@ -17,6 +17,16 @@
         var host="azsx.nl";
 		var port=8083
 
+        function example() {
+	  // example of making a subscription including a message
+
+		console.log("Connected ");
+		message = new Paho.MQTT.Message("example message");
+		message.destinationName = "Mirai/web/exampleTopic";
+		mqtt.send(message);
+	  }
+
+
         function onConnect() {
 	  // Once a connection has been made, make a subscription and send a message.
 
@@ -27,7 +37,7 @@
 	  }
 
 	 	function onclickPlattegrondl() {
-	  // send message to change language of pepper to english
+	  // send MQTT message to inform user picked map
 
 		console.log("Connected");
 		message = new Paho.MQTT.Message("plattegrond");
@@ -35,17 +45,17 @@
 		mqtt.send(message);
 	  }
 
-	  	 	function onclickBack() {
-	  // send message to change language of pepper to english
+	  	 	function onclickterug1() {
+	  // send MQTT message to inform user is going back
 
 		console.log("Connected");
-		message = new Paho.MQTT.Message("terug");
+		message = new Paho.MQTT.Message("terug1");
 		message.destinationName = "Mirai/web/button";
 		mqtt.send(message);
 	  }
 
 	  	 	function onclickPas() {
-	  // send message to change language of pepper to dutch
+	  // send MQTT message to inform user clicked on pass
 
 		console.log("Connected");
 		message = new Paho.MQTT.Message("pas");
@@ -53,7 +63,7 @@
 		mqtt.send(message);
 	  }
 	  	  	 	function onclickKlaslokaal() {
-	  // send message to change language of pepper to dutch
+	  // send MQTT message to inform user clicked on find room
 
 		console.log("Connected");
 		message = new Paho.MQTT.Message("lokaal");
@@ -61,7 +71,7 @@
 		mqtt.send(message);
 	  }
 
-
+	  //Function to make connection with a MQTT server
 	  function MQTTconnect() {
 		console.log("connecting to "+ host +" "+ port);
 
@@ -82,16 +92,16 @@
 </head>
 <body>
 <script>
-	MQTTconnect();
+	MQTTconnect(); //connect
 	</script>
-<button onclick="document.location='language.html';onclickBack();" class="backbutton">< Terug </button>
+<button onclick="document.location='language.html';onclickterug1();" class="backbutton">< Terug </button>
 <img src="afbeelding/logo%20hva.png" id="logohva"/>
 
 <div id="div1"></div>
 <img src="afbeelding/1280x720-hva-breed-presentatie-schermen-lcd2.jpg" id="footer"/>
 <div id="main">
 
-    <div onclick="window.location='wibaut-map.html';onclickKlaslokaal();"class="wrap">
+    <div onclick="window.location='searchplace.html';onclickKlaslokaal();"class="wrap">
     <div class="card">
         <img src="afbeelding/zoek.png" alt ="messi" style="width: 100%">
         <div class="container">

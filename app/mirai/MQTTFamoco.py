@@ -53,7 +53,8 @@ class FamacoEventDetection(object):
                     self.setEvent(EVENT_NORMAL)
 
     def shouldFireEvent(self, value):
-        values = [x['value'] for x in self.pastReadings[-4:-1]]
+        values = [x['value'] for x in self.pastReadings[-2:-1]]
+
         lastValue = value
         for value in values:
             if lastValue != value:
@@ -103,7 +104,6 @@ class MQTTFamoco(object):
 
     def on_message(self, client, userdata, msg):
         self.on_event(msg)
-        print(msg.payload)
 
     def start(self):
         self.client.username_pw_set(self.username, self.password)
@@ -123,9 +123,7 @@ class MQTTFamoco(object):
         self.client.publish(self.topic, payload)
 
     def on_error(self):
-        self.mirai.mqttPublish('CardReader/success', '')
-
-    def on_success(self):
         self.mirai.mqttPublish('CardReader/error', '')
 
-s = MQTTFamoco(None)
+    def on_success(self):
+        self.mirai.mqttPublish('CardReader/success', '')

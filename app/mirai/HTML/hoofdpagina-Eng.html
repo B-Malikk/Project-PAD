@@ -27,7 +27,7 @@
 	  }
 
 	 	function onclickPlattegrondl() {
-	  // send message to change language of pepper to english
+	  // send MQTT message to inform user picked map
 
 		console.log("Connected");
 		message = new Paho.MQTT.Message("map");
@@ -35,17 +35,17 @@
 		mqtt.send(message);
 	  }
 
-	  	 	function onclickBack() {
+	  	 	function onclickBack1() {
 	  // send message to say back
 
 		console.log("Connected");
-		message = new Paho.MQTT.Message("back");
+		message = new Paho.MQTT.Message("back1");
 		message.destinationName = "Mirai/web/button";
 		mqtt.send(message);
 	  }
 
 	  	 	function onclickPas() {
-	  // send message to change language of pepper to dutch
+	  // send MQTT message to inform user clicked on pass
 
 		console.log("Connected");
 		message = new Paho.MQTT.Message("id");
@@ -53,7 +53,7 @@
 		mqtt.send(message);
 	  }
 	  	  	 	function onclickKlaslokaal() {
-	  // send message to change language of pepper to dutch
+	  // send MQTT message to inform user clicked on find room
 
 		console.log("Connected");
 		message = new Paho.MQTT.Message("classroom");
@@ -84,14 +84,14 @@
 <script>
 	MQTTconnect();
 	</script>
-<button onclick="document.location='language.html';onclickBack();" class="backbutton">< Back </button>
+<button onclick="document.location='language.html';onclickBack1();" class="backbutton">< Back </button>
 <img src="afbeelding/logo%20hva.png" id="logohva"/>
 
 <div id="div1"></div>
 <img src="afbeelding/1280x720-hva-breed-presentatie-schermen-lcd2.jpg" id="footer"/>
 <div id="main">
 
-    <div onclick="window.location='testpagina.html';onclickKlaslokaal();"class="wrap">
+    <div onclick="window.location='searchplace.html';onclickKlaslokaal();"class="wrap">
     <div class="card">
         <img src="afbeelding/zoek.png" alt ="messi" style="width: 100%">
         <div class="container">
